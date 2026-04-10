@@ -61,7 +61,7 @@ The extraction is conservative. It will not invent facts. If a conversation is p
 Prefer absolute paths. The server runs in a different directory than Claude Code.
 
 ```
-nex_import({ platform: "chatgpt", file_path: "/home/simple/exports/conversations.json", action: "analyze" })
+nex_import({ platform: "chatgpt", file_path: "/absolute/path/to/conversations.json", action: "analyze" })
 ```
 
 Response includes:
