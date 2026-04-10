@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "studiomeyer-crew": {
+      "type": "http",
+      "url": "https://crew.studiomeyer.io/mcp"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "studiomeyer-crm": {
+      "type": "http",
+      "url": "https://crm.studiomeyer.io/mcp"
+    }
+  }
+}

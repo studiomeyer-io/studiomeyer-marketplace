@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "studiomeyer-geo": {
+      "type": "http",
+      "url": "https://geo.studiomeyer.io/mcp"
+    }
+  }
+}

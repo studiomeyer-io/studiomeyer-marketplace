@@ -1,0 +1,50 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "studiomeyer",
+  "version": "1.0.0",
+  "description": "StudioMeyer MCP Suite for Claude Code. Hosted SaaS plugins: Memory (53 tools, knowledge graph), CRM (33 tools, contacts + pipeline), GEO (23 tools, AI visibility across 8 LLMs), Crew (8 expert personas). Magic Link authentication. EU Frankfurt hosting. Free tiers available.",
+  "owner": {
+    "name": "StudioMeyer",
+    "email": "hello@studiomeyer.io",
+    "url": "https://studiomeyer.io"
+  },
+  "metadata": {
+    "homepage": "https://studiomeyer.io",
+    "repository": "https://github.com/studiomeyer-io/studiomeyer-marketplace",
+    "license": "MIT"
+  },
+  "plugins": [
+    {
+      "name": "studiomeyer-memory",
+      "source": "./plugins/studiomeyer-memory",
+      "category": "knowledge-management",
+      "description": "Hosted AI memory with 53 tools. Knowledge Graph, semantic search, contradiction detection, multi-agent namespaces, import from ChatGPT/Claude/Gemini/Copilot/Perplexity. Magic Link auth. Free tier (200 calls/day), Pro $29/mo, Team $49/mo.",
+      "tags": ["memory", "knowledge-graph", "semantic-search", "ai-memory", "hosted", "multi-agent"],
+      "homepage": "https://memory.studiomeyer.io"
+    },
+    {
+      "name": "studiomeyer-crm",
+      "source": "./plugins/studiomeyer-crm",
+      "category": "productivity",
+      "description": "Headless CRM as MCP server. 33 tools for contacts, companies, deals, pipeline, leads, follow-ups, notes, health scores, Stripe sync. Zero-Knowledge credential storage. Free (50 companies), Pro $29/mo, Team $49/mo.",
+      "tags": ["crm", "contacts", "pipeline", "sales", "hosted", "stripe"],
+      "homepage": "https://crm.studiomeyer.io"
+    },
+    {
+      "name": "studiomeyer-geo",
+      "source": "./plugins/studiomeyer-geo",
+      "category": "marketing",
+      "description": "Generative Engine Optimization (GEO). 23 tools to measure and improve AI visibility across ChatGPT, Gemini, Perplexity, Claude, Grok, DeepSeek, Meta AI, Copilot. Discovery stack audits, JSON-LD validation, schema generator. Free tier (19 tools without API keys).",
+      "tags": ["geo", "ai-visibility", "llm-seo", "discovery-stack", "schema-generator"],
+      "homepage": "https://geo.studiomeyer.io"
+    },
+    {
+      "name": "studiomeyer-crew",
+      "source": "./plugins/studiomeyer-crew",
+      "category": "productivity",
+      "description": "8 expert agent personas (CEO, CFO, CMO, CTO, PM, Analyst, Creative Director, Support Lead) plus 3 multi-persona workflows. Zero extra API cost, runs inside your Claude subscription. Free.",
+      "tags": ["personas", "agents", "ceo", "cfo", "cto", "workflows"],
+      "homepage": "https://crew.studiomeyer.io"
+    }
+  ]
+}

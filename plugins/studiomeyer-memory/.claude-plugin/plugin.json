@@ -1,0 +1,22 @@
+{
+  "name": "studiomeyer-memory",
+  "version": "1.0.0",
+  "description": "Hosted AI memory with 53 tools. Knowledge Graph, semantic search, contradiction detection, multi-agent namespaces, import from ChatGPT/Claude/Gemini/Copilot/Perplexity. Magic Link authentication. EU Frankfurt hosting. Free tier available.",
+  "author": {
+    "name": "StudioMeyer",
+    "email": "hello@studiomeyer.io",
+    "url": "https://studiomeyer.io"
+  },
+  "homepage": "https://memory.studiomeyer.io",
+  "repository": "https://github.com/studiomeyer-io/studiomeyer-marketplace",
+  "license": "MIT",
+  "keywords": [
+    "memory",
+    "knowledge-graph",
+    "semantic-search",
+    "ai-memory",
+    "multi-agent",
+    "hosted",
+    "magic-link"
+  ]
+}

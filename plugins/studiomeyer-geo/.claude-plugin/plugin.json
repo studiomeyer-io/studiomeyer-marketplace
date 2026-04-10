@@ -1,0 +1,24 @@
+{
+  "name": "studiomeyer-geo",
+  "version": "1.0.0",
+  "description": "Generative Engine Optimization for Claude Code. 23 tools measuring AI visibility across ChatGPT, Gemini, Perplexity, Claude, Grok, DeepSeek, Meta AI, and Copilot. Discovery stack audits, schema generator, citation analysis. 19 tools work without any LLM API key. Magic Link authentication. Free tier available.",
+  "author": {
+    "name": "StudioMeyer",
+    "email": "hello@studiomeyer.io",
+    "url": "https://studiomeyer.io"
+  },
+  "homepage": "https://geo.studiomeyer.io",
+  "repository": "https://github.com/studiomeyer-io/studiomeyer-marketplace",
+  "license": "MIT",
+  "keywords": [
+    "geo",
+    "ai-visibility",
+    "llm-seo",
+    "discovery-stack",
+    "schema-generator",
+    "citation-analysis",
+    "llms-txt",
+    "hosted",
+    "magic-link"
+  ]
+}
