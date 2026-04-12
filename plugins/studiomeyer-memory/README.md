@@ -57,5 +57,6 @@ OAuth 2.1 + Magic Link. See [../../docs/magic-link-setup.md](../../docs/magic-li
 
 ## Support
 
-- Docs: https://memory.studiomeyer.io
+- Docs: https://studiomeyer.io/en/services/memory/
+- MCP Endpoint: https://memory.studiomeyer.io/mcp
 - Email: hello@studiomeyer.io

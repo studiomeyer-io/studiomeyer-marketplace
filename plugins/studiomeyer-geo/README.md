@@ -69,5 +69,6 @@ Most GEO tools start at $99/mo. We start at free. 19 of our 23 tools work withou
 
 ## Support
 
-- Docs: https://geo.studiomeyer.io
+- Docs: https://studiomeyer.io/en/services/geo-mcp/
+- MCP Endpoint: https://geo.studiomeyer.io/mcp
 - Email: hello@studiomeyer.io

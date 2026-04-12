@@ -67,5 +67,6 @@ Free. All 8 personas, all 10 tools, all 3 workflows, unlimited activations. No p
 
 ## Support
 
-- Docs: https://crew.studiomeyer.io
+- Docs: https://studiomeyer.io/en/services/crew/
+- MCP Endpoint: https://crew.studiomeyer.io/mcp
 - Email: hello@studiomeyer.io

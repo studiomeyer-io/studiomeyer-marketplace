@@ -69,5 +69,6 @@ That is the experience. Not a dashboard. A conversation.
 
 ## Support
 
-- Docs: https://crm.studiomeyer.io
+- Docs: https://studiomeyer.io/en/services/crm/
+- MCP Endpoint: https://crm.studiomeyer.io/mcp
 - Email: hello@studiomeyer.io
