@@ -1,3 +1,7 @@
+<!-- studiomeyer-mcp-stack-banner:start -->
+> **Part of the [StudioMeyer MCP Stack](https://studiomeyer.io)** — Built in Mallorca 🌴 · ⭐ if you use it
+<!-- studiomeyer-mcp-stack-banner:end -->
+
 # StudioMeyer Marketplace for Claude Code
 
 Five MCP plugins for Claude Code — Memory, CRM, GEO, Crew, Academy. One command installs the full suite. Each plugin ships hook recipes for Claude Code v2.1.118+ `mcp_tool` lifecycle automation. Magic Link authentication. EU Frankfurt hosting.
