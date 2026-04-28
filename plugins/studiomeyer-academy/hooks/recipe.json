@@ -1,0 +1,57 @@
+{
+  "$schema": "https://studiomeyer-io.github.io/studiomeyer-marketplace/hook-recipe.schema.json",
+  "name": "studiomeyer-academy-hooks",
+  "version": "1.0.0",
+  "description": "Auto-load XP + rank + next lesson on session start. Optional cascade: auto-fetch quiz after lesson complete. Two mcp_tool hooks for the StudioMeyer Academy MCP. Requires Claude Code v2.1.118 or later.",
+  "compatibility": {
+    "claudeCodeMinVersion": "2.1.118",
+    "mcpServerName": "studiomeyer-academy"
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "mcp_tool",
+            "server": "studiomeyer-academy",
+            "tool": "academy_stats",
+            "input": {},
+            "timeout": 10,
+            "statusMessage": "Academy: loading stats..."
+          },
+          {
+            "type": "mcp_tool",
+            "server": "studiomeyer-academy",
+            "tool": "academy_next_lesson",
+            "input": {},
+            "timeout": 10,
+            "statusMessage": "Academy: finding next lesson..."
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "mcp__studiomeyer-academy__academy_progress_complete",
+        "hooks": [
+          {
+            "type": "mcp_tool",
+            "server": "studiomeyer-academy",
+            "tool": "academy_quiz",
+            "input": { "lesson_slug": "${tool_input.lesson_slug}" },
+            "timeout": 10,
+            "statusMessage": "Academy: loading quiz..."
+          }
+        ]
+      }
+    ]
+  },
+  "compliance": {
+    "idempotent": true,
+    "maxLatencyMs": 10000,
+    "deterministic": true,
+    "sideEffectFreeWithoutTrigger": true,
+    "gdpr": "Academy data flows from your Claude Code session to your own Academy tenant on studiomeyer.academy. No third-party sharing. Your XP and progress are not exposed in any leaderboard unless you opt-in.",
+    "notes": "All three tools (academy_stats, academy_next_lesson, academy_quiz) are read-only. The cascade pattern (lesson-complete → quiz-fetch) is opt-in — remove the PostToolUse entry if you don't want it."
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "$schema": "https://studiomeyer-io.github.io/studiomeyer-marketplace/hook-recipe.schema.json",
+  "name": "studiomeyer-crew-hooks",
+  "version": "1.0.0",
+  "description": "Auto-log session feedback when Claude Code stops. One mcp_tool hook for the StudioMeyer Crew MCP. The persona-activation hook is intentionally bash (cwd-detection) — see README. Requires Claude Code v2.1.118 or later.",
+  "compatibility": {
+    "claudeCodeMinVersion": "2.1.118",
+    "mcpServerName": "studiomeyer-crew"
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "mcp_tool",
+            "server": "studiomeyer-crew",
+            "tool": "crew_feedback",
+            "input": {
+              "rating": 4,
+              "note": "Session ended at ${cwd}",
+              "tags": ["auto-stop-hook"]
+            },
+            "timeout": 10,
+            "statusMessage": "Crew: logging feedback..."
+          }
+        ]
+      }
+    ]
+  },
+  "compliance": {
+    "idempotent": false,
+    "maxLatencyMs": 10000,
+    "deterministic": true,
+    "sideEffectFreeWithoutTrigger": false,
+    "gdpr": "Crew tenant data is isolated per user. Persona definitions are public (free tier) or user-owned (Pro tier). Stop hook writes one feedback row per session.",
+    "notes": "crew_feedback writes one row per call — NOT idempotent. If Stop fires twice (e.g. user resumes), you get two feedback rows with the same auto-stop-hook tag. Acceptable for analytics. The user can override the auto rating mid-session by calling crew_feedback explicitly with a different value."
+  },
+  "additionalRecipes": {
+    "SessionStart_persona_hint": {
+      "type": "command",
+      "shellPath": "~/.claude/hooks/crew-auto-persona.sh",
+      "reason": "Persona-activation requires cwd → persona mapping (regex case-statement). mcp_tool cannot do that — needs bash. See https://studiomeyer.academy/recipes/16.4-geo-crew-hook-bundle for the bash variant."
+    }
+  }
+}

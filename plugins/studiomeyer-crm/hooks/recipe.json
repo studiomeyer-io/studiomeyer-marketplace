@@ -1,0 +1,54 @@
+{
+  "$schema": "https://studiomeyer-io.github.io/studiomeyer-marketplace/hook-recipe.schema.json",
+  "name": "studiomeyer-crm-hooks",
+  "version": "1.0.0",
+  "description": "Auto-lookup customer context on every prompt and auto-log email drafts as CRM interactions. Two mcp_tool hooks for the StudioMeyer CRM. Requires Claude Code v2.1.118 or later.",
+  "compatibility": {
+    "claudeCodeMinVersion": "2.1.118",
+    "mcpServerName": "studiomeyer-crm"
+  },
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "mcp_tool",
+            "server": "studiomeyer-crm",
+            "tool": "crm_search",
+            "input": { "query": "${user_prompt}", "limit": 3 },
+            "timeout": 10,
+            "statusMessage": "CRM: customer lookup..."
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "if": "Edit(*email*)|Write(*email*)|Edit(*draft*)|Write(*draft*)",
+        "hooks": [
+          {
+            "type": "mcp_tool",
+            "server": "studiomeyer-crm",
+            "tool": "crm_log_interaction",
+            "input": {
+              "type": "email-draft",
+              "summary": "Drafted email at ${tool_input.file_path}",
+              "tool_use_id": "${tool_use_id}"
+            },
+            "timeout": 10,
+            "statusMessage": "CRM: logging email draft..."
+          }
+        ]
+      }
+    ]
+  },
+  "compliance": {
+    "idempotent": true,
+    "maxLatencyMs": 10000,
+    "deterministic": true,
+    "sideEffectFreeWithoutTrigger": true,
+    "gdpr": "Customer data flows from your Claude Code session to your own CRM tenant on crm.studiomeyer.io. No third-party sharing. Tenant-isolated. Delete anytime via the CRM dashboard.",
+    "notes": "crm_log_interaction is not strictly idempotent at the protocol level — the tool_use_id parameter is the dedup key. Re-firing the hook on the same Edit will NOT duplicate the interaction record server-side."
+  }
+}

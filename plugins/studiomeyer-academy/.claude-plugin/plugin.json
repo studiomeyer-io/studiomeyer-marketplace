@@ -1,0 +1,23 @@
+{
+  "name": "studiomeyer-academy",
+  "version": "1.0.0",
+  "description": "Memory-First AI Operator School. 23 tools — lessons, quiz, recipes, knowledge graph, certificates, AI tutor. Open Source MCP server (npm: mcp-academy, MIT). Works with Claude Code, Cursor, Codex. Free.",
+  "author": {
+    "name": "StudioMeyer",
+    "email": "hello@studiomeyer.io",
+    "url": "https://studiomeyer.io"
+  },
+  "homepage": "https://studiomeyer.academy",
+  "repository": "https://github.com/studiomeyer-io/studiomeyer-marketplace",
+  "license": "MIT",
+  "keywords": [
+    "academy",
+    "education",
+    "lessons",
+    "recipes",
+    "knowledge-graph",
+    "ai-tutor",
+    "open-source",
+    "npm"
+  ]
+}

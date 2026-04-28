@@ -1,0 +1,84 @@
+{
+  "$schema": "https://studiomeyer-io.github.io/studiomeyer-marketplace/hook-recipe.schema.json",
+  "name": "studiomeyer-memory-hooks",
+  "version": "1.0.0",
+  "description": "Auto-persist sessions, snapshot before context compact, recall on user prompt, ingest subagent reports. Four mcp_tool hooks for the StudioMeyer Memory MCP. Requires Claude Code v2.1.118 or later.",
+  "compatibility": {
+    "claudeCodeMinVersion": "2.1.118",
+    "mcpServerName": "studiomeyer-memory"
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "mcp_tool",
+            "server": "studiomeyer-memory",
+            "tool": "nex_summarize",
+            "input": { "session_id": "${session_id}" },
+            "timeout": 30,
+            "statusMessage": "Memory: summarizing session..."
+          },
+          {
+            "type": "mcp_tool",
+            "server": "studiomeyer-memory",
+            "tool": "nex_session_end",
+            "input": { "session_id": "${session_id}" },
+            "timeout": 15,
+            "statusMessage": "Memory: closing session..."
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "mcp_tool",
+            "server": "studiomeyer-memory",
+            "tool": "nex_summarize",
+            "input": { "session_id": "${session_id}" },
+            "timeout": 30,
+            "statusMessage": "Memory: snapshot before compaction..."
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "mcp_tool",
+            "server": "studiomeyer-memory",
+            "tool": "nex_search",
+            "input": { "query": "${user_prompt}", "limit": 5 },
+            "timeout": 10,
+            "statusMessage": "Memory: pre-checking..."
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "mcp_tool",
+            "server": "studiomeyer-memory",
+            "tool": "nex_session_end",
+            "input": { "session_id": "${session_id}" },
+            "timeout": 15,
+            "statusMessage": "Memory: closing subagent session..."
+          }
+        ]
+      }
+    ]
+  },
+  "compliance": {
+    "idempotent": true,
+    "maxLatencyMs": 30000,
+    "deterministic": true,
+    "sideEffectFreeWithoutTrigger": true,
+    "gdpr": "Data flows from your Claude Code session to your own Memory tenant on memory.studiomeyer.io. No third-party sharing. Tenant-isolated. Delete anytime via the Memory dashboard.",
+    "notes": "SubagentStop fires nex_session_end for the parent session_id (idempotent NOOP if already ended). The Academy recipe 16.2 example uses ${last_assistant_message} to feed nex_learn, but as of Claude Code v2.1.118 that variable is NOT in the canonical substitution list (cwd, tool_input, tool_name, session_id, duration_ms, user_prompt). To capture subagent findings as a learning, call nex_learn explicitly from the parent assistant after the subagent returns."
+  }
+}

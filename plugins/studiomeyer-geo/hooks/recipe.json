@@ -1,0 +1,42 @@
+{
+  "$schema": "https://studiomeyer-io.github.io/studiomeyer-marketplace/hook-recipe.schema.json",
+  "name": "studiomeyer-geo-hooks",
+  "version": "1.0.0",
+  "description": "Auto-audit AI visibility after every Markdown content edit. One mcp_tool hook for the StudioMeyer GEO MCP. Requires Claude Code v2.1.118 or later. Replace url + brand input fields before installing — they are placeholders.",
+  "compatibility": {
+    "claudeCodeMinVersion": "2.1.118",
+    "mcpServerName": "studiomeyer-geo"
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "if": "Edit(*.md|*.mdx)|Write(*.md|*.mdx)",
+        "hooks": [
+          {
+            "type": "mcp_tool",
+            "server": "studiomeyer-geo",
+            "tool": "geo_check",
+            "input": {
+              "url": "https://example.com",
+              "brand": "Your Brand"
+            },
+            "timeout": 60,
+            "statusMessage": "GEO: auto-audit after content edit..."
+          }
+        ]
+      }
+    ]
+  },
+  "placeholders": {
+    "url": "Replace https://example.com with the URL you want to audit (your homepage, /blog, /docs, etc.). Must be public — geo_check sends the URL to 8 LLM providers.",
+    "brand": "Replace 'Your Brand' with the brand name LLMs should associate with the URL."
+  },
+  "compliance": {
+    "idempotent": true,
+    "maxLatencyMs": 60000,
+    "deterministic": true,
+    "sideEffectFreeWithoutTrigger": true,
+    "gdpr": "geo_check sends the URL + brand name to 8 LLM provider APIs (OpenAI, Anthropic, Google, Perplexity, xAI, DeepSeek, Meta, Microsoft). Use only public URLs. The Stop hook with if-filter on *.md|*.mdx ensures the check only runs after a markdown edit, not after pure code changes.",
+    "notes": "Default mode is 'training' (uses LLM training-data recall, free). To use native web-search swap to mode='search' — costs $0.30-0.50 per run depending on provider. The 1-hour cache window means re-running within an hour returns identical scores (no extra spend)."
+  }
+}
