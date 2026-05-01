@@ -5,7 +5,7 @@ description: Use when the user is working with StudioMeyer Memory and you need t
 
 # StudioMeyer Memory Workflow
 
-This skill teaches the right tool choice for any memory operation. The Memory server has 53 tools — this is the decision tree for the 10 you will use most.
+This skill teaches the right tool choice for any memory operation. The Memory server has 56 tools (53 core + 3 UI: nex_graph_view, nex_recall_timeline, nex_session_replay) — this is the decision tree for the 10 you will use most.
 
 ## Core principle
 

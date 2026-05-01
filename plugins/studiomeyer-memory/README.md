@@ -1,6 +1,6 @@
 # studiomeyer-memory
 
-Hosted AI memory for Claude Code. 53 tools covering learning, search, knowledge graph, sessions, skills, decisions, import, and maintenance.
+Hosted AI memory for Claude Code. 56 tools covering learning, search, knowledge graph, sessions, skills, decisions, import, maintenance, and interactive 3D knowledge graph visualization.
 
 ## Install
 
@@ -14,7 +14,7 @@ First tool call triggers OAuth 2.1 + Magic Link. Check your inbox, click the lin
 ## What you get
 
 ### MCP server
-53 tools from `https://memory.studiomeyer.io/mcp`, including:
+56 tools from `https://memory.studiomeyer.io/mcp`, including:
 
 - **Search:** `nex_search` (semantic + trigram + FTS with temporal decay), `nex_entity_search`, `nex_recall`
 - **Write:** `nex_learn`, `nex_decide`, `nex_entity_create`, `nex_entity_observe`, `nex_entity_relate`
@@ -49,7 +49,7 @@ Run `nex_guide` inside Claude to see the full reference.
 | Pro | $29/mo | 5.000 calls/day, 25.000 entities |
 | Team | $49/mo | Unlimited, 20 API keys, shared |
 
-All 53 tools in every tier. See [../../docs/pricing.md](../../docs/pricing.md).
+All 56 tools in every tier. See [../../docs/pricing.md](../../docs/pricing.md).
 
 ## Auth
 
