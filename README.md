@@ -100,6 +100,10 @@ The bare MCP URL gives you the tools. The plugin gives you the workflow around t
 - **Email:** hello@studiomeyer.io
 - **Issues:** https://github.com/studiomeyer-io/studiomeyer-marketplace/issues
 
+## About StudioMeyer
+
+[StudioMeyer](https://studiomeyer.io) is an AI and design studio from Palma de Mallorca, building custom websites and AI infrastructure for small and medium businesses. Production stack on Claude Agent SDK, MCP, n8n and an in-house observability and guard layer.
+
 ## License
 
 MIT. See [LICENSE](./LICENSE).
