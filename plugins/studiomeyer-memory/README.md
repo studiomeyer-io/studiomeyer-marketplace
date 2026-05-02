@@ -16,15 +16,16 @@ First tool call triggers OAuth 2.1 + Magic Link. Check your inbox, click the lin
 ### MCP server
 56 tools from `https://memory.studiomeyer.io/mcp`, including:
 
-- **Search:** `nex_search` (semantic + trigram + FTS with temporal decay), `nex_entity_search`, `nex_recall`
+- **Search:** `nex_search` (semantic + trigram + FTS with temporal decay + RRF fusion), `nex_entity_search`, `nex_recall`
 - **Write:** `nex_learn`, `nex_decide`, `nex_entity_create`, `nex_entity_observe`, `nex_entity_relate`
 - **Session:** `nex_session_start`, `nex_proactive`, `nex_sprint`, `nex_session_end`, `nex_summarize`
 - **Knowledge Graph:** `nex_entity_graph`, `nex_entity_open`, `nex_entity_history`, `nex_entity_merge`
+- **Visualization (MCP Apps spec 2026-01-26, renders inline in claude.ai / VS Code Copilot Chat / Goose / Postman / MCPJam):** `nex_graph_view` (interactive 3D force-graph with cinema-mode + time-travel slider), `nex_recall_timeline` (vertical chronological timeline of learnings + decisions + sessions), `nex_session_replay` (step-by-step walkthrough of any session)
 - **Intelligence:** `nex_contradictions`, `nex_synthesize`, `nex_reflect`, `nex_insights`, `nex_deduplicate`
 - **Import:** `nex_import` — ChatGPT, Claude, Gemini, Copilot, Perplexity conversation exports
 - **Maintenance:** `nex_decay`, `nex_consolidate`, `nex_learn_archive`, `nex_health`
 
-Run `nex_guide` inside Claude to see the full reference.
+Run `nex_guide` inside Claude to see the full reference. Hosts without UI-resource support (Claude Code CLI, Cursor) see the structured JSON response — fully backward-compatible.
 
 ### Slash commands
 - `/memory-session-start` — load last session context and proactive suggestions
@@ -33,6 +34,11 @@ Run `nex_guide` inside Claude to see the full reference.
 - `/memory-learn <content>` — save a learning (insight, pattern, mistake, decision)
 - `/memory-sprint` — current sprint state (tasks, blockers, decisions)
 - `/memory-import <platform> <file>` — import a conversation export
+- `/memory-show-graph` — render the knowledge graph as an interactive 3D view (MCP Apps; falls back to text in CLI hosts)
+- `/memory-recall-timeline` — vertical chronological timeline of recent learnings, decisions, sessions
+- `/memory-session-replay` — step-by-step replay of one session (default: most recent)
+- `/memory-stats` — health overview: counts, sprint status, action items
+- `/memory-setup` — walk through Memory autopilot setup for the current AI client
 
 ### Skills
 - **memory-workflow** — when to use search vs entity vs learn vs decide
