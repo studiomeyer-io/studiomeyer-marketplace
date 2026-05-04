@@ -1,5 +1,3 @@
-# Dependabot config — auto-update GitHub Actions
-# Docs-only repo: no language ecosystem to track.
 version: 2
 updates:
   - package-ecosystem: "github-actions"
