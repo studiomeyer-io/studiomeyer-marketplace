@@ -71,10 +71,10 @@ Submit **jedes Plugin einzeln** — Anthropic's Form erwartet pro-Plugin Metadat
 - **Marketplace Source:** `studiomeyer-io/studiomeyer-marketplace`
 - **Category:** Knowledge Management / AI Memory
 - **Short Description (1 line):**
-  > Hosted AI memory with 53 tools. Knowledge graph, semantic search, import from ChatGPT/Claude/Gemini. Magic Link auth. Free tier.
+  > Hosted AI memory with 56 tools. Knowledge graph, semantic search, import from ChatGPT/Claude/Gemini. Magic Link auth. Free tier.
 - **Full Description:**
-  > StudioMeyer Memory is a hosted MCP server that gives Claude persistent, intelligent memory across sessions. 53 tools covering learning, search, entities, sessions, skills, decisions, import, and maintenance. Includes a knowledge graph with typed relations, semantic search via pgvector embeddings, session tracking, multi-agent namespaces, contradiction detection, skill tracking, and import from ChatGPT, Claude, Gemini, Copilot, and Perplexity. Magic Link email verification — no passwords. OAuth 2.1 with PKCE. EU Frankfurt hosting (Supabase Pro, SOC 2 Type II). Free tier (200 calls/day), Pro $29/mo (5,000 calls/day), Team $49/mo (unlimited).
-- **Plugin includes:** 6 slash commands (`/memory-session-start`, `/memory-session-end`, `/memory-search`, `/memory-learn`, `/memory-sprint`, `/memory-import`), 2 skills (memory-workflow decision tree, memory-import-guide with per-platform recipes), 1 subagent (memory-curator for curated learning proposals), full MCP server with 53 tools.
+  > StudioMeyer Memory is a hosted MCP server that gives Claude persistent, intelligent memory across sessions. 56 tools covering learning, search, entities, sessions, skills, decisions, import, and maintenance. Includes a knowledge graph with typed relations, semantic search via pgvector embeddings, session tracking, multi-agent namespaces, contradiction detection, skill tracking, and import from ChatGPT, Claude, Gemini, Copilot, and Perplexity. Magic Link email verification — no passwords. OAuth 2.1 with PKCE. EU Frankfurt hosting (Supabase Pro, SOC 2 Type II). Free tier (200 calls/day), Pro $29/mo (5,000 calls/day), Team $49/mo (unlimited).
+- **Plugin includes:** 6 slash commands (`/memory-session-start`, `/memory-session-end`, `/memory-search`, `/memory-learn`, `/memory-sprint`, `/memory-import`), 2 skills (memory-workflow decision tree, memory-import-guide with per-platform recipes), 1 subagent (memory-curator for curated learning proposals), full MCP server with 56 tools.
 - **Authentication:** OAuth 2.1 + Magic Link (Brevo SMTP)
 - **License:** MIT (plugin manifest + commands + skills + agents)
 - **Homepage:** https://memory.studiomeyer.io
@@ -187,7 +187,7 @@ Reviews dauern laut Issue #997 mehrere Wochen. Nicht blockieren.
 **Best Tag:** "Launch" oder "Resources"
 **Titel-Optionen:**
 1. "Released: StudioMeyer Marketplace — 4 Claude Code plugins (Memory, CRM, GEO, Agent Personas)"
-2. "New Claude Code marketplace: hosted memory with 53 tools, CRM, GEO, and 8 agent personas"
+2. "New Claude Code marketplace: hosted memory with 56 tools, CRM, GEO, and 8 agent personas"
 3. "StudioMeyer Marketplace is live — 119 MCP tools bundled as 4 Claude Code plugins"
 
 **Body (draft):**
@@ -197,7 +197,7 @@ Hey r/ClaudeAI,
 
 I just published a Claude Code marketplace with four plugins we've been running internally for months:
 
-- **studiomeyer-memory** — 53 tools, knowledge graph, semantic search, import from ChatGPT/Claude/Gemini/Copilot/Perplexity, Magic Link auth
+- **studiomeyer-memory** — 56 tools, knowledge graph, semantic search, import from ChatGPT/Claude/Gemini/Copilot/Perplexity, Magic Link auth
 - **studiomeyer-crm** — 33 tools, headless CRM for Claude Code (companies, deals, pipeline, Stripe sync, health scores)
 - **studiomeyer-geo** — 23 tools, Generative Engine Optimization across 8 LLM platforms (ChatGPT, Gemini, Perplexity, Claude, Grok, DeepSeek, Meta AI, Copilot), 19 work without any LLM API keys
 - **studiomeyer-crew** — 8 expert personas (CEO, CFO, CMO, CTO, PM, Analyst, Creative, Support) + 3 multi-persona workflows, zero extra API cost

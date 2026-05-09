@@ -67,7 +67,7 @@ Adds the StudioMeyer marketplace to `plugin_repos.json`.
 **Repo:** https://github.com/studiomeyer-io/studiomeyer-marketplace
 
 **Contents:**
-- `studiomeyer-memory` — 53 tools, hosted AI memory with knowledge graph, semantic search, import from ChatGPT/Claude/Gemini/Copilot/Perplexity
+- `studiomeyer-memory` — 56 tools, hosted AI memory with knowledge graph, semantic search, import from ChatGPT/Claude/Gemini/Copilot/Perplexity
 - `studiomeyer-crm` — 33 tools, MCP-native CRM with companies, deals, pipeline, Stripe sync
 - `studiomeyer-geo` — 23 tools, Generative Engine Optimization across 8 LLM platforms
 - `studiomeyer-crew` — 10 tools + 8 agent personas + 3 multi-persona workflows

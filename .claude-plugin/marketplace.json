@@ -2,7 +2,7 @@
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "studiomeyer",
   "version": "1.1.0",
-  "description": "StudioMeyer MCP Suite for Claude Code. Hosted SaaS plugins: Memory (53 tools, knowledge graph), CRM (33 tools, contacts + pipeline), GEO (23 tools, AI visibility across 8 LLMs), Crew (8 expert personas). Plus the Academy MCP (open source, 23 tools, lessons + recipes + tutor). All five include Claude Code v2.1.118 mcp_tool hook recipes for fully agentic workflows. Magic Link authentication. EU Frankfurt hosting. Free tiers available.",
+  "description": "StudioMeyer MCP Suite for Claude Code. Hosted SaaS plugins: Memory (56 tools, knowledge graph), CRM (33 tools, contacts + pipeline), GEO (23 tools, AI visibility across 8 LLMs), Crew (8 expert personas). Plus the Academy MCP (open source, 23 tools, lessons + recipes + tutor). All five include Claude Code v2.1.118 mcp_tool hook recipes for fully agentic workflows. Magic Link authentication. EU Frankfurt hosting. Free tiers available.",
   "owner": {
     "name": "StudioMeyer",
     "email": "hello@studiomeyer.io",
@@ -18,7 +18,7 @@
       "name": "studiomeyer-memory",
       "source": "./plugins/studiomeyer-memory",
       "category": "knowledge-management",
-      "description": "Hosted AI memory with 53 tools. Knowledge Graph, semantic search, contradiction detection, multi-agent namespaces, import from ChatGPT/Claude/Gemini/Copilot/Perplexity. Magic Link auth. Free tier (200 calls/day), Pro $29/mo, Team $49/mo. Includes 4 mcp_tool hook recipes (Stop, PreCompact, UserPromptSubmit, SubagentStop) for fully agentic memory.",
+      "description": "Hosted AI memory with 56 tools. Knowledge Graph, semantic search, contradiction detection, multi-agent namespaces, import from ChatGPT/Claude/Gemini/Copilot/Perplexity. Magic Link auth. Free tier (200 calls/day), Pro $29/mo, Team $49/mo. Includes 4 mcp_tool hook recipes (Stop, PreCompact, UserPromptSubmit, SubagentStop) for fully agentic memory.",
       "tags": ["memory", "knowledge-graph", "semantic-search", "ai-memory", "hosted", "multi-agent", "hooks"],
       "homepage": "https://memory.studiomeyer.io"
     },

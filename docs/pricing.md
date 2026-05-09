@@ -10,7 +10,7 @@ All StudioMeyer plugins use one account. Upgrade once, unlock everywhere applica
 | Pro | $29/mo | 5.000 calls/day, 25.000 entities, priority support |
 | Team | $49/mo | Unlimited calls, unlimited entities, 20 API keys, team-shared |
 
-All 53 tools are available in every tier. Free tier limits are daily quotas, not feature gates.
+All 56 tools are available in every tier. Free tier limits are daily quotas, not feature gates.
 
 ## CRM — crm.studiomeyer.io
 
