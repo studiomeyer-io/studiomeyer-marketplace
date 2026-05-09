@@ -4,7 +4,12 @@
 
 # StudioMeyer Marketplace for Claude Code
 
-Five MCP plugins for Claude Code — Memory, CRM, GEO, Crew, Academy. One command installs the full suite. Each plugin ships hook recipes for Claude Code v2.1.118+ `mcp_tool` lifecycle automation. Magic Link authentication. EU Frankfurt hosting.
+
+<!-- badges -->
+![License](https://img.shields.io/github/license/studiomeyer-io/studiomeyer-marketplace?style=flat-square&color=22c55e&label=license)
+![Last commit](https://img.shields.io/github/last-commit/studiomeyer-io/studiomeyer-marketplace?style=flat-square&color=88c0d0&label=updated)
+![GitHub stars](https://img.shields.io/github/stars/studiomeyer-io/studiomeyer-marketplace?style=flat-square&color=ffd700&logo=github&label=stars)
+<!-- /badges -->Five MCP plugins for Claude Code — Memory, CRM, GEO, Crew, Academy. One command installs the full suite. Each plugin ships hook recipes for Claude Code v2.1.118+ `mcp_tool` lifecycle automation. Magic Link authentication. EU Frankfurt hosting.
 
 ## A note from us
 
