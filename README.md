@@ -38,9 +38,9 @@ Or install just what you need — each plugin works standalone.
 
 | Plugin | Tools | What it does | Hooks | Pricing |
 |---|---|---|---|---|
-| [studiomeyer-memory](./plugins/studiomeyer-memory) | 53 | Persistent AI memory with knowledge graph, semantic search, multi-agent namespaces, contradiction detection, import from ChatGPT/Claude/Gemini | 4 (auto-persist sessions, snapshot before compact, recall on prompt, ingest subagent reports) | Free / $29 / $49 |
-| [studiomeyer-crm](./plugins/studiomeyer-crm) | 33 | Headless CRM — contacts, companies, deals, pipeline, follow-ups, Stripe sync, health scores | 2 (auto-lookup customers, auto-log email drafts) | Free / $29 / $49 |
-| [studiomeyer-geo](./plugins/studiomeyer-geo) | 23 | Generative Engine Optimization across 8 LLM platforms — discovery stack audits, schema generator, citation analysis | 1 (auto-audit AI visibility after Markdown edits) | Free / EUR 49 / EUR 99 |
+| [studiomeyer-memory](./plugins/studiomeyer-memory) | 53 | Persistent AI memory with knowledge graph, semantic search, multi-agent namespaces, contradiction detection, import from ChatGPT/Claude/Gemini | 4 (auto-persist sessions, snapshot before compact, recall on prompt, ingest subagent reports) | Free / €19 / €39 |
+| [studiomeyer-crm](./plugins/studiomeyer-crm) | 33 | Headless CRM — contacts, companies, deals, pipeline, follow-ups, Stripe sync, health scores | 2 (auto-lookup customers, auto-log email drafts) | Free / €19 / €39 |
+| [studiomeyer-geo](./plugins/studiomeyer-geo) | 23 | Generative Engine Optimization across 8 LLM platforms — discovery stack audits, schema generator, citation analysis | 1 (auto-audit AI visibility after Markdown edits) | Free (Pro €49 + Team €99 coming soon) |
 | [studiomeyer-crew](./plugins/studiomeyer-crew) | 10 | 8 expert personas (CEO, CFO, CMO, CTO, PM, Analyst, Creative, Support) + 3 multi-persona workflows | 1 (auto-feedback) + optional cwd-aware persona suggestion | Free |
 | [studiomeyer-academy](./plugins/studiomeyer-academy) | 23 | Memory-First AI Operator School — lessons, quiz, recipes, knowledge graph, certificates, AI tutor. Open Source npm: mcp-academy | 2 (auto-load stats + next lesson on session start, auto-quiz after lesson) | Free / EUR 19 / EUR 49 |
 
