@@ -14,7 +14,7 @@ First tool call triggers OAuth 2.1 + Magic Link.
 ## What you get
 
 ### MCP server
-23 tools from `https://geo.studiomeyer.io/mcp`. **19 of them work without any LLM API key** — you can audit robots.txt, llms.txt, JSON-LD, entity consistency, content freshness, and generate schema blocks for free.
+30 tools from `https://geo.studiomeyer.io/mcp`. **Most of them work without any LLM API key** — you can audit robots.txt, llms.txt, JSON-LD, entity consistency, content freshness, and generate schema blocks for free.
 
 **Base tools (7)**
 - `geo_check` — full GEO pipeline across 8 LLM platforms (requires at least one LLM API key)
@@ -55,7 +55,7 @@ First tool call triggers OAuth 2.1 + Magic Link.
 
 | Tier | Price | What you get |
 |---|---|---|
-| Free | EUR 0 | All 23 tools, no history, no scheduled checks |
+| Free | EUR 0 | All 30 tools, no history, no scheduled checks |
 | Pro | EUR 49/mo | History, trends, scheduled checks, PDF reports, alerts |
 | Team | EUR 99/mo | Multi-brand dashboard, bulk checks, agency features, white-label |
 | Managed | EUR 499/mo | Monthly executive report + quarterly strategy call |
@@ -65,7 +65,7 @@ First tool call triggers OAuth 2.1 + Magic Link.
 
 AI assistants increasingly replace search for brand discovery. If ChatGPT does not mention your brand when a user asks "best CRM for freelancers", you lose the lead. GEO measures that gap and gives you the specific fixes to close it — llms.txt, JSON-LD schema, entity consistency, discovery stack readiness.
 
-Most GEO tools start at $99/mo. We start at free. 19 of our 23 tools work without any LLM API key because the real gold is in the discovery stack audit — not the LLM ping.
+Most GEO tools start at $99/mo. We start at free. Most of our 30 tools work without any LLM API key because the real gold is in the discovery stack audit — not the LLM ping.
 
 ## Support
 

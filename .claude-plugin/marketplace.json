@@ -2,7 +2,7 @@
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "studiomeyer",
   "version": "1.1.0",
-  "description": "StudioMeyer MCP Suite for Claude Code. Hosted SaaS plugins: Memory (56 tools, knowledge graph), CRM (33 tools, contacts + pipeline), GEO (23 tools, AI visibility across 8 LLMs), Crew (8 expert personas). Plus the Academy MCP (open source, 23 tools, lessons + recipes + tutor). All five include Claude Code v2.1.118 mcp_tool hook recipes for fully agentic workflows. Magic Link authentication. EU Frankfurt hosting. Free tiers available.",
+  "description": "StudioMeyer MCP Suite for Claude Code. Hosted SaaS plugins: Memory (56 tools, knowledge graph), CRM (33 tools, contacts + pipeline), GEO (30 tools, AI visibility across 8 LLMs), Crew (8 expert personas). Plus the Academy MCP (open source, 23 tools, lessons + recipes + tutor). All five include Claude Code v2.1.118 mcp_tool hook recipes for fully agentic workflows. Magic Link authentication. EU Frankfurt hosting. Free tiers available.",
   "owner": {
     "name": "StudioMeyer",
     "email": "hello@studiomeyer.io",
@@ -34,7 +34,7 @@
       "name": "studiomeyer-geo",
       "source": "./plugins/studiomeyer-geo",
       "category": "marketing",
-      "description": "Generative Engine Optimization (GEO). 23 tools to measure and improve AI visibility across ChatGPT, Gemini, Perplexity, Claude, Grok, DeepSeek, Meta AI, Copilot. Discovery stack audits, JSON-LD validation, schema generator. Free tier (19 tools without API keys). Includes 1 mcp_tool hook recipe (Stop with if-filter on *.md/*.mdx auto-audits visibility after content edits).",
+      "description": "Generative Engine Optimization (GEO). 30 tools to measure and improve AI visibility across ChatGPT, Gemini, Perplexity, Claude, Grok, DeepSeek, Meta AI, Copilot. Discovery stack audits, JSON-LD validation, schema generator, async job/poll checks. Free tier (most tools without API keys). Includes 1 mcp_tool hook recipe (Stop with if-filter on *.md/*.mdx auto-audits visibility after content edits).",
       "tags": ["geo", "ai-visibility", "llm-seo", "discovery-stack", "schema-generator", "hooks"],
       "homepage": "https://geo.studiomeyer.io"
     },

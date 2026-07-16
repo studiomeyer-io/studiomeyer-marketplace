@@ -87,7 +87,7 @@ No passwords. No credit card for the free tier. Tokens rotate automatically.
 - **Slash commands** — `/memory-search`, `/crm-dashboard`, `/geo-check`, `/crew-activate` and more.
 - **Skills** — domain playbooks (Memory workflow, import guide, CRM workflow, GEO optimization, persona usage) that Claude draws on automatically.
 - **Subagents** — specialized helpers (Memory Curator, Lead Qualifier, GEO Auditor) invoked for deeper tasks.
-- **MCP tools** — the full tool set of each hosted server (53 + 33 + 23 + 10 = 119 tools).
+- **MCP tools** — the full tool set of each hosted server (53 + 33 + 30 + 10 = 126 tools).
 
 See [docs/pricing.md](./docs/pricing.md) for tier details and [docs/magic-link-setup.md](./docs/magic-link-setup.md) for the auth flow.
 
