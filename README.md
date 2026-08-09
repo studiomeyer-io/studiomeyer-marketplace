@@ -38,11 +38,11 @@ Or install just what you need — each plugin works standalone.
 
 | Plugin | Tools | What it does | Hooks | Pricing |
 |---|---|---|---|---|
-| [studiomeyer-memory](./plugins/studiomeyer-memory) | 53 | Persistent AI memory with knowledge graph, semantic search, multi-agent namespaces, contradiction detection, import from ChatGPT/Claude/Gemini | 4 (auto-persist sessions, snapshot before compact, recall on prompt, ingest subagent reports) | Free / €19 / €39 |
-| [studiomeyer-crm](./plugins/studiomeyer-crm) | 33 | Headless CRM — contacts, companies, deals, pipeline, follow-ups, Stripe sync, health scores | 2 (auto-lookup customers, auto-log email drafts) | Free / €19 / €39 |
-| [studiomeyer-geo](./plugins/studiomeyer-geo) | 23 | Generative Engine Optimization across 8 LLM platforms — discovery stack audits, schema generator, citation analysis | 1 (auto-audit AI visibility after Markdown edits) | Free (Pro €49 + Team €99 coming soon) |
-| [studiomeyer-crew](./plugins/studiomeyer-crew) | 10 | 8 expert personas (CEO, CFO, CMO, CTO, PM, Analyst, Creative, Support) + 3 multi-persona workflows | 1 (auto-feedback) + optional cwd-aware persona suggestion | Free |
-| [studiomeyer-academy](./plugins/studiomeyer-academy) | 23 | Memory-First AI Operator School — lessons, quiz, recipes, knowledge graph, certificates, AI tutor. Open Source npm: mcp-academy | 2 (auto-load stats + next lesson on session start, auto-quiz after lesson) | Free / EUR 19 / EUR 49 |
+| [studiomeyer-memory](./plugins/studiomeyer-memory) | 56 | Persistent AI memory with knowledge graph, semantic search, multi-agent namespaces, contradiction detection, import from ChatGPT/Claude/Gemini | 4 (auto-persist sessions, snapshot before compact, recall on prompt, ingest subagent reports) | Free / €9 / €19 |
+| [studiomeyer-crm](./plugins/studiomeyer-crm) | 37 | Headless CRM — contacts, companies, deals, pipeline, follow-ups, Stripe sync, health scores | 2 (auto-lookup customers, auto-log email drafts) | Free / €9 / €19 |
+| [studiomeyer-geo](./plugins/studiomeyer-geo) | 30 | Generative Engine Optimization across 8 LLM platforms — discovery stack audits, schema generator, citation analysis | 1 (auto-audit AI visibility after Markdown edits) | Free |
+| [studiomeyer-crew](./plugins/studiomeyer-crew) | Beta | 8 expert personas (CEO, CFO, CMO, CTO, PM, Analyst, Creative, Support) + 3 multi-persona workflows | 1 (auto-feedback) + optional cwd-aware persona suggestion | Free |
+| [studiomeyer-academy](./plugins/studiomeyer-academy) | 19 | Memory-First AI Operator School — lessons, quiz, recipes, knowledge graph, certificates, AI tutor. Open Source npm: mcp-academy | 2 (auto-load stats + next lesson on session start, auto-quiz after lesson) | Free / EUR 19 / EUR 49 |
 
 All hosted plugins use the same StudioMeyer account — one Magic Link authenticates you across the suite. Academy is open-source (npm).
 
@@ -87,7 +87,7 @@ No passwords. No credit card for the free tier. Tokens rotate automatically.
 - **Slash commands** — `/memory-search`, `/crm-dashboard`, `/geo-check`, `/crew-activate` and more.
 - **Skills** — domain playbooks (Memory workflow, import guide, CRM workflow, GEO optimization, persona usage) that Claude draws on automatically.
 - **Subagents** — specialized helpers (Memory Curator, Lead Qualifier, GEO Auditor) invoked for deeper tasks.
-- **MCP tools** — the full tool set of each hosted server (53 + 33 + 30 + 10 = 126 tools).
+- **MCP tools** — the full tool set of each hosted server (Memory 56 + CRM 37 + GEO 30 = 123 tools, plus Academy 19 and Crew in beta).
 
 See [docs/pricing.md](./docs/pricing.md) for tier details and [docs/magic-link-setup.md](./docs/magic-link-setup.md) for the auth flow.
 
@@ -104,7 +104,7 @@ The bare MCP URL gives you the tools. The plugin gives you the workflow around t
 ## Infrastructure
 
 - **Hosting:** Supabase EU Frankfurt (Germany), SOC 2 Type II, GDPR-ready
-- **Auth:** OAuth 2.1 + PKCE S256 + Magic Link email verification (Brevo SMTP)
+- **Auth:** OAuth 2.1 + PKCE S256 + Magic Link email verification (Resend SMTP)
 - **Rate limits:** Per tier, per OAuth token
 - **Uptime:** Monitored via Telegram + auto-heal on Prod
 - **Security:** Zero-Knowledge credential storage (CRM), per-tenant isolation (all plugins), 1.800+ automated tests across the suite
