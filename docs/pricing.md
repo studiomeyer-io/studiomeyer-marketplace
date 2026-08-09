@@ -32,7 +32,7 @@ Paid GEO tiers are planned but not bookable, so we do not list a price or a date
 
 ## Crew — crew.studiomeyer.io
 
-Free, in beta. All 8 personas and all 3 workflows. The tool count still moves between releases, so we do not pin it here. Zero extra API cost because personas run inside your own Claude subscription.
+Free, in beta. All 13 personas (8 standard roles plus 5 specialists) and all 3 workflows. The tool count still moves between releases, so we do not pin it here. Zero extra API cost because personas run inside your own Claude subscription.
 
 ## How to upgrade
 

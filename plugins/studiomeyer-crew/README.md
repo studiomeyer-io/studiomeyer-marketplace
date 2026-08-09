@@ -1,6 +1,6 @@
 # studiomeyer-crew
 
-Turn Claude into a specialist on demand. 8 expert personas with domain-specific knowledge, decision frameworks, and output formats. Zero extra API cost — everything runs inside your Claude subscription.
+Turn Claude into a specialist on demand. 13 expert personas with domain-specific knowledge, decision frameworks, and output formats. Zero extra API cost — everything runs inside your Claude subscription.
 
 ## Install
 
@@ -63,7 +63,7 @@ Create your own with `crew_create`. Markdown + YAML frontmatter, saved to `~/.mc
 
 ## Pricing
 
-Free. All 8 personas, all 10 tools, all 3 workflows, unlimited activations. No paid tier. The SaaS endpoint is fully open for this plugin.
+Free. All 13 personas, all 16 tools, all 3 workflows, unlimited activations. No paid tier. The SaaS endpoint is fully open for this plugin.
 
 ## Support
 

@@ -41,7 +41,7 @@ Or install just what you need — each plugin works standalone.
 | [studiomeyer-memory](./plugins/studiomeyer-memory) | 56 | Persistent AI memory with knowledge graph, semantic search, multi-agent namespaces, contradiction detection, import from ChatGPT/Claude/Gemini | 4 (auto-persist sessions, snapshot before compact, recall on prompt, ingest subagent reports) | Free / €9 / €19 |
 | [studiomeyer-crm](./plugins/studiomeyer-crm) | 37 | Headless CRM — contacts, companies, deals, pipeline, follow-ups, Stripe sync, health scores | 2 (auto-lookup customers, auto-log email drafts) | Free / €9 / €19 |
 | [studiomeyer-geo](./plugins/studiomeyer-geo) | 30 | Generative Engine Optimization across 8 LLM platforms — discovery stack audits, schema generator, citation analysis | 1 (auto-audit AI visibility after Markdown edits) | Free |
-| [studiomeyer-crew](./plugins/studiomeyer-crew) | Beta | 8 expert personas (CEO, CFO, CMO, CTO, PM, Analyst, Creative, Support) + 3 multi-persona workflows | 1 (auto-feedback) + optional cwd-aware persona suggestion | Free |
+| [studiomeyer-crew](./plugins/studiomeyer-crew) | Beta | 13 expert personas — 8 standard roles (CEO, CFO, CMO, CTO, PM, Analyst, Creative, Support) plus 5 specialists + 3 multi-persona workflows | 1 (auto-feedback) + optional cwd-aware persona suggestion | Free |
 | [studiomeyer-academy](./plugins/studiomeyer-academy) | 19 | Memory-First AI Operator School — lessons, quiz, recipes, knowledge graph, certificates, AI tutor. Open Source npm: mcp-academy | 2 (auto-load stats + next lesson on session start, auto-quiz after lesson) | Free / EUR 19 / EUR 49 |
 
 All hosted plugins use the same StudioMeyer account — one Magic Link authenticates you across the suite. Academy is open-source (npm).
