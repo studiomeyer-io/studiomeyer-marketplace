@@ -1,7 +1,7 @@
 {
   "name": "studiomeyer-crew",
   "version": "1.0.0",
-  "description": "8 expert agent personas for Claude Code — CEO, CFO, CMO, CTO, PM, Analyst, Creative Director, Support Lead. Zero extra API cost, runs inside your Claude subscription. Includes 3 multi-persona workflows (strategy-review, content-pipeline, product-launch). Free.",
+  "description": "13 expert agent personas for Claude Code — CEO, CFO, CMO, CTO, PM, Analyst, Creative Director and Support Lead plus 5 specialists. Zero extra API cost, runs inside your Claude subscription. Includes 3 multi-persona workflows (strategy-review, content-pipeline, product-launch). Free.",
   "author": {
     "name": "StudioMeyer",
     "email": "hello@studiomeyer.io",
