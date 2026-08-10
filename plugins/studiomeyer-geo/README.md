@@ -39,7 +39,7 @@ First tool call triggers OAuth 2.1 + Magic Link.
 - `geo_compare` — side-by-side comparison of two brands
 - `geo_bulk_check` — run all tracked brands at once
 
-**Pro tools (4)** — Pro tier EUR 49/mo
+**Pro tools (4)** — reserved for the planned Pro tier
 - `geo_history`, `geo_trends`, `geo_schedule`, `geo_alerts`
 
 ### Slash commands
@@ -53,13 +53,9 @@ First tool call triggers OAuth 2.1 + Magic Link.
 
 ## Pricing
 
-| Tier | Price | What you get |
-|---|---|---|
-| Free | EUR 0 | All 30 tools, no history, no scheduled checks |
-| Pro | EUR 49/mo | History, trends, scheduled checks, PDF reports, alerts |
-| Team | EUR 99/mo | Multi-brand dashboard, bulk checks, agency features, white-label |
-| Managed | EUR 499/mo | Monthly executive report + quarterly strategy call |
-| Full Service | EUR 999 setup + EUR 299/mo | Consulting + implementation |
+GEO is currently **free** — all 30 tools, no card, no account beyond the Magic Link sign-in.
+
+Paid tiers (history, scheduled checks, multi-brand dashboards) are planned but not on sale yet, so no prices are quoted here.
 
 ## Why GEO matters
 
