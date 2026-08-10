@@ -42,7 +42,7 @@ Or install just what you need — each plugin works standalone.
 | [studiomeyer-crm](./plugins/studiomeyer-crm) | 37 | Headless CRM — contacts, companies, deals, pipeline, follow-ups, Stripe sync, health scores | 2 (auto-lookup customers, auto-log email drafts) | Free / €9 / €19 |
 | [studiomeyer-geo](./plugins/studiomeyer-geo) | 30 | Generative Engine Optimization across 8 LLM platforms — discovery stack audits, schema generator, citation analysis | 1 (auto-audit AI visibility after Markdown edits) | Free |
 | [studiomeyer-crew](./plugins/studiomeyer-crew) | Beta | 13 expert personas — 8 standard roles (CEO, CFO, CMO, CTO, PM, Analyst, Creative, Support) plus 5 specialists + 3 multi-persona workflows | 1 (auto-feedback) + optional cwd-aware persona suggestion | Free |
-| [studiomeyer-academy](./plugins/studiomeyer-academy) | 19 | Memory-First AI Operator School — lessons, quiz, recipes, knowledge graph, certificates, AI tutor. Open Source npm: mcp-academy | 2 (auto-load stats + next lesson on session start, auto-quiz after lesson) | Free / EUR 19 / EUR 49 |
+| [studiomeyer-academy](./plugins/studiomeyer-academy) | 23 | Memory-First AI Operator School — lessons, quiz, recipes, knowledge graph, certificates, AI tutor. Open Source npm: mcp-academy | 2 (auto-load stats + next lesson on session start, auto-quiz after lesson) | Free |
 
 All hosted plugins use the same StudioMeyer account — one Magic Link authenticates you across the suite. Academy is open-source (npm).
 
@@ -87,7 +87,7 @@ No passwords. No credit card for the free tier. Tokens rotate automatically.
 - **Slash commands** — `/memory-search`, `/crm-dashboard`, `/geo-check`, `/crew-activate` and more.
 - **Skills** — domain playbooks (Memory workflow, import guide, CRM workflow, GEO optimization, persona usage) that Claude draws on automatically.
 - **Subagents** — specialized helpers (Memory Curator, Lead Qualifier, GEO Auditor) invoked for deeper tasks.
-- **MCP tools** — the full tool set of each hosted server (Memory 56 + CRM 37 + GEO 30 = 123 tools, plus Academy 19 and Crew in beta).
+- **MCP tools** — the full tool set of each hosted server (Memory 56 + CRM 37 + GEO 30 + Crew 16 = 139 tools, plus Academy 23).
 
 See [docs/pricing.md](./docs/pricing.md) for tier details and [docs/magic-link-setup.md](./docs/magic-link-setup.md) for the auth flow.
 
