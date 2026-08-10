@@ -51,7 +51,7 @@ Run `nex_guide` inside Claude to see the full reference. Hosts without UI-resour
 
 | Tier | Price | Limits |
 |---|---|---|
-| Free | 0€ | 200 calls/day, 1.000 entities |
+| Free | 0€ | 5.000 calls/day, 1.000 entities |
 | Pro | 19€/mo | 5.000 calls/day, 25.000 entities |
 | Team | 39€/mo | Unlimited, 20 API keys, shared |
 
