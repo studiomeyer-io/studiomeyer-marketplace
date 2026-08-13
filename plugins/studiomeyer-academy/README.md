@@ -31,7 +31,7 @@ The plugin registers the `mcp-academy` npm package as a stdio-spawned MCP server
 
 Free. There is no paid tier and nothing to buy.
 
-All 19 tools, all 6 levels and the full lesson tree are open, no account needed. Of the 88 recipes, 58 are published and free. The remaining 30 are not for sale either: 25 belong to phases 11 to 15, which are written but not released yet, and 5 stay internal on purpose. An optional account only adds personal progress tracking, quizzes and certificates.
+All 21 tools, all 6 levels and the full lesson tree are open, no account needed. Of the 88 recipes, 58 are written and free to read. The remaining 30 are not for sale either: 25 are placeholders for phases 11 to 15 that still have to be written, and 5 stay internal on purpose. An optional account only adds personal progress tracking, quizzes and certificates.
 
 An account is optional. It only buys you saved progress, quizzes and certificates.
 

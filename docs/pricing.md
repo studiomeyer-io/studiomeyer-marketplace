@@ -36,7 +36,7 @@ Free, in beta. All 13 personas (8 standard roles plus 5 specialists) and all 3 w
 
 ## Academy (studiomeyer.academy)
 
-Free, and there is nothing to buy. All 19 tools, all 6 levels and the whole lesson tree are open without an account. Of the 88 recipes, 58 are published and free. The other 30 are not on sale either: 25 belong to phases 11 to 15, which are written but not released yet, and 5 stay internal on purpose. An account only buys you saved progress, quizzes and certificates.
+Free, and there is nothing to buy. All 21 tools, all 6 levels and the whole lesson tree are open without an account. Of the 88 recipes, 58 are written and free to read. The other 30 are not on sale either: 25 are placeholders for phases 11 to 15 that still have to be written, and 5 stay internal on purpose. Nothing here sits behind a payment. An account only buys you saved progress, quizzes and certificates.
 
 The MCP server behind it is open source (npm `mcp-academy`, MIT), so this one you can also run yourself.
 

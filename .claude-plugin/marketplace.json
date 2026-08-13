@@ -50,7 +50,7 @@
       "name": "studiomeyer-academy",
       "source": "./plugins/studiomeyer-academy",
       "category": "education",
-      "description": "Memory-First AI Operator School. 21 tools: lessons, quiz, recipes, knowledge graph, certificates, AI tutor. Open Source MCP server (npm: mcp-academy, MIT). Free, with no paid tier and no account needed: all 6 levels, the full lesson tree and 58 published recipes. Includes 2 mcp_tool hook recipes (SessionStart auto-stats + PostToolUse quiz cascade).",
+      "description": "Memory-First AI Operator School. 21 tools: lessons, quiz, recipes, knowledge graph, certificates, AI tutor. Open Source MCP server (npm: mcp-academy, MIT). Free, with no paid tier and no account needed: all 6 levels, the full lesson tree and 58 written recipes. Includes 2 mcp_tool hook recipes (SessionStart auto-stats + PostToolUse quiz cascade).",
       "tags": ["academy", "education", "lessons", "recipes", "knowledge-graph", "ai-tutor", "open-source", "hooks"],
       "homepage": "https://studiomeyer.academy"
     }
