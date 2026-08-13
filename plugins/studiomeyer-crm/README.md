@@ -48,11 +48,11 @@ First tool call triggers OAuth 2.1 + Magic Link.
 
 | Tier | Price | Companies | Contacts | Deals | API calls |
 |---|---|---|---|---|---|
-| Free | $0 | 50 | 200 | 100 | 5K/mo |
-| Pro | $29/mo | 500 | 5.000 | 1.000 | 50K/mo |
-| Team | $49/mo | Unlimited | Unlimited | Unlimited | 100K/mo |
+| Free | 0€ | 50 | 200 | 100 | 5K/mo |
+| Pro | 9€/mo | 500 | 5.000 | 1.000 | 50K/mo |
+| Team | 19€/mo | Unlimited | Unlimited | Unlimited | 100K/mo |
 
-All 33 tools in every tier. Stripe checkout live.
+All 37 tools in every tier. Stripe checkout live.
 
 ## Why a CRM as MCP?
 

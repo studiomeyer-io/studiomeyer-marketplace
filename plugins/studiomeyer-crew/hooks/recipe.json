@@ -32,7 +32,7 @@
     "maxLatencyMs": 10000,
     "deterministic": true,
     "sideEffectFreeWithoutTrigger": false,
-    "gdpr": "Crew tenant data is isolated per user. Persona definitions are public (free tier) or user-owned (Pro tier). Stop hook writes one feedback row per session.",
+    "gdpr": "Crew tenant data is isolated per user. Persona definitions are public. Crew is free and has no paid tier. Stop hook writes one feedback row per session.",
     "notes": "crew_feedback writes one row per call — NOT idempotent. If Stop fires twice (e.g. user resumes), you get two feedback rows with the same auto-stop-hook tag. Acceptable for analytics. The user can override the auto rating mid-session by calling crew_feedback explicitly with a different value."
   },
   "additionalRecipes": {

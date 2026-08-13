@@ -29,13 +29,11 @@ The plugin registers the `mcp-academy` npm package as a stdio-spawned MCP server
 
 ## Pricing
 
-Free tier covers all 23 tools and the full lesson tree. Recipe access is gated by tier:
+Free. There is no paid tier and nothing to buy.
 
-- **Free:** Phase 1-5 recipes (~25 recipes) + all concepts
-- **Pro €19/mo:** All 16 phases (~51 recipes incl. Phase 16 Hooks)
-- **Team €49/mo:** Pro + multi-user dashboards
+All 19 tools, all 6 levels and the full lesson tree are open, no account needed. Of the 88 recipes, 58 are published and free. The remaining 30 are not for sale either: 25 belong to phases 11 to 15, which are written but not released yet, and 5 stay internal on purpose.
 
-See [pricing.md](https://studiomeyer.academy/pricing) on the Academy.
+An account is optional. It only buys you saved progress, quizzes and certificates.
 
 ## Verify
 

@@ -6,11 +6,13 @@ The Marketplace bundles all StudioMeyer MCP products as Claude Code plugins. Fiv
 
 | Product | Tools | Connect | Hook Recipes | Pricing |
 |---------|-------|---------|--------------|---------|
-| **[Memory](https://github.com/studiomeyer-io/studiomeyer-memory)** | 53 | `memory.studiomeyer.io/mcp` | 4 (Stop, PreCompact, UserPromptSubmit, SubagentStop) | Free / $29 / $49 |
-| **[CRM](https://github.com/studiomeyer-io/studiomeyer-crm)** | 33 | `crm.studiomeyer.io/mcp` | 2 (UserPromptSubmit, PostToolUse with if-filter) | Free / $29 / $49 |
-| **[GEO](https://github.com/studiomeyer-io/studiomeyer-geo)** | 24 | `geo.studiomeyer.io/mcp` | 1 (Stop with if-filter on *.md\|*.mdx) | Free / EUR 49 / EUR 99 |
-| **[Crew](https://github.com/studiomeyer-io/mcp-crew)** | 10 | `crew.studiomeyer.io/mcp` | 1 (Stop) + optional cwd-aware bash hook | Free |
-| **[Academy](https://github.com/studiomeyer-io/mcp-academy)** | 23 | npm: `mcp-academy` (stdio) | 2 (SessionStart, PostToolUse cascade) | Free / EUR 19 / EUR 49 |
+| **[Memory](https://github.com/studiomeyer-io/studiomeyer-memory)** | 56 | `memory.studiomeyer.io/mcp` | 4 (Stop, PreCompact, UserPromptSubmit, SubagentStop) | Free / EUR 9 / EUR 19 |
+| **[CRM](https://github.com/studiomeyer-io/studiomeyer-crm)** | 37 | `crm.studiomeyer.io/mcp` | 2 (UserPromptSubmit, PostToolUse with if-filter) | Free / EUR 9 / EUR 19 |
+| **[GEO](https://github.com/studiomeyer-io/studiomeyer-geo)** | 30 | `geo.studiomeyer.io/mcp` | 1 (Stop with if-filter on *.md\|*.mdx) | Free |
+| **[Crew](https://github.com/studiomeyer-io/mcp-crew)** | 13 personas | `crew.studiomeyer.io/mcp` | 1 (Stop) + optional cwd-aware bash hook | Free |
+| **[Academy](https://github.com/studiomeyer-io/mcp-academy)** | 19 | npm: `mcp-academy` (stdio) | 2 (SessionStart, PostToolUse cascade) | Free |
+
+Only Memory and CRM have something to buy. GEO, Crew and Academy are free in full, and where a paid tier is announced but not bookable we list no price for it. See [docs/pricing.md](./docs/pricing.md).
 
 Each product also works standalone via the MCP URL or npm package — the Marketplace adds slash commands, skills, subagents, and now hook recipes on top.
 

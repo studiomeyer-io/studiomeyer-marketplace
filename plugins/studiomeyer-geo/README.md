@@ -39,7 +39,7 @@ First tool call triggers OAuth 2.1 + Magic Link.
 - `geo_compare` — side-by-side comparison of two brands
 - `geo_bulk_check` — run all tracked brands at once
 
-**Pro tools (4)** — Pro tier EUR 49/mo
+**Account tools (4)**, free like the rest, they just need a signed-in account because they store data
 - `geo_history`, `geo_trends`, `geo_schedule`, `geo_alerts`
 
 ### Slash commands
@@ -55,11 +55,11 @@ First tool call triggers OAuth 2.1 + Magic Link.
 
 | Tier | Price | What you get |
 |---|---|---|
-| Free | EUR 0 | All 30 tools, no history, no scheduled checks |
-| Pro | EUR 49/mo | History, trends, scheduled checks, PDF reports, alerts |
-| Team | EUR 99/mo | Multi-brand dashboard, bulk checks, agency features, white-label |
-| Managed | EUR 499/mo | Monthly executive report + quarterly strategy call |
-| Full Service | EUR 999 setup + EUR 299/mo | Consulting + implementation |
+| Free | EUR 0 | All 30 tools. GEO is free in full today. |
+
+There is no paid GEO tier you can book right now, so this table lists no price for one. Pro and Team are built and announced, but they wait on API access for all eight platforms and we promise no date. The four tools that store data (`geo_history`, `geo_trends`, `geo_schedule`, `geo_alerts`) need a signed-in account, not a payment.
+
+Managed monitoring and a full GEO service exist as a project, quoted individually after a free intro call.
 
 ## Why GEO matters
 

@@ -79,10 +79,23 @@ async function checkGitHubRaw() {
       return;
     }
     const data = await r.json();
-    if (Array.isArray(data.plugins) && data.plugins.length === 4) {
+    // Compare the published manifest against the one in this working tree
+    // instead of a hard-coded count. The count used to be pinned at 4 and went
+    // stale the moment the Academy plugin landed, so the check failed while
+    // nothing was actually wrong.
+    const local = JSON.parse(
+      readFileSync(join(ROOT, ".claude-plugin", "marketplace.json"), "utf8"),
+    );
+    const expected = local.plugins.length;
+    if (!Array.isArray(data.plugins)) {
+      fail("github raw", "published marketplace.json has no plugins array");
+    } else if (data.plugins.length === expected) {
       ok("github raw", `marketplace.json lists ${data.plugins.length} plugins`);
     } else {
-      fail("github raw", `unexpected marketplace.json shape`);
+      fail(
+        "github raw",
+        `published manifest lists ${data.plugins.length} plugins, this tree has ${expected} (unpushed changes?)`,
+      );
     }
   } catch (e) {
     fail("github raw", e.message);

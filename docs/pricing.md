@@ -34,6 +34,12 @@ Paid GEO tiers are planned but not bookable, so we do not list a price or a date
 
 Free, in beta. All 13 personas (8 standard roles plus 5 specialists) and all 3 workflows. The tool count still moves between releases, so we do not pin it here. Zero extra API cost because personas run inside your own Claude subscription.
 
+## Academy (studiomeyer.academy)
+
+Free, and there is nothing to buy. All 19 tools, all 6 levels and the whole lesson tree are open without an account. Of the 88 recipes, 58 are published and free. The other 30 are not on sale either: 25 belong to phases 11 to 15, which are written but not released yet, and 5 stay internal on purpose. An account only buys you saved progress, quizzes and certificates.
+
+The MCP server behind it is open source (npm `mcp-academy`, MIT), so this one you can also run yourself.
+
 ## How to upgrade
 
 1. Use any plugin until you hit a limit or want Pro features.

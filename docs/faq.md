@@ -10,14 +10,15 @@ Yes. Everything in this repository is MIT-licensed — the marketplace manifest,
 
 ## Can I run the servers myself?
 
-Not today. The hosted servers are closed source. If you want on-premise or self-hosted variants, mail `hello@studiomeyer.io` — we offer Custom MCP engagements starting at EUR 499.
+Not today. The hosted servers are closed source. If you want an on-premise or self-hosted variant, mail `hello@studiomeyer.io`. We build custom MCP servers as a project, quoted per scope after a free intro call, so there is no list price to quote here.
 
 ## What data is stored?
 
 - **Memory:** The memories you create, the knowledge graph entities you observe, the sessions you start. All tenant-isolated on Supabase EU Frankfurt.
 - **CRM:** Contacts, companies, deals, notes, interactions you write. All tenant-isolated.
-- **GEO:** Brands you track, check results, trend history. Only if you are on the Pro or Team tier — Free tier does not persist anything.
+- **GEO:** Brands you track, check results, trend history. Only if you are signed in, because those four tools write to a database. Without an account nothing is persisted. This is not a paid feature: GEO has no paid tier today.
 - **Crew:** No per-user state. Persona activations are ephemeral in the session.
+- **Academy:** Nothing, unless you create an account. Then your progress, quiz results and certificates.
 
 No training on your data. No selling to third parties. See [studiomeyer.io/privacy](https://studiomeyer.io).
 
