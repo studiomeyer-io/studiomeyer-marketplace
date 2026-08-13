@@ -39,7 +39,7 @@ First tool call triggers OAuth 2.1 + Magic Link.
 - `geo_compare` — side-by-side comparison of two brands
 - `geo_bulk_check` — run all tracked brands at once
 
-**Pro tools (4)** — reserved for the planned Pro tier
+**Account tools (4)**, free like the rest, they just need a signed-in account because they store data
 - `geo_history`, `geo_trends`, `geo_schedule`, `geo_alerts`
 
 ### Slash commands
@@ -53,9 +53,9 @@ First tool call triggers OAuth 2.1 + Magic Link.
 
 ## Pricing
 
-GEO is currently **free** — all 30 tools, no card, no account beyond the Magic Link sign-in.
+GEO is currently **free**: all 30 tools, no card. The Magic Link sign-in is the only thing you need, and only for the four tools that store data (`geo_history`, `geo_trends`, `geo_schedule`, `geo_alerts`). That is an account requirement, not a payment.
 
-Paid tiers (history, scheduled checks, multi-brand dashboards) are planned but not on sale yet, so no prices are quoted here.
+Paid tiers (history at scale, scheduled checks, multi-brand dashboards) are built and announced but not on sale, so no prices are quoted here and we promise no date. Managed monitoring and a full GEO service exist as a project, quoted individually after a free intro call.
 
 ## Why GEO matters
 

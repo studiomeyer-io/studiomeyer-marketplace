@@ -97,11 +97,11 @@ geo_schema_generator({ url, schema: "FAQPage" })
 
 If the user has uneven scores across platforms, the sub-score breakdown usually points to the issue.
 
-## Pro features
+## Features that need an account
 
-- `geo_history` and `geo_trends` — track score changes over time
-- `geo_schedule` — daily, weekly, or monthly automatic checks
-- `geo_alerts` — get notified on score drops or new issues
-- `geo_brands` — multi-brand tracking for agencies
+- `geo_history` and `geo_trends`: track score changes over time
+- `geo_schedule`: daily, weekly, or monthly automatic checks
+- `geo_alerts`: get notified on score drops or new issues
+- `geo_brands`: multi-brand tracking for agencies
 
-These require Pro tier (EUR 49/mo) because they need database storage. Free tier gives you the audit tools — Pro gives you the history.
+These need a signed-in account because they write to a database. They do not cost anything: GEO has no paid tier today, so every tool listed here is free once the user is signed in via Magic Link.

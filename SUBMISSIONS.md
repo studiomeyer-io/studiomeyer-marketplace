@@ -73,9 +73,9 @@ Submit **jedes Plugin einzeln** — Anthropic's Form erwartet pro-Plugin Metadat
 - **Short Description (1 line):**
   > Hosted AI memory with 56 tools. Knowledge graph, semantic search, import from ChatGPT/Claude/Gemini. Magic Link auth. Free tier.
 - **Full Description:**
-  > StudioMeyer Memory is a hosted MCP server that gives Claude persistent, intelligent memory across sessions. 56 tools covering learning, search, entities, sessions, skills, decisions, import, and maintenance. Includes a knowledge graph with typed relations, semantic search via pgvector embeddings, session tracking, multi-agent namespaces, contradiction detection, skill tracking, and import from ChatGPT, Claude, Gemini, Copilot, and Perplexity. Magic Link email verification — no passwords. OAuth 2.1 with PKCE. EU Frankfurt hosting (Supabase Pro, SOC 2 Type II). Free tier (200 calls/day), Pro $29/mo (5,000 calls/day), Team $49/mo (unlimited).
+  > StudioMeyer Memory is a hosted MCP server that gives Claude persistent, intelligent memory across sessions. 56 tools covering learning, search, entities, sessions, skills, decisions, import, and maintenance. Includes a knowledge graph with typed relations, semantic search via pgvector embeddings, session tracking, multi-agent namespaces, contradiction detection, skill tracking, and import from ChatGPT, Claude, Gemini, Copilot, and Perplexity. Magic Link email verification, no passwords. OAuth 2.1 with PKCE. EU Frankfurt hosting (Supabase Pro, SOC 2 Type II). Free tier (200 calls/day), Pro EUR 9/mo (5,000 calls/day), Team EUR 19/mo (unlimited).
 - **Plugin includes:** 6 slash commands (`/memory-session-start`, `/memory-session-end`, `/memory-search`, `/memory-learn`, `/memory-sprint`, `/memory-import`), 2 skills (memory-workflow decision tree, memory-import-guide with per-platform recipes), 1 subagent (memory-curator for curated learning proposals), full MCP server with 56 tools.
-- **Authentication:** OAuth 2.1 + Magic Link (Brevo SMTP)
+- **Authentication:** OAuth 2.1 + Magic Link (Resend SMTP)
 - **License:** MIT (plugin manifest + commands + skills + agents)
 - **Homepage:** https://memory.studiomeyer.io
 - **Repository:** https://github.com/studiomeyer-io/studiomeyer-marketplace
@@ -91,10 +91,10 @@ Submit **jedes Plugin einzeln** — Anthropic's Form erwartet pro-Plugin Metadat
 - **Marketplace Source:** `studiomeyer-io/studiomeyer-marketplace`
 - **Category:** Productivity / Sales / CRM
 - **Short Description (1 line):**
-  > Headless MCP-native CRM with 33 tools. Companies, contacts, deals, pipeline, Stripe sync. Free tier.
+  > Headless MCP-native CRM with 37 tools. Companies, contacts, deals, pipeline, Stripe sync. Free tier.
 - **Full Description:**
-  > StudioMeyer CRM is the first MCP-native headless CRM. 33 tools for companies, contacts, deals, pipeline, leads, follow-ups, notes, timeline, health scores, Stripe sync, audit log, HubSpot/Pipedrive CSV import, and full-text search with German stemming (3-phase cascade with umlaut handling). Zero-Knowledge credential storage (AES-256-GCM) via browser form — no API keys pasted in chat. Webhook + Telegram event system for stage changes and won/lost deals. OAuth 2.1 with PKCE, Magic Link verification, Supabase EU Frankfurt. Free (50 companies), Pro $29/mo (500 companies), Team $49/mo (unlimited).
-- **Plugin includes:** 6 slash commands (`/crm-dashboard`, `/crm-contact`, `/crm-deal`, `/crm-pipeline`, `/crm-followups`, `/crm-search`), 1 skill (crm-workflow with Lead→Contact→Deal→Pipeline flow + daily routine), 1 subagent (lead-qualifier that extracts and scores leads from unstructured text), full MCP server with 33 tools.
+  > StudioMeyer CRM is the first MCP-native headless CRM. 37 tools for companies, contacts, deals, pipeline, leads, follow-ups, notes, timeline, health scores, Stripe sync, audit log, HubSpot/Pipedrive CSV import, and full-text search with German stemming (3-phase cascade with umlaut handling). Zero-Knowledge credential storage (AES-256-GCM) via browser form, so no API keys are pasted in chat. Webhook + Telegram event system for stage changes and won/lost deals. OAuth 2.1 with PKCE, Magic Link verification, Supabase EU Frankfurt. Free (50 companies), Pro EUR 9/mo (500 companies), Team EUR 19/mo (unlimited).
+- **Plugin includes:** 6 slash commands (`/crm-dashboard`, `/crm-contact`, `/crm-deal`, `/crm-pipeline`, `/crm-followups`, `/crm-search`), 1 skill (crm-workflow with Lead→Contact→Deal→Pipeline flow + daily routine), 1 subagent (lead-qualifier that extracts and scores leads from unstructured text), full MCP server with 37 tools.
 - **Authentication:** OAuth 2.1 + Magic Link
 - **License:** MIT
 - **Homepage:** https://crm.studiomeyer.io
@@ -110,10 +110,10 @@ Submit **jedes Plugin einzeln** — Anthropic's Form erwartet pro-Plugin Metadat
 - **Marketplace Source:** `studiomeyer-io/studiomeyer-marketplace`
 - **Category:** Marketing / SEO / AI Visibility
 - **Short Description (1 line):**
-  > Generative Engine Optimization across 8 LLM platforms. 23 tools. 19 work without API keys. Free tier.
+  > Generative Engine Optimization across 8 LLM platforms. 30 tools, most of them without API keys. Free.
 - **Full Description:**
-  > StudioMeyer GEO measures and improves AI visibility across ChatGPT, Gemini, Perplexity, Claude, Grok, DeepSeek, Meta AI, and Microsoft Copilot. 23 tools including robots.txt audit, llms.txt validator, JSON-LD audit with schema generator, entity consistency scanner (detects fragmented brand names), content freshness checker, citation source analysis, 10-dimension content audit based on the KDD 2024 GEO paper, and simulated GEO scoring without any LLM API calls. 19 of 23 tools work without any LLM API key — zero-friction onboarding. OAuth 2.1 with Magic Link verification. Supabase EU Frankfurt (dedicated project). Free (all 23 tools, no history), Pro EUR 49/mo (history, trends, scheduled checks, PDF reports), Team EUR 99/mo (multi-brand dashboard, bulk checks, white-label).
-- **Plugin includes:** 4 slash commands (`/geo-check`, `/geo-robots`, `/geo-citations`, `/geo-discovery`), 1 skill (geo-optimization playbook with fix-tier prioritization and platform biases), 1 subagent (geo-auditor for deep audits with ranked fix lists and copy-paste schema generation), full MCP server with 23 tools plus 5 MCP prompts (`/geo_full_audit`, `/geo_quick_wins`, `/geo_before_launch`, `/geo_competitor_intel`, `/geo_track_over_time`).
+  > StudioMeyer GEO measures and improves AI visibility across ChatGPT, Gemini, Perplexity, Claude, Grok, DeepSeek, Meta AI, and Microsoft Copilot. 30 tools including robots.txt audit, llms.txt validator, JSON-LD audit with schema generator, entity consistency scanner (detects fragmented brand names), content freshness checker, citation source analysis, 10-dimension content audit based on the KDD 2024 GEO paper, and simulated GEO scoring without any LLM API calls. Most tools work without any LLM API key, which keeps onboarding friction-free. OAuth 2.1 with Magic Link verification. Supabase EU Frankfurt (dedicated project). GEO is free in full: all 30 tools, no paid tier to buy today. The four tools that store history need a signed-in account rather than a payment.
+- **Plugin includes:** 4 slash commands (`/geo-check`, `/geo-robots`, `/geo-citations`, `/geo-discovery`), 1 skill (geo-optimization playbook with fix-tier prioritization and platform biases), 1 subagent (geo-auditor for deep audits with ranked fix lists and copy-paste schema generation), full MCP server with 30 tools plus 5 MCP prompts (`/geo_full_audit`, `/geo_quick_wins`, `/geo_before_launch`, `/geo_competitor_intel`, `/geo_track_over_time`).
 - **Authentication:** OAuth 2.1 + Magic Link
 - **License:** MIT
 - **Homepage:** https://geo.studiomeyer.io
