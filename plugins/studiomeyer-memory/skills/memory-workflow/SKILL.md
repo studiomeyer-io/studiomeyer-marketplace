@@ -40,7 +40,7 @@ Search spans all four with `nex_search`. It is the default for "do we know anyth
 → `nex_entity_search` first to check for duplicates. If not found, `nex_entity_create`. Then `nex_entity_observe` to add facts and `nex_entity_relate` to link it to other entities.
 
 ### User asks "what's happening" or "what's next"
-→ `nex_sprint` (current tasks) plus `nex_proactive` (stale items, open decisions, knowledge gaps).
+→ `nex_sprint` (current tasks) plus `nex_proactive` (stale items, open decisions, knowledge gaps, pattern clusters, skill fail-rates, unfinished tasks, never-read observations, untagged entries). Start the session with a `project`: it ranks that working area first and decides where saves without their own project get filed.
 
 ### User wants a deeper read
 - `nex_synthesize` — generate a guide from related learnings
