@@ -1,8 +1,0 @@
-# Dependabot disabled for docs-only connector repo.
-# This repo contains README + LICENSE only — no package.json, no workflows.
-# Source code lives in private mirror (madetocreate/mcp-{name}).
-# Without this file Dependabot tries to update non-existent workflows
-# and produces noisy "github_actions in /. - Update" failed runs.
-version: 2
-updates: []
-
