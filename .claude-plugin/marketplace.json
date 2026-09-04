@@ -1,57 +1,92 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
   "name": "studiomeyer",
-  "version": "1.1.0",
-  "description": "StudioMeyer MCP Suite for Claude Code. Hosted SaaS plugins: Memory (56 tools, knowledge graph), CRM (37 tools, contacts + pipeline), GEO (30 tools, AI visibility across 8 LLMs), Crew (16 tools, 13 expert personas). Plus the Academy MCP (open source, 21 tools, lessons + recipes + tutor). All five include Claude Code v2.1.118 mcp_tool hook recipes for fully agentic workflows. Magic Link authentication. EU Frankfurt hosting. Memory and CRM have a free tier plus Pro 9 EUR and Team 19 EUR per month; GEO, Crew and Academy are free.",
+  "version": "1.2.0",
+  "description": "StudioMeyer MCP Suite for Claude Code. Hosted SaaS plugins: Memory (56 tools, knowledge graph), CRM (37 tools, contacts and pipeline), GEO (30 tools, AI visibility across 8 LLMs), Crew (13 expert personas). Plus the Academy MCP (open source, 12 public tools and 21 with a key). Hooks ship inside the plugins and work the moment a plugin is enabled, with nothing to paste into your settings. Magic Link authentication. EU Frankfurt hosting. Memory and CRM have a free tier plus Pro 9 EUR and Team 19 EUR per month. GEO, Crew and Academy are free.",
   "owner": {
     "name": "StudioMeyer",
     "email": "hello@studiomeyer.io",
     "url": "https://studiomeyer.io"
-  },
-  "metadata": {
-    "homepage": "https://studiomeyer.io",
-    "repository": "https://github.com/studiomeyer-io/studiomeyer-marketplace",
-    "license": "MIT"
   },
   "plugins": [
     {
       "name": "studiomeyer-memory",
       "source": "./plugins/studiomeyer-memory",
       "category": "knowledge-management",
-      "description": "Hosted AI memory with 56 tools. Knowledge Graph, semantic search, contradiction detection, multi-agent namespaces, import from ChatGPT/Claude/Gemini/Copilot/Perplexity. Magic Link auth. Free tier (5,000 calls/day), Pro 9 EUR/mo, Team 19 EUR/mo. Includes 4 mcp_tool hook recipes (Stop, PreCompact, UserPromptSubmit, SubagentStop) for fully agentic memory.",
-      "tags": ["memory", "knowledge-graph", "semantic-search", "ai-memory", "hosted", "multi-agent", "hooks"],
+      "description": "Hosted AI memory with 56 tools. Knowledge graph, semantic search, contradiction detection, multi-agent namespaces, import from ChatGPT, Claude, Gemini, Copilot and Perplexity. Free tier (5,000 calls/day), Pro 9 EUR/mo, Team 19 EUR/mo. Two hooks ship inside the plugin: recall on every prompt, and the memory session closes with your Claude Code session.",
+      "tags": [
+        "memory",
+        "knowledge-graph",
+        "semantic-search",
+        "ai-memory",
+        "hosted",
+        "multi-agent",
+        "hooks"
+      ],
       "homepage": "https://memory.studiomeyer.io"
     },
     {
       "name": "studiomeyer-crm",
       "source": "./plugins/studiomeyer-crm",
       "category": "productivity",
-      "description": "Headless CRM as MCP server. 37 tools for contacts, companies, deals, pipeline, leads, follow-ups, notes, health scores, Stripe sync. Zero-Knowledge credential storage. Free (50 companies, 5,000 calls/day), Pro 9 EUR/mo, Team 19 EUR/mo. Includes 2 mcp_tool hook recipes (UserPromptSubmit auto-lookup, PostToolUse email-draft logger).",
-      "tags": ["crm", "contacts", "pipeline", "sales", "hosted", "stripe", "hooks"],
+      "description": "Headless CRM as an MCP server. 37 tools for contacts, companies, deals, pipeline, leads, follow-ups, notes, health scores and Stripe sync. Zero-Knowledge credential storage. Free (50 companies, 5,000 calls/day), Pro 9 EUR/mo, Team 19 EUR/mo. One hook ships inside the plugin: it looks up the customer behind every prompt, read-only.",
+      "tags": [
+        "crm",
+        "contacts",
+        "pipeline",
+        "sales",
+        "hosted",
+        "stripe",
+        "hooks"
+      ],
       "homepage": "https://crm.studiomeyer.io"
     },
     {
       "name": "studiomeyer-geo",
       "source": "./plugins/studiomeyer-geo",
       "category": "marketing",
-      "description": "Generative Engine Optimization (GEO). 30 tools to measure and improve AI visibility across ChatGPT, Gemini, Perplexity, Claude, Grok, DeepSeek, Meta AI, Copilot. Discovery stack audits, JSON-LD validation, schema generator, async job/poll checks. Free tier (most tools without API keys). Includes 1 mcp_tool hook recipe (Stop with if-filter on *.md/*.mdx auto-audits visibility after content edits).",
-      "tags": ["geo", "ai-visibility", "llm-seo", "discovery-stack", "schema-generator", "hooks"],
+      "description": "Generative Engine Optimization. 30 tools to measure and improve AI visibility across ChatGPT, Gemini, Perplexity, Claude, Grok, DeepSeek, Meta AI and Copilot. Discovery stack audits, JSON-LD validation, schema generator, async job checks. Free tier, most tools need no API key. Ships no hooks on purpose: an audit sends your URL to eight providers and costs money, so it stays a command you run.",
+      "tags": [
+        "geo",
+        "ai-visibility",
+        "llm-seo",
+        "discovery-stack",
+        "schema-generator",
+        "hooks"
+      ],
       "homepage": "https://geo.studiomeyer.io"
     },
     {
       "name": "studiomeyer-crew",
       "source": "./plugins/studiomeyer-crew",
       "category": "productivity",
-      "description": "13 expert agent personas: 8 standard roles (CEO, CFO, CMO, CTO, PM, Analyst, Creative Director, Support Lead) plus 5 specialists (Data Scientist, DevRel, Legal Advisor, Sales Engineer, UX Researcher), plus 3 multi-persona workflows. Zero extra API cost, runs inside your Claude subscription. Free, no paid tier. Includes 1 mcp_tool hook recipe (Stop auto-feedback) plus an optional bash SessionStart hook for cwd-aware persona-suggestion.",
-      "tags": ["personas", "agents", "ceo", "cfo", "cto", "workflows", "hooks"],
+      "description": "13 expert agent personas: 8 standard roles (CEO, CFO, CMO, CTO, PM, Analyst, Creative Director, Support Lead) plus 5 specialists (Data Scientist, DevRel, Legal Advisor, Sales Engineer, UX Researcher), plus 3 multi-persona workflows. Zero extra API cost, runs inside your Claude subscription. Free, no paid tier. One hook ships inside the plugin: it reads your working directory and suggests a fitting persona. It writes nothing and calls no server.",
+      "tags": [
+        "personas",
+        "agents",
+        "ceo",
+        "cfo",
+        "cto",
+        "workflows",
+        "hooks"
+      ],
       "homepage": "https://crew.studiomeyer.io"
     },
     {
       "name": "studiomeyer-academy",
       "source": "./plugins/studiomeyer-academy",
       "category": "education",
-      "description": "Memory-First AI Operator School. 21 tools: lessons, quiz, recipes, knowledge graph, certificates, AI tutor. Open Source MCP server (npm: mcp-academy, MIT). Free, with no paid tier and no account needed: all 6 levels, the full lesson tree and 58 written recipes. Includes 2 mcp_tool hook recipes (SessionStart auto-stats + PostToolUse quiz cascade).",
-      "tags": ["academy", "education", "lessons", "recipes", "knowledge-graph", "ai-tutor", "open-source", "hooks"],
+      "description": "Memory-First AI Operator School. 12 tools without an account, 21 once you enter an Academy API key while installing: lessons, quizzes, recipes, knowledge graph, certificates, AI tutor. Open source MCP server (npm mcp-academy, MIT). Free, no paid tier: all 6 levels, the full lesson tree and 58 written recipes are open. One hook ships inside the plugin: finishing a lesson pulls its quiz.",
+      "tags": [
+        "academy",
+        "education",
+        "lessons",
+        "recipes",
+        "knowledge-graph",
+        "ai-tutor",
+        "open-source",
+        "hooks"
+      ],
       "homepage": "https://studiomeyer.academy"
     }
   ]

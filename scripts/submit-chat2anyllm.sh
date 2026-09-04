@@ -44,7 +44,7 @@ if "studiomeyer-marketplace" in data:
     raise SystemExit(0)
 data["studiomeyer-marketplace"] = {
     "name": "studiomeyer-marketplace",
-    "description": "StudioMeyer MCP Suite for Claude Code — 4 hosted plugins (Memory, CRM, GEO, Crew). 119 MCP tools, 21 slash commands, 5 skills, 3 subagents. Magic Link auth, EU Frankfurt. Free tier.",
+    "description": "StudioMeyer MCP Suite for Claude Code: five plugins (Memory 56 tools, CRM 37, GEO 30, Crew 13 personas, Academy 12 open and 21 with a key). 31 slash commands, 5 skills, 3 subagents, hooks that ship inside the plugins. Magic Link auth, EU Frankfurt. Free tier.",
     "enabled": True,
     "type": "marketplace",
     "repoOwner": "studiomeyer-io",
@@ -56,23 +56,24 @@ print("added")
 PY
 
 git add "${FILE}"
-git -c user.name="StudioMeyer" -c user.email="hello@studiomeyer.io" commit -q -m "Add studiomeyer-marketplace (4 hosted plugins: Memory, CRM, GEO, Crew)"
+git -c user.name="StudioMeyer" -c user.email="hello@studiomeyer.io" commit -q -m "Add studiomeyer-marketplace (Memory, CRM, GEO, Crew, Academy)"
 git push -u origin "${BRANCH}"
 
 gh pr create --repo "${UPSTREAM}" --base main --head "${MY_LOGIN}:${BRANCH}" \
-  --title "Add studiomeyer-marketplace (Memory, CRM, GEO, Crew)" \
+  --title "Add studiomeyer-marketplace (Memory, CRM, GEO, Crew, Academy)" \
   --body-file - <<'EOF'
 Adds the StudioMeyer marketplace to `plugin_repos.json`.
 
 **Repo:** https://github.com/studiomeyer-io/studiomeyer-marketplace
 
 **Contents:**
-- `studiomeyer-memory` — 56 tools, hosted AI memory with knowledge graph, semantic search, import from ChatGPT/Claude/Gemini/Copilot/Perplexity
-- `studiomeyer-crm` — 33 tools, MCP-native CRM with companies, deals, pipeline, Stripe sync
-- `studiomeyer-geo` — 23 tools, Generative Engine Optimization across 8 LLM platforms
-- `studiomeyer-crew` — 10 tools + 8 agent personas + 3 multi-persona workflows
+- `studiomeyer-memory`: 56 tools, hosted AI memory with knowledge graph, semantic search, import from ChatGPT/Claude/Gemini/Copilot/Perplexity
+- `studiomeyer-crm`: 37 tools, MCP-native CRM with companies, deals, pipeline, Stripe sync
+- `studiomeyer-geo`: 30 tools, Generative Engine Optimization across 8 LLM platforms
+- `studiomeyer-crew`: 13 agent personas + 3 multi-persona workflows
+- `studiomeyer-academy`: 12 tools open to everyone, 21 with a key. Open source, npm `mcp-academy`
 
-**Total:** 119 MCP tools, 21 slash commands, 5 skills, 3 subagents across 4 plugins.
+**Total:** 31 slash commands, 5 skills, 3 subagents and 5 hooks across 5 plugins. Hooks ship inside the plugins and load when one is enabled, so there is nothing to paste into settings.
 
 **Auth:** OAuth 2.1 + Magic Link (no passwords)
 **Hosting:** Supabase EU Frankfurt

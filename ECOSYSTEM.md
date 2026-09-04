@@ -1,20 +1,20 @@
 # StudioMeyer Ecosystem
 
-The Marketplace bundles all StudioMeyer MCP products as Claude Code plugins. Five plugins as of v1.1.0, all shipping `mcp_tool` hook recipes for Claude Code v2.1.118+.
+The Marketplace bundles all StudioMeyer MCP products as Claude Code plugins. Five plugins as of v1.2.0. Hooks ship inside the plugins and load when you enable one.
 
 ## MCP Server Products
 
-| Product | Tools | Connect | Hook Recipes | Pricing |
-|---------|-------|---------|--------------|---------|
-| **[Memory](https://github.com/studiomeyer-io/studiomeyer-memory)** | 56 | `memory.studiomeyer.io/mcp` | 4 (Stop, PreCompact, UserPromptSubmit, SubagentStop) | Free / 9€ / 19€ |
-| **[CRM](https://github.com/studiomeyer-io/studiomeyer-crm)** | 37 | `crm.studiomeyer.io/mcp` | 2 (UserPromptSubmit, PostToolUse with if-filter) | Free / 9€ / 19€ |
-| **[GEO](https://github.com/studiomeyer-io/studiomeyer-geo)** | 30 | `geo.studiomeyer.io/mcp` | 1 (Stop with if-filter on *.md\|*.mdx) | Free |
-| **[Crew](https://github.com/studiomeyer-io/studiomeyer-crew)** | 16 (13 personas) | `crew.studiomeyer.io/mcp` | 1 (Stop) + optional cwd-aware bash hook | Free |
-| **[Academy](https://github.com/studiomeyer-io/mcp-academy)** | 21 | npm: `mcp-academy` (stdio) | 2 (SessionStart, PostToolUse cascade) | Free |
+| Product | Tools | Connect | Hooks | Pricing |
+|---------|-------|---------|-------|---------|
+| **[Memory](https://github.com/studiomeyer-io/studiomeyer-memory)** | 56 | `memory.studiomeyer.io/mcp` | 2 (UserPromptSubmit recall, SessionEnd close) | Free / 9 EUR / 19 EUR |
+| **[CRM](https://github.com/studiomeyer-io/studiomeyer-crm)** | 37 | `crm.studiomeyer.io/mcp` | 1 (UserPromptSubmit lookup) | Free / 9 EUR / 19 EUR |
+| **[GEO](https://github.com/studiomeyer-io/studiomeyer-geo)** | 30 | `geo.studiomeyer.io/mcp` | none, on purpose | Free |
+| **[Crew](https://github.com/studiomeyer-io/studiomeyer-crew)** | 13 personas | `crew.studiomeyer.io/mcp` | 1 (SessionStart persona hint, local script) | Free |
+| **[Academy](https://github.com/studiomeyer-io/mcp-academy)** | 12 open, 21 with a key | npm: `mcp-academy` (stdio) | 1 (quiz after a finished lesson) | Free |
 
 Only Memory and CRM have something to buy. GEO, Crew and Academy are free in full, and where a paid tier is announced but not bookable we list no price for it. See [docs/pricing.md](./docs/pricing.md).
 
-Each product also works standalone via the MCP URL or npm package — the Marketplace adds slash commands, skills, subagents, and now hook recipes on top.
+Each product also works standalone through its MCP URL or npm package. The Marketplace adds slash commands, skills, subagents and working hooks on top.
 
 ## Open Source Tools
 
@@ -27,4 +27,4 @@ Each product also works standalone via the MCP URL or npm package — the Market
 
 ---
 
-Built by [StudioMeyer](https://studiomeyer.io) — AI agency from Mallorca, Spain.
+Built by [StudioMeyer](https://studiomeyer.io), an AI agency from Mallorca, Spain.

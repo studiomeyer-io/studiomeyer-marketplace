@@ -1,15 +1,16 @@
 <!-- studiomeyer-mcp-stack-banner:start -->
-> **Part of the [StudioMeyer MCP Stack](https://studiomeyer.io)** — Built in Mallorca 🌴 · ⭐ if you use it
+> **Part of the [StudioMeyer MCP Stack](https://studiomeyer.io)**. Built in Mallorca 🌴 · ⭐ if you use it
 <!-- studiomeyer-mcp-stack-banner:end -->
 
 # StudioMeyer Marketplace for Claude Code
 
 
 <!-- badges -->
+[![validate](https://img.shields.io/github/actions/workflow/status/studiomeyer-io/studiomeyer-marketplace/validate.yml?branch=main&style=flat-square&label=validate)](https://github.com/studiomeyer-io/studiomeyer-marketplace/actions/workflows/validate.yml)
 ![License](https://img.shields.io/github/license/studiomeyer-io/studiomeyer-marketplace?style=flat-square&color=22c55e&label=license)
 ![Last commit](https://img.shields.io/github/last-commit/studiomeyer-io/studiomeyer-marketplace?style=flat-square&color=88c0d0&label=updated)
 ![GitHub stars](https://img.shields.io/github/stars/studiomeyer-io/studiomeyer-marketplace?style=flat-square&color=ffd700&logo=github&label=stars)
-<!-- /badges -->Five MCP plugins for Claude Code — Memory, CRM, GEO, Crew, Academy. One command installs the full suite. Each plugin ships hook recipes for Claude Code v2.1.118+ `mcp_tool` lifecycle automation. Magic Link authentication. EU Frankfurt hosting.
+<!-- /badges -->Five MCP plugins for Claude Code: Memory, CRM, GEO, Crew, Academy. One command installs the full suite. The hooks ship inside the plugins and work the moment you enable one, with nothing to paste into your settings. Magic Link authentication. EU Frankfurt hosting.
 
 ## A note from us
 
@@ -32,35 +33,52 @@ From a small studio in Palma de Mallorca.
 /plugin install studiomeyer-academy@studiomeyer
 ```
 
-Or install just what you need — each plugin works standalone.
+Or install just what you need. Each plugin works standalone.
 
 ## Plugins
 
 | Plugin | Tools | What it does | Hooks | Pricing |
 |---|---|---|---|---|
-| [studiomeyer-memory](./plugins/studiomeyer-memory) | 56 | Persistent AI memory with knowledge graph, semantic search, multi-agent namespaces, contradiction detection, import from ChatGPT/Claude/Gemini | 4 (auto-persist sessions, snapshot before compact, recall on prompt, ingest subagent reports) | Free / €9 / €19 |
-| [studiomeyer-crm](./plugins/studiomeyer-crm) | 37 | Headless CRM — contacts, companies, deals, pipeline, follow-ups, Stripe sync, health scores | 2 (auto-lookup customers, auto-log email drafts) | Free / €9 / €19 |
-| [studiomeyer-geo](./plugins/studiomeyer-geo) | 30 | Generative Engine Optimization across 8 LLM platforms — discovery stack audits, schema generator, citation analysis | 1 (auto-audit AI visibility after Markdown edits) | Free |
-| [studiomeyer-crew](./plugins/studiomeyer-crew) | Beta | 13 expert personas — 8 standard roles (CEO, CFO, CMO, CTO, PM, Analyst, Creative, Support) plus 5 specialists + 3 multi-persona workflows | 1 (auto-feedback) + optional cwd-aware persona suggestion | Free |
-| [studiomeyer-academy](./plugins/studiomeyer-academy) | 21 | Memory-First AI Operator School: lessons, quiz, recipes, knowledge graph, certificates, AI tutor. Open Source npm: mcp-academy | 2 (auto-load stats + next lesson on session start, auto-quiz after lesson) | Free |
+| [studiomeyer-memory](./plugins/studiomeyer-memory) | 56 | Persistent AI memory with knowledge graph, semantic search, multi-agent namespaces, contradiction detection, import from ChatGPT, Claude and Gemini | 2: recall on every prompt, close the session at the end | Free / 9 EUR / 19 EUR |
+| [studiomeyer-crm](./plugins/studiomeyer-crm) | 37 | Headless CRM: contacts, companies, deals, pipeline, follow-ups, Stripe sync, health scores | 1: look up the customer behind every prompt | Free / 9 EUR / 19 EUR |
+| [studiomeyer-geo](./plugins/studiomeyer-geo) | 30 | Generative Engine Optimization across 8 LLM platforms: discovery stack audits, schema generator, citation analysis | none, on purpose: an audit costs money, so it stays a command | Free |
+| [studiomeyer-crew](./plugins/studiomeyer-crew) | 13 personas | 8 standard roles (CEO, CFO, CMO, CTO, PM, Analyst, Creative, Support) plus 5 specialists and 3 multi-persona workflows | 1: suggests a persona from your working directory, local only | Free |
+| [studiomeyer-academy](./plugins/studiomeyer-academy) | 12, or 21 with a key | Memory-First AI Operator School: lessons, quizzes, recipes, knowledge graph, certificates, AI tutor. Open source npm: mcp-academy | 1: finishing a lesson pulls its quiz | Free |
 
-All hosted plugins use the same StudioMeyer account — one Magic Link authenticates you across the suite. Academy is open-source (npm).
+All hosted plugins use the same StudioMeyer account: one Magic Link authenticates you across the suite. Academy is open source, on npm.
 
-## Hook Recipes (v1.1.0+)
+## Hooks
 
-Every plugin ships a `hooks/` directory with a `recipe.json` (the exact JSON snippet for `~/.claude/settings.json`), a `README.md` (install/verify/uninstall guide), an `install.sh` (idempotent jq-merge with backup), and a slash command (`/{name}-install-hooks`) that outputs the recipe inline.
+Every hook lives in the plugin that owns it, in `hooks/hooks.json`. Claude Code merges
+them with your own hooks while the plugin is enabled, and drops them again when you
+disable it. There is no install script, no `jq` merge into your settings, no
+`curl | bash`.
 
-Plugin-installer policy in Claude Code does NOT permit auto-injection of hooks (security policy). Users install hooks manually via:
+Two of them send every prompt you type to a server: Memory's recall and CRM's customer
+lookup. Both go to your own tenant, and both are the reason those plugins exist, but you
+should know before you enable them. Each plugin README says exactly what fires, when, and
+what it costs. Nothing here spends money without you asking.
 
-```bash
-# Recommended: helper script with idempotent jq-merge + backup
-bash <(curl -sSL https://raw.githubusercontent.com/studiomeyer-io/studiomeyer-marketplace/main/plugins/studiomeyer-memory/hooks/install.sh)
+### What changed in 1.2.0, and why it matters
 
-# Or via slash command after the plugin is installed:
-/memory-install-hooks
-```
+Until this release the five plugins shipped `hooks/recipe.json` files with instructions to
+merge them into `~/.claude/settings.json`. **All twelve hook entries in those recipes were
+dead**, and three green validators said otherwise. Measured against Claude Code 2.1.226:
 
-All hook tools satisfy the [five-rule check](https://studiomeyer.academy/recipes/16.1-mcp-tool-hook-intro): idempotent, fast (<60s), deterministic, side-effect-free without user trigger, GDPR-aware. The [validate-hooks.mjs](./tests/validate-hooks.mjs) script enforces the schema.
+| Bug | Effect |
+|---|---|
+| `server` held the bare key, e.g. `studiomeyer-memory` | A plugin-bundled server registers as `plugin:<plugin>:<server>`, so the lookup never resolved |
+| `${user_prompt}` | Not a field. `UserPromptSubmit` delivers `prompt`, so the query substituted to an empty string |
+| `if` on a `Stop` hook | Claude Code can only evaluate `if` on tool events. Anywhere else it drops the hook |
+| `if` holding four alternatives | A permission rule is exactly one rule. The rest were ignored |
+| A matcher using `mcp__<server>__` | A plugin's own tools carry `mcp__plugin_<plugin>_<server>__` |
+| `session_id`, `lesson_slug` as tool arguments | The servers want `sessionId` and `slug`, and required arguments were missing entirely |
+
+Every one of those is now a rule in [`tests/validate-hooks.mjs`](./tests/validate-hooks.mjs),
+and [`tests/selftest-hooks.mjs`](./tests/selftest-hooks.mjs) plants each bug back in and
+fails if the validator stays green. A validator nobody has seen fail is worth nothing.
+
+Full detail, including how to verify a hook actually fired: [docs/hooks.md](./docs/hooks.md).
 
 ## How it works
 
@@ -71,7 +89,7 @@ Each plugin is a thin installer. The actual servers are hosted MCP endpoints on 
 - `https://geo.studiomeyer.io/mcp`
 - `https://crew.studiomeyer.io/mcp`
 
-Academy is the exception — open-source npm package `mcp-academy` (stdio transport via `npx`).
+Academy is the exception. It is the open source npm package `mcp-academy`, spawned over stdio through `npx`.
 
 When you run a tool for the first time, Claude Code walks you through OAuth 2.1 + Magic Link:
 
@@ -84,10 +102,10 @@ No passwords. No credit card for the free tier. Tokens rotate automatically.
 
 ## What you get
 
-- **Slash commands** — `/memory-search`, `/crm-dashboard`, `/geo-check`, `/crew-activate` and more.
-- **Skills** — domain playbooks (Memory workflow, import guide, CRM workflow, GEO optimization, persona usage) that Claude draws on automatically.
-- **Subagents** — specialized helpers (Memory Curator, Lead Qualifier, GEO Auditor) invoked for deeper tasks.
-- **MCP tools** — the full tool set of each hosted server (Memory 56 + CRM 37 + GEO 30 + Crew 16 = 139 tools, plus Academy 23).
+- **Slash commands:** `/memory-search`, `/crm-dashboard`, `/geo-check`, `/crew-activate`, `/academy-lesson` and more.
+- **Skills:** domain playbooks (Memory workflow, import guide, CRM workflow, GEO optimization, persona usage) that Claude draws on automatically.
+- **Subagents:** specialized helpers (Memory Curator, Lead Qualifier, GEO Auditor) invoked for deeper tasks.
+- **MCP tools:** the full tool set of each hosted server. Memory 56, CRM 37, GEO 30, plus Crew and Academy. Crew's count moves between releases and is not pinned. Academy serves 12 tools openly and 21 once you add a key.
 
 See [docs/pricing.md](./docs/pricing.md) for tier details and [docs/magic-link-setup.md](./docs/magic-link-setup.md) for the auth flow.
 
@@ -95,8 +113,8 @@ See [docs/pricing.md](./docs/pricing.md) for tier details and [docs/magic-link-s
 
 You can. Plugins add three things on top:
 
-1. **Slash commands** that pre-frame Claude for common tasks — no need to remember tool names.
-2. **Skills** that Claude loads automatically for relevant work — CRM-flow, memory-curation, GEO-audit.
+1. **Slash commands** that pre-frame Claude for common tasks, so you do not have to remember tool names.
+2. **Skills** that Claude loads automatically for relevant work: CRM flow, memory curation, GEO audit.
 3. **Subagents** for multi-step jobs that would otherwise pollute your main context.
 
 The bare MCP URL gives you the tools. The plugin gives you the workflow around them.

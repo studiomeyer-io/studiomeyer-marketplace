@@ -1,0 +1,155 @@
+{
+  "_comment": [
+    "Single source for every number this repository states in public.",
+    "Before August 2026 each surface carried its own copy and they drifted:",
+    "the Academy stood at 21 tools in three files and 23 in three others, and",
+    "nobody could say which was true. tests/validate-facts.mjs now holds every",
+    "listed surface against this file, so a wrong number is a red test and not",
+    "a discovery six weeks later.",
+    "",
+    "Rule: a number goes in here first, then into the surfaces. Never the",
+    "other way around. Each entry says how it was measured, so the next person",
+    "can repeat the measurement instead of trusting the file."
+  ],
+  "products": {
+    "memory": {
+      "toolCount": 56,
+      "measuredHow": "tools/list against memory.studiomeyer.io/mcp, authenticated",
+      "pricing": {
+        "free": "0",
+        "pro": "9",
+        "team": "19",
+        "currency": "EUR"
+      },
+      "surfaces": [
+        ".claude-plugin/marketplace.json",
+        "plugins/studiomeyer-memory/.claude-plugin/plugin.json",
+        "README.md",
+        "ECOSYSTEM.md",
+        "docs/pricing.md"
+      ]
+    },
+    "crm": {
+      "toolCount": 37,
+      "measuredHow": "tools/list against crm.studiomeyer.io/mcp, authenticated",
+      "pricing": {
+        "free": "0",
+        "pro": "9",
+        "team": "19",
+        "currency": "EUR"
+      },
+      "surfaces": [
+        ".claude-plugin/marketplace.json",
+        "plugins/studiomeyer-crm/.claude-plugin/plugin.json",
+        "README.md",
+        "ECOSYSTEM.md",
+        "docs/pricing.md"
+      ]
+    },
+    "geo": {
+      "toolCount": 30,
+      "measuredHow": "tools/list against geo.studiomeyer.io/mcp, authenticated",
+      "pricing": {
+        "free": "0",
+        "currency": "EUR"
+      },
+      "surfaces": [
+        ".claude-plugin/marketplace.json",
+        "plugins/studiomeyer-geo/.claude-plugin/plugin.json",
+        "README.md",
+        "ECOSYSTEM.md",
+        "docs/pricing.md"
+      ]
+    },
+    "crew": {
+      "personaCount": 13,
+      "measuredHow": "persona registry on crew.studiomeyer.io. The tool count moves between releases and is deliberately not pinned anywhere.",
+      "pricing": {
+        "free": "0",
+        "currency": "EUR"
+      },
+      "surfaces": [
+        ".claude-plugin/marketplace.json",
+        "plugins/studiomeyer-crew/.claude-plugin/plugin.json",
+        "README.md",
+        "ECOSYSTEM.md",
+        "docs/pricing.md"
+      ]
+    },
+    "academy": {
+      "toolCountPublic": 12,
+      "toolCountWithKey": 21,
+      "measuredHow": "npx -y mcp-academy@latest, tools/list over stdio. Without ACADEMY_API_KEY the server returns 12 public tools; the key adds 9 account tools. The figure 23 that stood on three surfaces was never true for either case.",
+      "pricing": {
+        "free": "0",
+        "currency": "EUR"
+      },
+      "surfaces": [
+        ".claude-plugin/marketplace.json",
+        "plugins/studiomeyer-academy/.claude-plugin/plugin.json",
+        "README.md",
+        "ECOSYSTEM.md",
+        "docs/pricing.md"
+      ]
+    }
+  },
+  "forbiddenNumbers": {
+    "_comment": "Numbers that were wrong on a public surface. They must not come back. Each carries the file where it was found and what it should have been. SUBMISSIONS.md and scripts/ count as public: their text is copy-pasted into third-party listings, which is the worst place for a stale number because we cannot edit it afterwards.",
+    "entries": [
+      {
+        "pattern": "23 tools",
+        "product": "academy",
+        "why": "the Academy has 12 public tools and 21 with a key, never 23",
+        "foundIn": "plugin.json, README.md, CHANGELOG.md"
+      },
+      {
+        "pattern": "29 USD",
+        "product": "memory",
+        "why": "Pro is 9 EUR, measured against Stripe in August 2026",
+        "foundIn": "marketplace.json"
+      },
+      {
+        "pattern": "49 USD",
+        "product": "memory",
+        "why": "Team is 19 EUR, measured against Stripe in August 2026",
+        "foundIn": "marketplace.json"
+      },
+      {
+        "pattern": "200 calls/day",
+        "product": "memory",
+        "why": "the free tier is 5,000 calls a day",
+        "foundIn": "docs/pricing.md"
+      },
+      {
+        "pattern": "119 tools",
+        "product": "marketplace",
+        "why": "that sum was four plugins at their April tool counts",
+        "foundIn": "SUBMISSIONS.md, scripts/submit-chat2anyllm.sh"
+      },
+      {
+        "pattern": "119 MCP tools",
+        "product": "marketplace",
+        "why": "same stale sum, written the other way",
+        "foundIn": "SUBMISSIONS.md, scripts/submit-chat2anyllm.sh"
+      },
+      {
+        "pattern": "33 tools",
+        "product": "crm",
+        "why": "the CRM has 37 tools, measured live",
+        "foundIn": "scripts/submit-chat2anyllm.sh"
+      },
+      {
+        "pattern": "4 hosted plugins",
+        "product": "marketplace",
+        "why": "there are five, the Academy landed in April 2026",
+        "foundIn": "SUBMISSIONS.md, scripts/submit-chat2anyllm.sh"
+      },
+      {
+        "pattern": "21 slash commands",
+        "product": "marketplace",
+        "why": "there are 31, counted from plugins/*/commands",
+        "foundIn": "SUBMISSIONS.md, scripts/submit-chat2anyllm.sh"
+      }
+    ]
+  }
+}

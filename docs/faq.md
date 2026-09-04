@@ -6,7 +6,7 @@ No. Install the plugin, run your first command, and the Magic Link flow walks yo
 
 ## Is the plugin code open source?
 
-Yes. Everything in this repository is MIT-licensed — the marketplace manifest, plugin manifests, slash commands, skills, and subagents. The MCP servers behind the hosted endpoints are proprietary StudioMeyer software.
+Yes. Everything in this repository is MIT-licensed: the marketplace manifest, plugin manifests, slash commands, skills, and subagents. The MCP servers behind the hosted endpoints are proprietary StudioMeyer software.
 
 ## Can I run the servers myself?
 
@@ -24,7 +24,7 @@ No training on your data. No selling to third parties. See [studiomeyer.io/priva
 
 ## Can I use this with Claude Desktop or Cowork?
 
-The plugins here target Claude Code. The underlying MCP servers work with any MCP client including Claude Desktop, Cowork, Cursor, ChatGPT — just paste the MCP URL directly. The plugin wrapper (slash commands + skills + subagents) is Claude Code specific.
+The plugins here target Claude Code. The underlying MCP servers work with any MCP client including Claude Desktop, Cowork, Cursor, ChatGPT. Just paste the MCP URL directly. The plugin wrapper (slash commands + skills + subagents) is Claude Code specific.
 
 ## Is there rate limiting?
 

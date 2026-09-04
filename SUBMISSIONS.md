@@ -41,7 +41,7 @@ Copy-Paste Content fuer manuelle Submissions wo CLI/API nicht erlaubt ist.
 ```json
 "studiomeyer-marketplace": {
   "name": "studiomeyer-marketplace",
-  "description": "StudioMeyer MCP Suite for Claude Code — 4 hosted plugins (Memory, CRM, GEO, Crew). 119 tools, 21 slash commands, 5 skills, 3 subagents. Magic Link auth, EU Frankfurt. Free tier.",
+  "description": "StudioMeyer MCP Suite for Claude Code: five plugins (Memory 56 tools, CRM 37, GEO 30, Crew 13 personas, Academy 12 open and 21 with a key). 31 slash commands, 5 skills, 3 subagents, working hooks inside the plugins. Magic Link auth, EU Frankfurt. Free tier.",
   "enabled": true,
   "type": "marketplace",
   "repoOwner": "studiomeyer-io",
@@ -52,7 +52,7 @@ Copy-Paste Content fuer manuelle Submissions wo CLI/API nicht erlaubt ist.
 
 ---
 
-## 3. anthropics/claude-plugins-official (In-App Form — manuell)
+## 3. anthropics/claude-plugins-official (In-App Form, manuell)
 
 **Typ:** Submission via `console.claude.com/plugins/submit` ODER via `/plugin` Command in Claude Code → "Submit plugin" button.
 **Wichtig:** Es gibt KEINEN PR-Workflow. Muss im Browser gemacht werden.
@@ -60,7 +60,7 @@ Copy-Paste Content fuer manuelle Submissions wo CLI/API nicht erlaubt ist.
 
 ### Submission-Content (Copy-Paste für jedes der 4 Plugins separat)
 
-Submit **jedes Plugin einzeln** — Anthropic's Form erwartet pro-Plugin Metadaten.
+Submit **jedes Plugin einzeln**. Anthropic's Form erwartet pro-Plugin Metadaten.
 
 ---
 
@@ -73,7 +73,7 @@ Submit **jedes Plugin einzeln** — Anthropic's Form erwartet pro-Plugin Metadat
 - **Short Description (1 line):**
   > Hosted AI memory with 56 tools. Knowledge graph, semantic search, import from ChatGPT/Claude/Gemini. Magic Link auth. Free tier.
 - **Full Description:**
-  > StudioMeyer Memory is a hosted MCP server that gives Claude persistent, intelligent memory across sessions. 56 tools covering learning, search, entities, sessions, skills, decisions, import, and maintenance. Includes a knowledge graph with typed relations, semantic search via pgvector embeddings, session tracking, multi-agent namespaces, contradiction detection, skill tracking, and import from ChatGPT, Claude, Gemini, Copilot, and Perplexity. Magic Link email verification, no passwords. OAuth 2.1 with PKCE. EU Frankfurt hosting (Supabase Pro, SOC 2 Type II). Free tier (200 calls/day), Pro EUR 9/mo (5,000 calls/day), Team EUR 19/mo (unlimited).
+  > StudioMeyer Memory is a hosted MCP server that gives Claude persistent, intelligent memory across sessions. 56 tools covering learning, search, entities, sessions, skills, decisions, import, and maintenance. Includes a knowledge graph with typed relations, semantic search via pgvector embeddings, session tracking, multi-agent namespaces, contradiction detection, skill tracking, and import from ChatGPT, Claude, Gemini, Copilot, and Perplexity. Magic Link email verification, no passwords. OAuth 2.1 with PKCE. EU Frankfurt hosting (Supabase Pro, SOC 2 Type II). Free tier (5,000 calls a day), Pro EUR 9/mo (50,000 a day), Team EUR 19/mo (unlimited).
 - **Plugin includes:** 6 slash commands (`/memory-session-start`, `/memory-session-end`, `/memory-search`, `/memory-learn`, `/memory-sprint`, `/memory-import`), 2 skills (memory-workflow decision tree, memory-import-guide with per-platform recipes), 1 subagent (memory-curator for curated learning proposals), full MCP server with 56 tools.
 - **Authentication:** OAuth 2.1 + Magic Link (Resend SMTP)
 - **License:** MIT (plugin manifest + commands + skills + agents)
@@ -129,9 +129,9 @@ Submit **jedes Plugin einzeln** — Anthropic's Form erwartet pro-Plugin Metadat
 - **Marketplace Source:** `studiomeyer-io/studiomeyer-marketplace`
 - **Category:** Productivity / Agent Personas
 - **Short Description (1 line):**
-  > 8 expert agent personas (CEO, CFO, CMO, CTO, PM, Analyst, Creative, Support) + 3 multi-persona workflows. Free.
+  > 13 expert agent personas: 8 standard roles (CEO, CFO, CMO, CTO, PM, Analyst, Creative, Support) plus 5 specialists, and 3 multi-persona workflows. Free.
 - **Full Description:**
-  > StudioMeyer Crew turns Claude into a specialist on demand. 8 built-in agent personas (CEO, CFO, CMO, CTO, PM, Research Analyst, Creative Director, Support Lead), each with domain frameworks (DORA, AARRR, RICE/ICE, SWOT, Porter's Five Forces), few-shot examples, anti-patterns, and cross-persona handoff instructions. 3 multi-persona workflows: strategy-review (CEO→CFO→CTO), content-pipeline (CMO→Analyst→Creative), product-launch (Analyst→PM→CEO→CMO→CTO). Memory Bridge auto-loads relevant context via `nex_search` when paired with StudioMeyer Memory. Custom personas can be created with `crew_create` and saved to `~/.mcp-crew/personas/`. Zero extra API cost — everything runs inside your Claude subscription. OAuth 2.1. Free forever.
+  > StudioMeyer Crew turns Claude into a specialist on demand. 13 built-in agent personas: 8 standard roles (CEO, CFO, CMO, CTO, PM, Research Analyst, Creative Director, Support Lead) plus 5 specialists (Data Scientist, DevRel, Legal Advisor, Sales Engineer, UX Researcher), each with domain frameworks (DORA, AARRR, RICE/ICE, SWOT, Porter's Five Forces), few-shot examples, anti-patterns, and cross-persona handoff instructions. 3 multi-persona workflows: strategy-review (CEO→CFO→CTO), content-pipeline (CMO→Analyst→Creative), product-launch (Analyst→PM→CEO→CMO→CTO). Memory Bridge auto-loads relevant context via `nex_search` when paired with StudioMeyer Memory. Custom personas can be created with `crew_create` and saved to `~/.mcp-crew/personas/`. Zero extra API cost: everything runs inside your Claude subscription. OAuth 2.1. Free forever.
 - **Plugin includes:** 5 slash commands (`/crew-activate`, `/crew-list`, `/crew-status`, `/crew-deactivate`, `/crew-workflow`), 1 skill (persona-usage decision tree with anti-patterns and Memory Bridge integration), full MCP server with 10 tools and 8 MCP prompts.
 - **Authentication:** OAuth 2.1 (free tier open)
 - **License:** MIT
@@ -161,7 +161,7 @@ Reviews dauern laut Issue #997 mehrere Wochen. Nicht blockieren.
 - **Category:** Agent Skills (oder neu: "Plugin Marketplaces" falls verfuegbar)
 - **Primary URL:** https://github.com/studiomeyer-io/studiomeyer-marketplace
 - **Author GitHub:** studiomeyer-io
-- **Short Description:** StudioMeyer MCP Suite — 4 hosted Claude Code plugins (Memory, CRM, GEO, Crew). 119 MCP tools, 21 slash commands, 5 skills, 3 subagents. Magic Link authentication, EU Frankfurt hosting, free tier.
+- **Short Description:** StudioMeyer MCP Suite: five Claude Code plugins (Memory, CRM, GEO, Crew, Academy). 31 slash commands, 5 skills, 3 subagents, and hooks that ship inside the plugins and need no setup. Magic Link authentication, EU Frankfurt hosting, free tier.
 - **Installation instructions:**
   ```bash
   /plugin marketplace add studiomeyer-io/studiomeyer-marketplace
@@ -172,7 +172,7 @@ Reviews dauern laut Issue #997 mehrere Wochen. Nicht blockieren.
   /plugin uninstall studiomeyer-memory@studiomeyer
   /plugin marketplace remove studiomeyer
   ```
-- **Network requests:** Yes — the plugins are thin clients that connect to hosted MCP endpoints at `memory.studiomeyer.io`, `crm.studiomeyer.io`, `geo.studiomeyer.io`, `crew.studiomeyer.io`. All HTTPS, OAuth 2.1 with Magic Link verification.
+- **Network requests:** Yes. The plugins are thin clients that connect to hosted MCP endpoints at `memory.studiomeyer.io`, `crm.studiomeyer.io`, `geo.studiomeyer.io`, `crew.studiomeyer.io`. All HTTPS, OAuth 2.1 with Magic Link verification.
 - **Differentiator:** The only hosted multi-tenant MCP suite with Knowledge Graph memory, CRM, GEO, and agent personas bundled as one installable marketplace. Most existing memory plugins (claude-mem, claude-code-buddy, memory-store-plugin, claude-memory-plugin, nowledge-mem) are local-first SQLite/file-based for solo use. Ours is production-grade hosted SaaS with OAuth, import from 5 platforms, contradiction detection, and cross-client support.
 - **Auto-update:** No. Users update with `/plugin marketplace update studiomeyer`.
 - **Elevated permissions:** No.
@@ -186,9 +186,9 @@ Reviews dauern laut Issue #997 mehrere Wochen. Nicht blockieren.
 **Account:** u/studiomeyer_io
 **Best Tag:** "Launch" oder "Resources"
 **Titel-Optionen:**
-1. "Released: StudioMeyer Marketplace — 4 Claude Code plugins (Memory, CRM, GEO, Agent Personas)"
+1. "Released: StudioMeyer Marketplace, 4 Claude Code plugins (Memory, CRM, GEO, Agent Personas)"
 2. "New Claude Code marketplace: hosted memory with 56 tools, CRM, GEO, and 8 agent personas"
-3. "StudioMeyer Marketplace is live — 119 MCP tools bundled as 4 Claude Code plugins"
+3. "StudioMeyer Marketplace is live: five Claude Code plugins, and the hooks actually work"
 
 **Body (draft):**
 
@@ -197,12 +197,12 @@ Hey r/ClaudeAI,
 
 I just published a Claude Code marketplace with four plugins we've been running internally for months:
 
-- **studiomeyer-memory** — 56 tools, knowledge graph, semantic search, import from ChatGPT/Claude/Gemini/Copilot/Perplexity, Magic Link auth
-- **studiomeyer-crm** — 33 tools, headless CRM for Claude Code (companies, deals, pipeline, Stripe sync, health scores)
-- **studiomeyer-geo** — 23 tools, Generative Engine Optimization across 8 LLM platforms (ChatGPT, Gemini, Perplexity, Claude, Grok, DeepSeek, Meta AI, Copilot), 19 work without any LLM API keys
-- **studiomeyer-crew** — 8 expert personas (CEO, CFO, CMO, CTO, PM, Analyst, Creative, Support) + 3 multi-persona workflows, zero extra API cost
+- **studiomeyer-memory:** 56 tools, knowledge graph, semantic search, import from ChatGPT/Claude/Gemini/Copilot/Perplexity, Magic Link auth
+- **studiomeyer-crm:** 37 tools, headless CRM for Claude Code (companies, deals, pipeline, Stripe sync, health scores)
+- **studiomeyer-geo:** 30 tools, Generative Engine Optimization across 8 LLM platforms (ChatGPT, Gemini, Perplexity, Claude, Grok, DeepSeek, Meta AI, Copilot), most of which work without any LLM API key
+- **studiomeyer-crew:** 13 expert personas (8 standard roles plus 5 specialists) (CEO, CFO, CMO, CTO, PM, Analyst, Creative, Support) + 3 multi-persona workflows, zero extra API cost
 
-Total: 119 MCP tools, 21 slash commands, 5 skills, 3 subagents (memory-curator, lead-qualifier, geo-auditor).
+Total: 31 slash commands, 5 skills, 3 subagents (memory-curator, lead-qualifier, geo-auditor) and five hooks that load with the plugins. Tool counts per server: Memory 56, CRM 37, GEO 30, Academy 12 open and 21 with a key. Crew's count moves between releases and is deliberately not pinned.
 
 Install:
 /plugin marketplace add studiomeyer-io/studiomeyer-marketplace
@@ -210,7 +210,7 @@ Install:
 
 Repo: https://github.com/studiomeyer-io/studiomeyer-marketplace
 
-All plugins authenticate with OAuth 2.1 + Magic Link (no passwords). Servers are EU-hosted (Supabase Frankfurt). Free tiers on every plugin. The plugin code itself is MIT — the server implementations stay closed source but the user-facing MCP protocol is fully documented.
+All plugins authenticate with OAuth 2.1 + Magic Link (no passwords). Servers are EU-hosted (Supabase Frankfurt). Free tiers on every plugin. The plugin code itself is MIT. The server implementations stay closed source but the user-facing MCP protocol is fully documented.
 
 Why I'm posting: Memory plugins exist (claude-mem, claude-code-buddy, memory-store-plugin, claude-memory-plugin, nowledge-mem) but they're all local-first SQLite for solo use. If you want hosted, multi-tenant, with knowledge graph and import-from-other-AIs, there wasn't one before. So I built it.
 
@@ -226,8 +226,8 @@ Happy to answer questions about the architecture, why Magic Link instead of API 
 
 ## 6. awesome-claude-plugins Alternatives
 
-- `ccplugins/awesome-claude-code-plugins` — eigener Marketplace der sich selbst listet
-- `Chat2AnyLLM/awesome-claude-plugins` — auto-generiert aus `plugin_repos.json` (siehe Sektion 2)
+- `ccplugins/awesome-claude-code-plugins`: eigener Marketplace der sich selbst listet
+- `Chat2AnyLLM/awesome-claude-plugins`: auto-generiert aus `plugin_repos.json` (siehe Sektion 2)
 
 ---
 
@@ -250,10 +250,10 @@ curl -s "https://raw.githubusercontent.com/Chat2AnyLLM/awesome-claude-plugins/ma
 
 ## Was ICH (Nex/Claude Code) NICHT kann
 
-- anthropics/claude-plugins-official Submission — in-app Form only
-- hesreallyhim/awesome-claude-code Issue — `gh` CLI explizit verboten
-- Reddit Posts — kein Reddit-Zugriff
-- Product Hunt — separater Flow, braucht Assets (Screenshots, Demo-Video)
-- dev.to Blog — braucht Account-Login ueber Browser
+- anthropics/claude-plugins-official Submission: in-app Form only
+- hesreallyhim/awesome-claude-code Issue: `gh` CLI explizit verboten
+- Reddit Posts: kein Reddit-Zugriff
+- Product Hunt: separater Flow, braucht Assets (Screenshots, Demo-Video)
+- dev.to Blog: braucht Account-Login ueber Browser
 
 Alles wofuer Matthias ins Browser muss ist hier oben als Copy-Paste-Draft.

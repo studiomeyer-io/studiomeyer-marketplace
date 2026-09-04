@@ -39,4 +39,4 @@ Uninstalling the plugin drops the local token. Server-side, the refresh token ro
 
 ## Multiple plugins, one account
 
-Memory, CRM, and GEO share the same tenant when you use the same email. Install all three and authenticate once per plugin. Crew is free and tenant-agnostic — no auth friction.
+Memory, CRM, and GEO share the same tenant when you use the same email. Install all three and authenticate once per plugin. Crew is free and tenant-agnostic, no auth friction.
