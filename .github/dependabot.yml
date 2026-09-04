@@ -1,19 +1,21 @@
-# Am 19.08.2026 wurde diese Datei entfernt, aus einem gemessenen und richtigen
-# Grund: sie enthielt `updates: []`, was keine gueltige Konfiguration ist.
-# Dependabot verwarf die Datei, die woechentlichen Fehllaeufe liefen unveraendert
-# weiter, und der Kommentar darin war sachlich falsch. Der dokumentierte Weg zu
-# "keine Versions-Updates" ist gar keine Datei.
-#
-# Sie kommt jetzt zurueck, weil die Pruefung von damals einen Satz enthielt, der
-# seit dem 04.09.2026 nicht mehr stimmt: "keines der fuenf Repos hat
-# package.json oder .github/workflows, es gibt also nichts zu aktualisieren."
-# Dieses Repo hat seither .github/workflows/validate.yml. Eine gepinnte Action,
-# die veraltet, ist eine echte Meldung wert.
-#
-# Weiterhin kein npm-Eintrag: es gibt keine package.json und keine
-# Laufzeit-Abhaengigkeiten. Die Plugins sind Manifeste, Markdown und Node-Skripte
-# ohne Fremdcode.
 version: 2
+# Org-Vorlage "actions-only" (S992), wortgleich zu n8n-templates und
+# n8n-workflows: monatlich, alle Bumps in EINEM gruppierten PR, hoechstens drei
+# offene. Kein npm-Eintrag, dieses Repo hat keine package.json und keine
+# Laufzeit-Abhaengigkeiten.
+#
+# HISTORIE, damit die Datei nicht als stilles Zurueckdrehen gelesen wird: am
+# 19.08.2026 wurde sie entfernt, gemessen und richtig. Sie enthielt `updates: []`,
+# was keine gueltige Konfiguration ist; Dependabot verwarf sie und die
+# woechentlichen Fehllaeufe liefen unveraendert weiter. Die Begruendung trug aber
+# den Satz "keines der fuenf Repos hat package.json oder .github/workflows, es
+# gibt also nichts zu aktualisieren". Fuer dieses Repo stimmt der seit dem
+# 04.09.2026 nicht mehr: es hat .github/workflows/validate.yml. Damit faellt auch
+# die Ursache der alten roten Laeufe weg (dependency_file_not_found).
+#
+# Der erste Lauf hat sich sofort gelohnt: die frisch gesetzten Pins standen auf
+# actions/checkout@v5 und actions/setup-node@v5, beide zwei Hauptversionen
+# hinter dem Stand.
 updates:
   - package-ecosystem: "github-actions"
     directory: "/"
@@ -21,6 +23,11 @@ updates:
       interval: "monthly"
     open-pull-requests-limit: 3
     commit-message:
-      prefix: "chore(actions)"
+      prefix: "ci"
+      include: "scope"
     labels:
-      - "dependencies"
+      - "ci"
+    groups:
+      actions:
+        patterns:
+          - "*"
