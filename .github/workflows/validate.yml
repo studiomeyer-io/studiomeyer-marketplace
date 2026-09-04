@@ -1,0 +1,94 @@
+name: validate
+
+# Runs on every push and pull request, and once a week on its own.
+#
+# The weekly run is the point. The manifests in this repository do not change
+# often, but the things they describe do: Claude Code ships a new version, a
+# hosted server renames a tool parameter, an npm package drops a tool. Between
+# April and September 2026 exactly that happened, and twelve hooks went dead
+# while nothing in CI noticed, because nothing in CI ran.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    # Mondays, 06:00 UTC
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+jobs:
+  static:
+    name: manifests, hooks, facts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+
+      - name: Manifests, commands, skills, agents
+        run: node tests/validate.mjs
+
+      - name: Hooks can actually fire
+        run: node tests/validate-hooks.mjs
+
+      - name: Every public number against facts.json
+        run: node tests/validate-facts.mjs
+
+      - name: Prove the hook validator still bites
+        run: node tests/selftest-hooks.mjs
+
+      - name: No em-dashes in shipped text
+        run: node tests/validate-prose.mjs
+
+  official:
+    name: claude plugin validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+
+      # The official validator is the one that knows about fields we do not.
+      # It caught three unknown keys in marketplace.json and a command whose
+      # YAML frontmatter silently failed to parse, dropping every field at
+      # runtime. Neither of our own validators could see either fault.
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Validate the marketplace manifest
+        run: claude plugin validate .
+
+      - name: Validate every plugin
+        run: |
+          status=0
+          for dir in plugins/*/; do
+            echo "::group::${dir}"
+            claude plugin validate "${dir}" || status=1
+            echo "::endgroup::"
+          done
+          exit $status
+
+  live:
+    name: hosted endpoints
+    runs-on: ubuntu-latest
+    # A network check must never block a pull request from someone outside the
+    # org, and an endpoint being briefly down is not their bug.
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+      - name: Smoke test the hosted MCP endpoints
+        run: node tests/smoke.mjs
+
+      # facts.json is the source for every public number here, but nothing in
+      # the repository can tell you whether facts.json is still true. This
+      # asks the servers: each publishes its tool count in its own llms.txt,
+      # and the Academy server can simply be started and asked. It is the one
+      # check that would have caught the Academy count going wrong.
+      - name: Hold facts.json against the live servers
+        run: node tests/verify-facts-live.mjs

@@ -5,16 +5,16 @@ description: Use when the user is working with StudioMeyer Memory and you need t
 
 # StudioMeyer Memory Workflow
 
-This skill teaches the right tool choice for any memory operation. The Memory server has 56 tools (53 core + 3 UI: nex_graph_view, nex_recall_timeline, nex_session_replay) — this is the decision tree for the 10 you will use most.
+This skill teaches the right tool choice for any memory operation. The Memory server has 56 tools (53 core + 3 UI: nex_graph_view, nex_recall_timeline, nex_session_replay). This is the decision tree for the 10 you will use most.
 
 ## Core principle
 
 Memory has four types of content:
 
-- **Learnings** — facts, insights, mistakes, patterns. Append-only with a confidence score. Use `nex_learn`.
-- **Decisions** — tracked choices with rationale and outcome. Use `nex_decide`.
-- **Entities** — typed nodes in the Knowledge Graph (people, projects, tools, services). Use `nex_entity_*`.
-- **Sessions** — conversation containers with start/end markers. Use `nex_session_*`.
+- **Learnings:** facts, insights, mistakes, patterns. Append-only with a confidence score. Use `nex_learn`.
+- **Decisions:** tracked choices with rationale and outcome. Use `nex_decide`.
+- **Entities:** typed nodes in the Knowledge Graph (people, projects, tools, services). Use `nex_entity_*`.
+- **Sessions:** conversation containers with start/end markers. Use `nex_session_*`.
 
 Search spans all four with `nex_search`. It is the default for "do we know anything about X?" questions.
 
@@ -25,13 +25,13 @@ Search spans all four with `nex_search`. It is the default for "do we know anyth
 
 ### User wants to save a fact or insight
 → `nex_learn` with the right category:
-- `mistake` — something that went wrong
-- `pattern` — recurring technique
-- `insight` — non-obvious realization
-- `research` — findings from investigation
-- `architecture` — design decision
-- `workflow` — process
-- `security` — security-relevant fact
+- `mistake`: something that went wrong
+- `pattern`: recurring technique
+- `insight`: non-obvious realization
+- `research`: findings from investigation
+- `architecture`: design decision
+- `workflow`: process
+- `security`: security-relevant fact
 
 ### User makes a choice with a reason
 → `nex_decide` with `content`, `rationale`, `outcome` (if already known). Decisions can be linked with `nex_decide` follow-ups later.
@@ -43,9 +43,9 @@ Search spans all four with `nex_search`. It is the default for "do we know anyth
 → `nex_sprint` (current tasks) plus `nex_proactive` (stale items, open decisions, knowledge gaps, pattern clusters, skill fail-rates, unfinished tasks, never-read observations, untagged entries). Start the session with a `project`: it ranks that working area first and decides where saves without their own project get filed.
 
 ### User wants a deeper read
-- `nex_synthesize` — generate a guide from related learnings
-- `nex_reflect` — extract meta-insights from recent work
-- `nex_insights` — pre-computed insights from the last session
+- `nex_synthesize`: generate a guide from related learnings
+- `nex_reflect`: extract meta-insights from recent work
+- `nex_insights`: pre-computed insights from the last session
 
 ## Anti-patterns
 

@@ -1,0 +1,26 @@
+# Am 19.08.2026 wurde diese Datei entfernt, aus einem gemessenen und richtigen
+# Grund: sie enthielt `updates: []`, was keine gueltige Konfiguration ist.
+# Dependabot verwarf die Datei, die woechentlichen Fehllaeufe liefen unveraendert
+# weiter, und der Kommentar darin war sachlich falsch. Der dokumentierte Weg zu
+# "keine Versions-Updates" ist gar keine Datei.
+#
+# Sie kommt jetzt zurueck, weil die Pruefung von damals einen Satz enthielt, der
+# seit dem 04.09.2026 nicht mehr stimmt: "keines der fuenf Repos hat
+# package.json oder .github/workflows, es gibt also nichts zu aktualisieren."
+# Dieses Repo hat seither .github/workflows/validate.yml. Eine gepinnte Action,
+# die veraltet, ist eine echte Meldung wert.
+#
+# Weiterhin kein npm-Eintrag: es gibt keine package.json und keine
+# Laufzeit-Abhaengigkeiten. Die Plugins sind Manifeste, Markdown und Node-Skripte
+# ohne Fremdcode.
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    open-pull-requests-limit: 3
+    commit-message:
+      prefix: "chore(actions)"
+    labels:
+      - "dependencies"

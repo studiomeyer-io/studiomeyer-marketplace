@@ -52,9 +52,9 @@ Every entity in the CRM fits somewhere on this flow. When a tool call fails or f
 ## Daily CRM routine (recommended)
 
 Morning, 5 minutes:
-1. `crm_dashboard` — what happened overnight
-2. `crm_follow_up` with `action: "list"` — what needs attention
-3. `crm_health_scores` — any accounts dropping below 50?
+1. `crm_dashboard`: what happened overnight
+2. `crm_follow_up` with `action: "list"`: what needs attention
+3. `crm_health_scores`: any accounts dropping below 50?
 
 End of day, 5 minutes:
 1. `crm_log_interaction` for every real conversation
@@ -67,7 +67,7 @@ End of day, 5 minutes:
 - **Logging interactions on leads.** Leads do not have interactions. Convert to a Contact first.
 - **Using `crm_search` with a single letter.** Too broad. Use at least 3 characters.
 - **Updating a deal's probability manually.** The server auto-sets probability from stage. Changing both is a conflict.
-- **Ignoring the Zero-Knowledge credential flow.** If the user wants to connect Stripe or HubSpot, use `crm_connect` — credentials go through a browser form and are AES-256-GCM encrypted per-tenant. Do not take raw credentials in chat.
+- **Ignoring the Zero-Knowledge credential flow.** If the user wants to connect Stripe or HubSpot, use `crm_connect`. Credentials go through a browser form and are AES-256-GCM encrypted per-tenant. Do not take raw credentials in chat.
 
 ## Health scores
 
@@ -86,4 +86,4 @@ Every write is recorded in the `CrmAuditLog` with who, what, when. Use `crm_audi
 
 ## Event system
 
-Deal stage changes, won/lost events, and hot leads fire webhooks + Telegram notifications automatically. The user does not need to poll — the CRM pushes when something matters. Do not try to rebuild this with polling.
+Deal stage changes, won/lost events, and hot leads fire webhooks + Telegram notifications automatically. The user does not need to poll. The CRM pushes when something matters. Do not try to rebuild this with polling.

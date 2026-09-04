@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Live E2E Smoke Test — hits every hosted MCP endpoint and verifies reachability
+// Live E2E Smoke Test: hits every hosted MCP endpoint and verifies reachability
 // and baseline MCP protocol compliance. Run with: node tests/smoke.mjs
 
 import { readdirSync, readFileSync } from "node:fs";
@@ -15,16 +15,16 @@ let hardFail = false;
 
 function ok(name, msg) {
   results.push({ name, status: "ok", msg });
-  console.log(`  ✓ ${name} — ${msg}`);
+  console.log(`  ✓ ${name}: ${msg}`);
 }
 function fail(name, msg) {
   hardFail = true;
   results.push({ name, status: "fail", msg });
-  console.log(`  ✗ ${name} — ${msg}`);
+  console.log(`  ✗ ${name}: ${msg}`);
 }
 function warn(name, msg) {
   results.push({ name, status: "warn", msg });
-  console.log(`  ! ${name} — ${msg}`);
+  console.log(`  ! ${name}: ${msg}`);
 }
 
 async function fetchWithTimeout(url, opts = {}, ms = 10000) {
@@ -44,7 +44,7 @@ async function checkHealth(pluginName, url) {
     if (r.status === 200) ok(`${pluginName} health`, `${healthUrl} → 200`);
     else fail(`${pluginName} health`, `${healthUrl} → ${r.status}`);
   } catch (e) {
-    fail(`${pluginName} health`, `${healthUrl} — ${e.message}`);
+    fail(`${pluginName} health`, `${healthUrl}: ${e.message}`);
   }
 }
 
@@ -57,7 +57,7 @@ async function checkMcpEndpoint(pluginName, url) {
       { method: "POST", headers: { "content-type": "application/json" }, body: "{}" },
       8000
     );
-    // Accept any non-5xx as "endpoint reachable" — MCP will 400/401/406 for
+    // Accept any non-5xx as "endpoint reachable". MCP will 400/401/406 for
     // invalid requests but that means it's alive. 5xx means server broken.
     if (r.status >= 500) {
       fail(`${pluginName} mcp`, `${url} → ${r.status} (server error)`);
@@ -65,7 +65,7 @@ async function checkMcpEndpoint(pluginName, url) {
       ok(`${pluginName} mcp`, `${url} → ${r.status} (endpoint alive)`);
     }
   } catch (e) {
-    fail(`${pluginName} mcp`, `${url} — ${e.message}`);
+    fail(`${pluginName} mcp`, `${url}: ${e.message}`);
   }
 }
 
@@ -124,7 +124,7 @@ async function main() {
     }
   }
 
-  console.log("\n3. MCPize mirrors (optional — expected to also be live)");
+  console.log("\n3. MCPize mirrors (optional: expected to also be live)");
   const mcpizeUrls = {
     "studiomeyer-memory": "https://studiomeyer-memory.mcpize.run/health",
     "studiomeyer-crm": "https://studiomeyer-crm.mcpize.run/health",

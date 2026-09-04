@@ -1,6 +1,6 @@
-# StudioMeyer Academy — Memory-First AI Operator School for Claude Code
+# studiomeyer-academy
 
-23 tools spanning lessons, quiz, recipes, knowledge graph, certificates, and AI tutor. Open Source MCP server (`mcp-academy` on npm, MIT). Works with Claude Code, Cursor, Codex. Free.
+The Memory-First AI Operator School, inside Claude Code. Six levels, a full lesson tree, 58 written recipes and an AI tutor. The MCP server behind it is open source: [`mcp-academy`](https://www.npmjs.com/package/mcp-academy) on npm, MIT.
 
 ## Install
 
@@ -9,50 +9,69 @@
 /plugin install studiomeyer-academy@studiomeyer
 ```
 
-The plugin registers the `mcp-academy` npm package as a stdio-spawned MCP server under the name **`studiomeyer-academy`** (see [`.mcp.json`](./.mcp.json)). First call downloads the npm package automatically via `npx`.
+Claude Code asks for an **Academy API key** while enabling the plugin. Leave it empty if you just want to read: the course content is open. Enter one to get progress, quizzes and certificates. You can add it later through `/plugin`.
 
-> **Note on server name.** The Academy recipe [16.5](https://studiomeyer.academy/recipes/16.5-academy-hook-bundle) and the [mcp-academy README](https://www.npmjs.com/package/mcp-academy) reference the server as `academy` for direct npm-install paths (`claude mcp add academy npx -- -y mcp-academy`). The marketplace plugin uses the prefixed name `studiomeyer-academy` for consistency with the rest of the suite. **The `recipe.json` shipped here uses `studiomeyer-academy` to match the plugin install path.** If you installed `mcp-academy` directly under a different name, replace `studiomeyer-academy` in the recipe with whatever name you used in `claude mcp add`.
+The plugin spawns the npm package over stdio, so the first call downloads it through `npx`. Nothing to install by hand.
 
 ## What you get
 
-- **MCP server** with 23 tools across 6 domains:
-  - Lessons (`academy_lessons`, `academy_lesson`, `academy_next_lesson`, `academy_progress_complete`)
-  - Quiz (`academy_quiz`, `academy_quiz_submit`)
-  - Recipes (`academy_list_recipes`, `academy_get_recipe`, `academy_my_recipes`, `academy_save_recipe_note`, `academy_start_recipe`, `academy_validate_step`, `academy_next_step`)
-  - Concepts (`academy_concept_search`, `academy_concept_open`, `academy_concept_graph`)
-  - Stats / Progress (`academy_stats`, `academy_levels`, `academy_review`, `academy_review_grade`, `academy_certificates`)
-  - Tutor (`academy_tutor`)
-- **Slash commands** (`/academy-stats`, `/academy-install-hooks`, …) that pre-frame Claude for common actions
-- **Hook recipes** (in `hooks/`) — auto-load stats and next-lesson on `SessionStart`, optional auto-quiz after `academy_progress_complete`
-- **Skills** that walk Claude through Academy workflows
-- **Subagents** for tutor-style explanations
+### Tools
+
+**12 without a key.** All of the course content:
+
+| Area | Tools |
+|---|---|
+| Orientation | `academy_welcome`, `academy_levels` |
+| Lessons | `academy_lessons`, `academy_lesson` |
+| Recipes | `academy_recipes`, `academy_recipe` |
+| Playbooks | `academy_playbooks`, `academy_playbook` |
+| Search | `academy_search`, `academy_tutor_context`, `search`, `fetch` |
+
+**21 with a key.** The nine account tools on top: `academy_stats`, `academy_next_lesson`, `academy_progress_complete`, `academy_quiz`, `academy_quiz_submit`, `academy_review`, `academy_review_grade`, `academy_certificates`, `academy_tutor`.
+
+Without a key those nine are not merely locked, they are absent from the tool list. That matters for hooks and matchers: a rule pointing at one of them simply never matches.
+
+### Slash commands
+
+| Command | What it does |
+|---|---|
+| `/academy-start` | What the Academy is, the six levels, where to begin |
+| `/academy-search <topic>` | Find lessons, recipes and playbooks on a subject |
+| `/academy-lesson <slug or topic>` | Open one lesson and get taught it, not shown it |
+| `/academy-recipes [topic]` | List the hands-on guides, or walk through one |
+| `/academy-progress` | XP, rank, streak, next lesson (needs a key) |
+
+### Hook
+
+One, in [`hooks/hooks.json`](./hooks/hooks.json). Finishing a lesson pulls its quiz:
+
+| Event | What fires | Cost |
+|---|---|---|
+| `PostToolUse` after `academy_progress_complete` | `academy_quiz` for that lesson | one read, no money |
+
+It is active as long as the plugin is enabled. There is nothing to paste into your settings. Without an API key the source tool does not exist, so the matcher never fires and the hook costs you nothing.
 
 ## Pricing
 
-Free. There is no paid tier and nothing to buy.
+Free, and there is nothing to buy. No paid tier, no card, no account needed to read.
 
-All 21 tools, all 6 levels and the full lesson tree are open, no account needed. Of the 88 recipes, 58 are written and free to read. The remaining 30 are not for sale either: 25 are placeholders for phases 11 to 15 that still have to be written, and 5 stay internal on purpose. An optional account only adds personal progress tracking, quizzes and certificates.
+Of the 88 recipes, 58 are written and open. The other 30 are not for sale either: 25 are placeholders for phases 11 to 15 that still have to be written, and 5 stay internal on purpose.
 
-An account is optional. It only buys you saved progress, quizzes and certificates.
+An account buys you saved progress, quizzes and certificates. That is all it buys.
 
-## Verify
+## Run it yourself
 
-After install:
+The server is open source, so you do not have to take our word for what it does:
 
 ```bash
-claude
-# In claude:
-/academy-stats
+npx -y mcp-academy@latest
 ```
-
-Should show your XP, rank, league, current streak, recommended next lesson.
 
 ## Source
 
 - [mcp-academy on npm](https://www.npmjs.com/package/mcp-academy)
 - [Academy site](https://studiomeyer.academy)
-- [GitHub: mcp-academy source](https://github.com/studiomeyer-io/mcp-academy)
-- [Recipe 16.5 — Academy hook bundle](https://studiomeyer.academy/recipes/16.5-academy-hook-bundle)
+- [mcp-academy source on GitHub](https://github.com/studiomeyer-io/mcp-academy)
 
 ## License
 

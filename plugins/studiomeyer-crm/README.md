@@ -1,6 +1,6 @@
 # studiomeyer-crm
 
-MCP-native CRM for Claude Code. 37 tools covering companies, contacts, deals, pipeline, leads, follow-ups, notes, Stripe sync, and health scoring — all through natural language in your terminal.
+MCP-native CRM for Claude Code. 37 tools covering companies, contacts, deals, pipeline, leads, follow-ups, notes, Stripe sync, and health scoring, all through natural language in your terminal.
 
 ## Install
 
@@ -25,24 +25,42 @@ First tool call triggers OAuth 2.1 + Magic Link.
 - **Intelligence:** `crm_search`, `crm_health_scores`, `crm_dashboard`, `crm_stats`, `crm_revenue_report`
 - **Stripe:** `crm_sync_stripe`
 - **Import/Export:** `crm_import` (HubSpot, Pipedrive, generic CSV), `crm_export`
-- **Handoff:** `crm_handoff` — task queue between Claude Code and Cowork
+- **Handoff:** `crm_handoff` (task queue between Claude Code and Cowork)
 - **Audit:** `crm_audit_log`
 - **Credentials:** `crm_connect` (Zero-Knowledge, Browser-form, AES-256-GCM)
-- **Guide:** `crm_guide` — 12 embedded topics
+- **Guide:** `crm_guide` (12 embedded topics)
 
 ### Slash commands
-- `/crm-dashboard` — pipeline, MRR, health, follow-ups at a glance
-- `/crm-contact` — add, update, search contacts
-- `/crm-deal` — create or update deals with auto-probability by stage
-- `/crm-pipeline` — deals by stage with forecast and MRR/ARR
-- `/crm-followups` — what needs attention today
-- `/crm-search` — full-text search across all CRM entities
+- `/crm-dashboard`: pipeline, MRR, health, follow-ups at a glance
+- `/crm-contact`: add, update, search contacts
+- `/crm-deal`: create or update deals with auto-probability by stage
+- `/crm-pipeline`: deals by stage with forecast and MRR/ARR
+- `/crm-followups`: what needs attention today
+- `/crm-search`: full-text search across all CRM entities
+
+### Hook
+
+One, in [`hooks/hooks.json`](./hooks/hooks.json). Live as long as the plugin is enabled,
+nothing to paste into your settings.
+
+| Event | What fires | What it costs you |
+|---|---|---|
+| `UserPromptSubmit` | `crm_search` on your prompt, three hits | one read against your own tenant |
+
+Read this before you enable it: it sends **every prompt you type** to
+`crm.studiomeyer.io`, into your own tenant. That is what "auto-lookup" means. If you do
+not want it, disable the plugin or delete that entry from `hooks/hooks.json` in your
+installed copy.
+
+`crm_log_interaction` is deliberately not a hook. It needs a `companyId`, a channel and a
+direction, and only the conversation knows those. An earlier version of this plugin tried
+it anyway and shipped a hook that could never have worked.
 
 ### Skill
-- **crm-workflow** — when to use which tool, how a Lead becomes a Contact becomes a Deal, how to run a daily CRM routine
+- **crm-workflow:** when to use which tool, how a Lead becomes a Contact becomes a Deal, how to run a daily CRM routine
 
 ### Subagent
-- **lead-qualifier** — takes unstructured text (email, note, message) and extracts a structured lead for ingestion
+- **lead-qualifier:** takes unstructured text (email, note, message) and extracts a structured lead for ingestion
 
 ## Pricing
 

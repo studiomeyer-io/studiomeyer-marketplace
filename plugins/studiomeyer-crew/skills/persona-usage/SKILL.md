@@ -14,13 +14,13 @@ A persona is worth activating when **one specialist perspective** will produce a
 - The user asks a question framed from a specific role's viewpoint ("how would a CFO evaluate this?")
 - The task has a canonical framework in that domain (RICE/ICE for PM, DORA for CTO, AARRR for CMO)
 - The output format matters (financial tables for CFO, user stories for PM, creative briefs for Creative Director)
-- The conversation will span multiple messages in that role — 5+ minutes of specialist work
+- The conversation will span multiple messages in that role, 5+ minutes of specialist work
 
 Bad signals for activation:
 
-- Simple factual question — stay in default Claude
-- Mixed-domain question — do not switch mid-answer, stay general
-- User just wants information, not a decision — default works
+- Simple factual question: stay in default Claude
+- Mixed-domain question: do not switch mid-answer, stay general
+- User just wants information, not a decision: default works
 
 ## When to pick which persona
 
@@ -35,7 +35,7 @@ Bad signals for activation:
 | Brand voice, visual direction, copy, storytelling | **Creative Director** |
 | Customer communication, docs, FAQ, onboarding flow | **Support Lead** |
 
-## Workflows — when one persona is not enough
+## Workflows: when one persona is not enough
 
 Three built-in workflows chain personas for complex tasks:
 
@@ -61,14 +61,14 @@ Workflows are the right answer when the user says "I need a full analysis" or "w
 Saved to `~/.mcp-crew/personas/<name>.md`. Loads automatically next time.
 
 Good custom persona ideas:
-- **legal-advisor** — DACH contract review, GDPR, IP
-- **devrel** — community, open source, developer content
-- **customer-success** — retention, expansion, health scoring
-- **recruiter** — sourcing, screening, offer negotiation
+- **legal-advisor:** DACH contract review, GDPR, IP
+- **devrel:** community, open source, developer content
+- **customer-success:** retention, expansion, health scoring
+- **recruiter:** sourcing, screening, offer negotiation
 
-## Memory Bridge — why it matters
+## Memory Bridge: why it matters
 
-If `studiomeyer-memory` is installed, activating a persona auto-loads relevant context via `nex_search`. The CFO queries revenue/costs/pricing history. The CTO queries architecture and tech debt. This is a massive quality lift — the persona starts with your history already in hand, not cold.
+If `studiomeyer-memory` is installed, activating a persona auto-loads relevant context via `nex_search`. The CFO queries revenue/costs/pricing history. The CTO queries architecture and tech debt. This is a massive quality lift. The persona starts with your history already in hand, not cold.
 
 To take full advantage:
 1. Install both `studiomeyer-memory` and `studiomeyer-crew`.
@@ -77,14 +77,14 @@ To take full advantage:
 
 ## Anti-patterns
 
-- **Activating and never switching back.** Personas have constraints. If the user's next question is off-topic, `/crew-deactivate` first — do not answer a CMO question in CTO voice.
-- **Stacking personas.** Only one persona is active at a time. To switch, activate the new one — it replaces the old.
+- **Activating and never switching back.** Personas have constraints. If the user's next question is off-topic, `/crew-deactivate` first. Do not answer a CMO question in CTO voice.
+- **Stacking personas.** Only one persona is active at a time. To switch, activate the new one. It replaces the old.
 - **Treating a persona as a new model.** It is a prompt. You still have Claude's base capabilities. The persona guides style and framework, not reasoning power.
 - **Using `crew-workflow` for simple tasks.** Workflows are multi-turn and token-heavy. For a single question, activate one persona.
 - **Forgetting `crew_feedback`.** Feedback drives persona evolution. Rate after significant work.
 
 ## Honest caveats
 
-- Personas are behavioral guides, not new expertise. If the user asks a CTO persona about quantum physics, it will still be Claude guessing at quantum physics — just in structured format.
+- Personas are behavioral guides, not new expertise. If the user asks a CTO persona about quantum physics, it will still be Claude guessing at quantum physics, just in structured format.
 - The Crew server runs on Dev2 lokal (not Supabase), so uptime is best-effort. For mission-critical work, fall back to default Claude if Crew is unavailable.
 - Crew is free forever. No Pro tier, no paywalls, no quotas on persona activations. This is the point.

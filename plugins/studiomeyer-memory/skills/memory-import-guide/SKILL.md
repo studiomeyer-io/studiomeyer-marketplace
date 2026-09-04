@@ -10,9 +10,9 @@ StudioMeyer Memory can ingest conversation history from five platforms via `nex_
 ## How import works
 
 1. **Export** the conversation history from the source platform to a file on disk.
-2. **Analyze** — `nex_import` with `action: "analyze"` shows a preview of what would be imported without writing anything.
+2. **Analyze:** `nex_import` with `action: "analyze"` shows a preview of what would be imported without writing anything.
 3. **Confirm** the preview with the user.
-4. **Import** — `nex_import` with `action: "import"` writes sessions, learnings, entities, and decisions into the user's tenant.
+4. **Import:** `nex_import` with `action: "import"` writes sessions, learnings, entities, and decisions into the user's tenant.
 
 Always run analyze first. Imports are append-only but still worth confirming, especially when there are thousands of messages.
 
@@ -48,11 +48,11 @@ Always run analyze first. Imports are append-only but still worth confirming, es
 
 `nex_import` uses Haiku (fast, cheap) to extract:
 
-- **Sessions** — one per conversation, with start/end timestamps from the source
-- **Learnings** — salient facts, insights, and patterns from the conversation
-- **Entities** — people, projects, tools, services mentioned
-- **Decisions** — explicit choices the user made with stated rationale
-- **Relations** — links between extracted entities
+- **Sessions:** one per conversation, with start/end timestamps from the source
+- **Learnings:** salient facts, insights, and patterns from the conversation
+- **Entities:** people, projects, tools, services mentioned
+- **Decisions:** explicit choices the user made with stated rationale
+- **Relations:** links between extracted entities
 
 The extraction is conservative. It will not invent facts. If a conversation is pure chit-chat, very little will be saved.
 
@@ -76,15 +76,15 @@ Show these numbers to the user. If they agree, run again with `action: "import"`
 ## Gotchas
 
 - **Large exports take minutes.** ChatGPT exports with 500+ conversations can take 5-10 minutes. Tell the user to be patient.
-- **Dedup is server-side.** The Gatekeeper rejects duplicates automatically. If you re-import the same file, nothing new shows up — that is correct.
+- **Dedup is server-side.** The Gatekeeper rejects duplicates automatically. If you re-import the same file, nothing new shows up. That is correct.
 - **Free tier quota.** Imports count toward the daily call limit. Big imports may hit it. Pro or Team tier removes the concern.
 - **PII.** The server does not scrub personal data. If the user's export contains emails, addresses, or credentials, those will be ingested as-is and searchable. Warn the user before importing exports from shared accounts.
 
 ## Post-import
 
 After a big import, suggest:
-1. `nex_deduplicate` with `action: "scan"` — finds fuzzy duplicates the strict gatekeeper missed
-2. `nex_consolidate` — merges similar clusters
-3. `nex_synthesize` — generates high-level guides from the imported material
+1. `nex_deduplicate` with `action: "scan"`: finds fuzzy duplicates the strict gatekeeper missed
+2. `nex_consolidate`: merges similar clusters
+3. `nex_synthesize`: generates high-level guides from the imported material
 
 These are optional but make the imported memory more navigable.
