@@ -2,7 +2,10 @@
   "mcpServers": {
     "studiomeyer-academy": {
       "command": "npx",
-      "args": ["-y", "mcp-academy@latest"]
+      "args": ["-y", "mcp-academy@latest"],
+      "env": {
+        "ACADEMY_API_KEY": "${user_config.ACADEMY_API_KEY}"
+      }
     }
   }
 }

@@ -13,10 +13,10 @@ Run a citability analysis on **$ARGUMENTS**.
    - Research links
 2. Also call `geo_content_audit` with the same URL for the 10-dimension audit based on the KDD 2024 GEO paper (+30-40% citations when done right).
 3. Present:
-   - **Citability score** — 0-100
-   - **What is working** — sub-scores above 70
-   - **What is missing** — sub-scores below 50, with the specific fix
-   - **Top improvement** — the single change that would raise the score most
+   - **Citability score:** 0-100
+   - **What is working:** sub-scores above 70
+   - **What is missing:** sub-scores below 50, with the specific fix
+   - **Top improvement:** the single change that would raise the score most
 4. If the score is below 40, tell the user this page needs substantial work before it gets cited by any AI. If above 70, tell them they are in the top tier.
 
 Be honest about the numbers. Do not soften weak scores.

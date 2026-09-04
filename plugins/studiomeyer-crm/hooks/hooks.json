@@ -1,0 +1,19 @@
+{
+  "description": "StudioMeyer CRM: look up the customer behind every prompt. Read-only. Loads automatically while the plugin is enabled.",
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "mcp_tool",
+            "server": "plugin:studiomeyer-crm:studiomeyer-crm",
+            "tool": "crm_search",
+            "input": { "query": "${prompt}", "limit": 3 },
+            "timeout": 10,
+            "statusMessage": "CRM: customer lookup..."
+          }
+        ]
+      }
+    ]
+  }
+}

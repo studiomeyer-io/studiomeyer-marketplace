@@ -1,0 +1,21 @@
+{
+  "_comment": "Input schemas of the Memory tools this plugin drives from a hook. Read off mcp-nex src/schemas/index.ts, not from memory. Extend when a hook starts calling a new tool.",
+  "nex_search": {
+    "properties": {
+      "query": { "type": "string" },
+      "limit": { "type": "number" },
+      "project": { "type": "string" },
+      "agentId": { "type": "string" }
+    },
+    "required": ["query"]
+  },
+  "nex_session_end": {
+    "properties": {
+      "sessionId": { "type": "string" },
+      "summary": { "type": "string" },
+      "tasks": { "type": "array" },
+      "success": { "type": "boolean" }
+    },
+    "required": []
+  }
+}

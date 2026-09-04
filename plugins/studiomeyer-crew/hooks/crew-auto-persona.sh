@@ -1,21 +1,15 @@
 #!/usr/bin/env bash
-# StudioMeyer Crew — SessionStart persona-suggestion bash hook
+# StudioMeyer Crew: SessionStart persona-suggestion bash hook
 #
 # Maps the current working directory to a Crew persona slug and injects a
 # context hint that nudges the assistant to call crew_activate({persona}) for
 # the right domain. NOT a mcp_tool hook because cwd → persona mapping needs
 # regex case-statement that mcp_tool cannot do.
 #
-# Install:
-#   mkdir -p ~/.claude/hooks
-#   curl -sSL https://raw.githubusercontent.com/studiomeyer-io/studiomeyer-marketplace/main/plugins/studiomeyer-crew/hooks/crew-auto-persona.sh \
-#     -o ~/.claude/hooks/crew-auto-persona.sh
-#   chmod +x ~/.claude/hooks/crew-auto-persona.sh
+# Wired up by hooks/hooks.json in this plugin. Nothing to install by hand:
+# it runs on SessionStart for as long as the studiomeyer-crew plugin is enabled.
 #
-# Then add to ~/.claude/settings.json under hooks.SessionStart:
-#   { "type": "command", "command": "/home/<you>/.claude/hooks/crew-auto-persona.sh", "timeout": 5 }
-#
-# Override the path mapping by editing the case statement below.
+# Override the mapping by editing the case statement below.
 
 set -euo pipefail
 
@@ -34,6 +28,7 @@ esac
 cat <<EOF
 {
   "hookSpecificOutput": {
+    "hookEventName": "SessionStart",
     "additionalContext": "Crew suggestion: cwd matches persona '${persona}'. Call crew_activate({persona: '${persona}'}) to load the focused-expert system prompt for this domain. Override with a different persona via /crew-list."
   }
 }

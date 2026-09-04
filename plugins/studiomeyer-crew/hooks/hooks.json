@@ -1,0 +1,17 @@
+{
+  "description": "StudioMeyer Crew: suggest a persona that fits the directory you opened. Writes nothing, calls no server.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/crew-auto-persona.sh\"",
+            "timeout": 5,
+            "statusMessage": "Crew: matching persona to directory..."
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "description": "StudioMeyer Academy: when you finish a lesson, pull its quiz. Needs an Academy API key. Without one the source tool does not exist and the hook never matches.",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "mcp__plugin_studiomeyer-academy_studiomeyer-academy__academy_progress_complete",
+        "hooks": [
+          {
+            "type": "mcp_tool",
+            "server": "plugin:studiomeyer-academy:studiomeyer-academy",
+            "tool": "academy_quiz",
+            "input": { "slug": "${tool_input.slug}" },
+            "timeout": 10,
+            "statusMessage": "Academy: loading quiz..."
+          }
+        ]
+      }
+    ]
+  }
+}

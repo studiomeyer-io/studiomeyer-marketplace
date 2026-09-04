@@ -1,77 +1,56 @@
-# StudioMeyer Academy — Hook Recipes
+# StudioMeyer Academy hooks
 
-Two `mcp_tool` hooks that surface Academy state automatically: SessionStart loads stats + next lesson; PostToolUse auto-fetches the quiz when you complete a lesson.
+One hook ships with this plugin. It is live the moment the plugin is enabled and gone again when you disable it.
 
-> **Requires Claude Code v2.1.118 or later** (released 2026-04-23).
+| Event | What fires | What it costs you |
+|---|---|---|
+| `PostToolUse` after `academy_progress_complete` | `academy_quiz` for the lesson you just finished | One read. Needs an Academy API key, see below. |
 
-## What gets installed
+## Before you enable it
 
-| Event | Matcher | Tool | Why |
-|---|---|---|---|
-| `SessionStart` | (always) | `academy_stats` + `academy_next_lesson` | Every session starts with XP, rank, league, recommended next lesson — without typing a command |
-| `PostToolUse` | `mcp__studiomeyer-academy__academy_progress_complete` | `academy_quiz` (lesson_slug from tool_input) | When you finish a lesson, the quiz is fetched automatically |
+Finish a lesson, get its quiz, without asking for it. That is the whole hook.
 
-The cascade pattern (lesson-complete → quiz-fetch) is opt-in. Remove the `PostToolUse` entry if you'd rather decide manually when to do the quiz.
+Without an API key it costs you exactly nothing, because it never runs: the tool that
+triggers it does not exist. The server exposes 12 public tools without a key and 21 with
+one, and `academy_progress_complete` is on the account side. A matcher pointing at a tool
+that is not in the list simply never matches.
 
-## Compliance
+## What this plugin deliberately does not hook
 
-All three tools are read-only:
+**Nothing fires on `SessionStart` any more.** The old recipe loaded `academy_stats` and
+`academy_next_lesson` there. Two problems, either one fatal. Both are account tools, absent
+without a key. And `SessionStart` runs before the MCP servers have finished connecting, so
+even with a key the call lands on a server that is not there yet:
 
-- **Idempotent.** All pure reads — same time, same stats; same lesson, same quiz.
-- **Fast.** Each <500ms.
-- **Deterministic.** Same input, same output.
-- **Side-effect-free.** Read-only.
-- **GDPR.** Data flows to your own Academy tenant on `studiomeyer.academy`. No leaderboards unless you opt-in.
-
-## Install
-
-### Option A — Helper script (recommended)
-
-```bash
-bash <(curl -sSL https://raw.githubusercontent.com/studiomeyer-io/studiomeyer-marketplace/main/plugins/studiomeyer-academy/hooks/install.sh)
+```
+Hooks: mcp_tool hook skipped, MCP server '...' not connected
 ```
 
-### Option B — Manual copy-paste
+Your progress is one command away instead: `/academy-progress`.
 
-Open `~/.claude/settings.json` and merge the `hooks` key from [`recipe.json`](./recipe.json) into the existing top-level `hooks` object.
+**The quiz call passes `slug`, not `lesson_slug`.** The old recipe used `lesson_slug`,
+which the tool has never accepted. And it cannot pass `level`, because every substituted
+value arrives as a string and `level` is declared a number.
 
-### Option C — Slash command
-
-```bash
-/plugin install studiomeyer-academy@studiomeyer
-/academy-install-hooks
-```
-
-## Verify it works
+## Verify it actually fires
 
 ```bash
-claude
+claude --debug
 ```
+Finish a lesson. The statusline flashes `Academy: loading quiz...`. Without a key, nothing
+happens, which is correct.
 
-You should see two status messages flash on session start: "Academy: loading stats..." and "Academy: finding next lesson...". The assistant's first response should reference your current XP and the recommended next lesson without you asking.
+## Why the hooks moved
 
-To test the cascade:
+Until version 1.2.0 every plugin here shipped a `hooks/recipe.json` and an `install.sh`
+that merged it into `~/.claude/settings.json`. The README explained that Claude Code's
+plugin policy forbade shipping hooks directly.
 
-```bash
-# In claude:
-# Complete a lesson via your usual flow (academy_lesson + academy_progress_complete)
-```
+That was wrong. A plugin has always been able to ship `hooks/hooks.json`, which Claude Code
+merges with your own hooks while the plugin is enabled. What the policy forbids is a plugin
+writing into your settings file, which is exactly what our install script did.
 
-Status: "Academy: loading quiz..." should flash. The assistant inlines the quiz, you answer, `academy_quiz_submit` closes the loop.
-
-## Optional — UserPromptSubmit recipe-trigger (bash hook)
-
-The Academy recipe 16.5 also describes a `UserPromptSubmit` bash hook that nudges the assistant toward `academy_concept_search` + `academy_list_recipes` when the user asks "how do I X" / "wie mache ich X". It's a `command` hook (bash) because extracting topic from prompt needs regex. See the [recipe](https://studiomeyer.academy/recipes/16.5-academy-hook-bundle) for the bash variant.
-
-## Uninstall
-
-```bash
-bash <(curl -sSL https://raw.githubusercontent.com/studiomeyer-io/studiomeyer-marketplace/main/plugins/studiomeyer-academy/hooks/install.sh) --uninstall
-```
-
-## Source
-
-- [Recipe 16.1 — mcp_tool hook intro](https://studiomeyer.academy/recipes/16.1-mcp-tool-hook-intro)
-- [Recipe 16.5 — Academy hook bundle](https://studiomeyer.academy/recipes/16.5-academy-hook-bundle)
-- [Claude Code Hooks Reference](https://code.claude.com/docs/en/hooks)
-- [mcp-academy on npm](https://www.npmjs.com/package/mcp-academy)
+The detour had a price. Because `recipe.json` was never a file Claude Code loads, nothing
+ever checked it against reality, and all twelve hook entries across the five plugins were
+dead. See [../../docs/hooks.md](../../docs/hooks.md) for each fault and the rule that now
+catches it.

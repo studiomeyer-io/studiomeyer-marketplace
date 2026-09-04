@@ -1,0 +1,23 @@
+{
+  "_comment": "Input schemas of the CRM tools this plugin drives from a hook. Read off mcp-crm src/server.ts. crm_log_interaction is listed so the validator can explain why it cannot be a hook: it needs a companyId that only the conversation knows.",
+  "crm_search": {
+    "properties": {
+      "query": { "type": "string" },
+      "limit": { "type": "number" }
+    },
+    "required": ["query"]
+  },
+  "crm_log_interaction": {
+    "properties": {
+      "companyId": { "type": "string" },
+      "channel": { "type": "string" },
+      "direction": { "type": "string" },
+      "content": { "type": "string" },
+      "contactId": { "type": "string" },
+      "dealId": { "type": "string" },
+      "subject": { "type": "string" },
+      "metadata": { "type": "object" }
+    },
+    "required": ["companyId", "channel", "direction", "content"]
+  }
+}

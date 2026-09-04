@@ -1,6 +1,6 @@
 ---
 description: Vertical chronological timeline of recent learnings, decisions and sessions from StudioMeyer Memory
-argument-hint: [days]
+argument-hint: "[days]"
 ---
 
 Render a vertical chronological timeline of the user's recent memory activity.

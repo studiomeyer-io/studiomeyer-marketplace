@@ -1,7 +1,9 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-plugin.json",
   "name": "studiomeyer-academy",
-  "version": "1.0.0",
-  "description": "Memory-First AI Operator School. 23 tools — lessons, quiz, recipes, knowledge graph, certificates, AI tutor. Open Source MCP server (npm: mcp-academy, MIT). Works with Claude Code, Cursor, Codex. Free.",
+  "displayName": "StudioMeyer Academy",
+  "version": "1.2.0",
+  "description": "Memory-First AI Operator School. 12 tools open to everyone, 21 once you add an Academy API key at install time. Lessons, quizzes, recipes, knowledge graph, certificates, AI tutor. Open source MCP server (npm mcp-academy, MIT). Free.",
   "author": {
     "name": "StudioMeyer",
     "email": "hello@studiomeyer.io",
@@ -19,5 +21,14 @@
     "ai-tutor",
     "open-source",
     "npm"
-  ]
+  ],
+  "userConfig": {
+    "ACADEMY_API_KEY": {
+      "type": "string",
+      "title": "Academy API key",
+      "description": "Optional. Unlocks the nine account tools: progress, quizzes, certificates, XP and the personal tutor. Leave empty to use the 12 public tools. Get one at https://studiomeyer.academy",
+      "sensitive": true,
+      "required": false
+    }
+  }
 }

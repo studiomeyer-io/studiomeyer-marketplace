@@ -1,91 +1,58 @@
-# StudioMeyer CRM — Hook Recipes
+# StudioMeyer CRM hooks
 
-Two `mcp_tool` hooks that integrate the CRM into your Claude Code workflow without manual `crm_search` or `crm_log_interaction` calls. Customer-mentions become instant context. Email-drafts become automatic interaction logs.
+One hook ships with this plugin. It is live the moment the plugin is enabled and gone again when you disable it. There is nothing to paste into your settings.
 
-> **Requires Claude Code v2.1.118 or later** (released 2026-04-23). Older versions don't support `type: "mcp_tool"` hooks.
+| Event | What fires | What it costs you |
+|---|---|---|
+| `UserPromptSubmit` | `crm_search` on your prompt, three results | One read against your own tenant. |
 
-## What gets installed
+## Before you enable it
 
-| Event | Matcher / Filter | Tool | Why |
-|---|---|---|---|
-| `UserPromptSubmit` | (always) | `crm_search` (limit 3) | Pre-fetch top-3 fuzzy matches on every prompt — pipeline stage, last interaction, open deals |
-| `PostToolUse` | `Edit\|Write` with `if: Edit(*email*)\|Write(*email*)\|Edit(*draft*)\|Write(*draft*)` | `crm_log_interaction` (type=email-draft, dedup by `tool_use_id`) | Auto-log email drafts when you save them to a file with "email" or "draft" in the path |
+It sends **every prompt you type** to `crm.studiomeyer.io`, into your own tenant. That is
+what "auto-lookup" means: mention a customer and Claude already has their record. Decide
+with your eyes open.
 
-Both tools satisfy the [five-rule check](https://studiomeyer.academy/recipes/16.1-mcp-tool-hook-intro):
+Nothing here costs money. The call counts against your daily quota like any other.
 
-- **Idempotent.** `crm_search` is read-only. `crm_log_interaction` dedupes server-side via `tool_use_id` — re-firing on the same Edit returns the existing record.
-- **Fast.** Both <300ms typical against a warm Postgres.
-- **Deterministic.** `crm_search` ranks by relevance + recency; same query → same ranking. `crm_log_interaction` returns `{success, id}`.
-- **Side-effect-free without user trigger.** `crm_search` is read-only. `crm_log_interaction` writes, but only fires after the user explicitly drafted an email.
-- **GDPR.** Customer data stays in your own CRM tenant on `crm.studiomeyer.io`. No third parties.
+Two more things worth knowing. The result of a `UserPromptSubmit` hook is handed to the
+model as context on every turn, so five recalled memories are five memories the model reads
+before it answers you. That is the point, and it is also tokens. Lower the `limit` in
+`hooks/hooks.json` if your sessions run long.
 
-## Caveat — UserPromptSubmit fires on every prompt
+And the hook fires on the raw prompt, before Claude has understood it. It is a keyword
+recall, not a considered search. When you want the considered one, ask for it.
 
-Every user prompt costs one `crm_search` (typically <200ms). For most users this is fine. If you find it too aggressive, swap `UserPromptSubmit` to the bash variant from [recipe 16.3](https://studiomeyer.academy/recipes/16.3-crm-hook-bundle) which only fires on capitalized multi-word patterns like `Acme Corp`.
+## What this plugin deliberately does not hook
 
-## Install
+**`crm_log_interaction` is deliberately not a hook.** It requires `companyId`, `channel`,
+`direction` and `content`. A hook knows the file you edited, not which company it belongs
+to. The old recipe fired it after every edit to a path containing "email" or "draft",
+passing three fields that do not exist in the schema and none of the four required ones.
+It could never have worked, and its documentation described a deduplication key the server
+has never had.
 
-### Option A — Helper script (recommended)
+Logging an interaction belongs in the conversation, where the company is known. Ask for it,
+or let the `crm-workflow` skill do it.
 
-```bash
-bash <(curl -sSL https://raw.githubusercontent.com/studiomeyer-io/studiomeyer-marketplace/main/plugins/studiomeyer-crm/hooks/install.sh)
-```
-
-Backs up existing settings, idempotently merges via `jq`, validates JSON. Re-running is a NOOP.
-
-### Option B — Manual copy-paste
-
-Open `~/.claude/settings.json` and merge the `hooks` key from [`recipe.json`](./recipe.json) into the existing top-level `hooks` object.
-
-### Option C — Slash command
+## Verify it actually fires
 
 ```bash
-/plugin install studiomeyer-crm@studiomeyer
-/crm-install-hooks
+claude --debug
 ```
+Type anything. The statusline flashes `CRM: customer lookup...`, and the debug log carries
+a line beginning `Hooks: mcp_tool calling plugin:studiomeyer-crm:studiomeyer-crm/crm_search`.
 
-## Verify it works
+## Why the hooks moved
 
-```bash
-claude
-# Type: "draft a quick reply to Acme Corp about pricing"
-```
+Until version 1.2.0 every plugin here shipped a `hooks/recipe.json` and an `install.sh`
+that merged it into `~/.claude/settings.json`. The README explained that Claude Code's
+plugin policy forbade shipping hooks directly.
 
-Watch the statusline — "CRM: customer lookup..." should flash. Then check the dashboard at https://crm.studiomeyer.io/dashboard.
+That was wrong. A plugin has always been able to ship `hooks/hooks.json`, which Claude Code
+merges with your own hooks while the plugin is enabled. What the policy forbids is a plugin
+writing into your settings file, which is exactly what our install script did.
 
-To trigger the email-draft logger:
-
-```bash
-# In claude:
-# "save this draft to /tmp/email-acme-pricing.md"
-```
-
-The dashboard should show a new "email-draft" interaction logged for Acme Corp.
-
-## Uninstall
-
-```bash
-bash <(curl -sSL https://raw.githubusercontent.com/studiomeyer-io/studiomeyer-marketplace/main/plugins/studiomeyer-crm/hooks/install.sh) --uninstall
-```
-
-## Troubleshooting
-
-**`crm_log_interaction` runs but no record appears?**
-
-Check that the file path contains `email` or `draft` — the `if`-filter is case-sensitive. `Email` in caps will not match `*email*`. The Permission-Rule syntax is documented in the [Claude Code Permissions Reference](https://code.claude.com/docs/en/settings).
-
-**`crm_search` returns no results even though the customer exists?**
-
-`crm_search` uses fuzzy matching. Very short prompts (<3 chars) or punctuation-heavy text won't match anything. Check directly:
-
-```bash
-# In claude:
-/crm-dashboard
-```
-
-## Source
-
-- [Recipe 16.1 — mcp_tool hook intro](https://studiomeyer.academy/recipes/16.1-mcp-tool-hook-intro)
-- [Recipe 16.3 — CRM hook bundle (full walkthrough)](https://studiomeyer.academy/recipes/16.3-crm-hook-bundle)
-- [Claude Code Hooks Reference](https://code.claude.com/docs/en/hooks)
-- [StudioMeyer CRM MCP](https://crm.studiomeyer.io)
+The detour had a price. Because `recipe.json` was never a file Claude Code loads, nothing
+ever checked it against reality, and all twelve hook entries across the five plugins were
+dead. See [../../docs/hooks.md](../../docs/hooks.md) for each fault and the rule that now
+catches it.

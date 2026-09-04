@@ -1,5 +1,5 @@
 ---
-description: Health overview of StudioMeyer Memory — counts, sprint state, action items
+description: Health overview of StudioMeyer Memory (counts, sprint state, action items)
 ---
 
 Give the user a quick health overview of their StudioMeyer Memory.

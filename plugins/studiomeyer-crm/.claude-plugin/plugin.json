@@ -1,7 +1,9 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-plugin.json",
   "name": "studiomeyer-crm",
-  "version": "1.0.0",
-  "description": "Headless MCP-native CRM for Claude Code. 37 tools for companies, contacts, deals, pipeline, leads, follow-ups, notes, health scores, and Stripe sync. Zero-Knowledge credential storage. Magic Link authentication. EU Frankfurt hosting. Free tier available.",
+  "displayName": "StudioMeyer CRM",
+  "version": "1.2.0",
+  "description": "Headless MCP-native CRM. 37 tools for companies, contacts, deals, pipeline, leads, follow-ups, notes, health scores and Stripe sync. Looks up the customer behind every prompt without any setup. Zero-Knowledge credential storage, Magic Link auth, EU Frankfurt hosting, free tier.",
   "author": {
     "name": "StudioMeyer",
     "email": "hello@studiomeyer.io",

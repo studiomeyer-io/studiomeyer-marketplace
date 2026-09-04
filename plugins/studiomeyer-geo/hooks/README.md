@@ -1,91 +1,55 @@
-# StudioMeyer GEO — Hook Recipes
+# StudioMeyer GEO hooks
 
-One `mcp_tool` hook that auto-audits your AI-visibility score whenever you edit a Markdown file. Stop hook with `if`-filter on `*.md`/`*.mdx` keeps it from firing on pure code changes.
+None, on purpose. This file explains the decision, because the plugin used to ship one.
 
-> **Requires Claude Code v2.1.118 or later** (released 2026-04-23).
+## Before you enable it
 
-## What gets installed
+`geo_check` sends your URL to eight LLM providers. In `search` mode that is 0.30 to 0.50
+US dollars a run at the provider. Even the free `training` mode takes five to fifteen
+seconds every time.
 
-| Event | Filter | Tool | Why |
-|---|---|---|---|
-| `Stop` | `if: Edit(*.md\|*.mdx)\|Write(*.md\|*.mdx)` | `geo_check` (mode=training) | Re-score AI visibility every time you finish a session that touched Markdown |
+A hook fires without being asked. A tool that spends money and takes fifteen seconds should
+not fire without being asked. Run it when you want it:
 
-The hook fires on `Stop` only when at least one Edit/Write to a `.md` or `.mdx` file happened in the session. Pure JavaScript or config edits do not trigger a GEO check.
-
-> **Verify the `if`-filter on Stop with `claude --debug` once.** The Permission-Rule `if`-filter syntax (`Tool(glob)|Tool(glob)`) is documented for tool-use events (PreToolUse/PostToolUse). Whether Claude Code v2.1.118 evaluates it on `Stop` by checking tools used during the session is **runtime-version-dependent**. If your version doesn't, `geo_check` will fire on every session stop including pure code-edit sessions — `mode: training` is free but each call still takes 5-15s. Run `claude --debug` once after install to confirm the filter actually narrows the trigger.
-
-## Important — Replace placeholders before installing
-
-The shipped `recipe.json` has placeholder values:
-
-- `url`: `https://example.com` → replace with your homepage, `/blog`, `/docs`, etc. Must be public.
-- `brand`: `Your Brand` → replace with the brand name LLMs should associate with the URL.
-
-The helper script (Option A below) will prompt you for both values before merging.
-
-## Compliance
-
-- **Idempotent.** Same URL+brand+mode within the 1-hour cache window returns identical scores.
-- **Fast.** `geo_check` in `training` mode: 5-15s. In `search` mode: 30-50s (8 parallel LLM API calls). 60s timeout covers worst case.
-- **Deterministic.** Same input, same output (within cache window).
-- **Side-effect-free without user trigger.** Read-only (queries LLMs, doesn't modify them).
-- **GDPR.** Sends URL + brand to 8 LLM provider APIs. Use only public URLs. Don't audit internal staging environments.
-
-## Install
-
-### Option A — Helper script (recommended)
-
-```bash
-bash <(curl -sSL https://raw.githubusercontent.com/studiomeyer-io/studiomeyer-marketplace/main/plugins/studiomeyer-geo/hooks/install.sh)
+```
+/geo-check https://your-site.example
 ```
 
-Prompts for `url` and `brand`, then idempotently merges into `~/.claude/settings.json`. Backup created automatically.
+## What this plugin deliberately does not hook
 
-### Option B — Manual copy-paste
+**The old `Stop` hook never fired once.** It carried an `if` filter to limit it to Markdown
+edits, and Claude Code can only evaluate `if` on tool events. On `Stop` the hook is dropped
+entirely, with one line in the debug log that nobody was reading:
 
-Open [`recipe.json`](./recipe.json), replace the two placeholders (`url` and `brand`), then merge the `hooks` key into the top-level `hooks` object in `~/.claude/settings.json`.
-
-### Option C — Slash command
-
-```bash
-/plugin install studiomeyer-geo@studiomeyer
-/geo-install-hooks
+```
+Hook if condition "Edit(*.md|*.mdx)|Write(*.md|*.mdx)" cannot be evaluated for non-tool event Stop
 ```
 
-## Verify it works
+Two more faults sat in the same four lines. The `server` field held the bare key rather
+than the plugin-scoped name, so the lookup would have failed anyway, and the `if` value
+held four permission rules where Claude Code parses one.
 
-Edit any `.mdx` file in a Claude Code session, then end with Ctrl-D:
+The shipped `hooks/README.md` even asked users to verify the filter with `claude --debug`
+because we were unsure whether it worked. Nobody ran it. The measurement takes a minute
+and would have saved four months.
 
-```bash
-cd /your/content/repo
-claude
-# In claude: "edit blog/2026-04-28-my-post.mdx — add one sentence at the top"
-# Ctrl-D
-```
+## Verify it actually fires
 
-Watch the statusline — "GEO: auto-audit after content edit..." should flash for ~5-15 seconds. Check the dashboard at https://geo.studiomeyer.io/dashboard — a new run should appear under your URL with a 0-100 score.
+Nothing to verify. If you want the audit on a schedule rather than on demand,
+`geo_schedule` does it server-side, which is the right place for something that costs
+money.
 
-## Cost notes
+## Why the hooks moved
 
-- `mode: "training"` (default) is **free** — uses LLM training-data recall, no native web-search.
-- `mode: "search"` costs $0.30-0.50/run because it triggers 8 native web-search API calls in parallel.
-- The 1-hour cache window means a flurry of edits in quick succession only triggers one billable run.
+Until version 1.2.0 every plugin here shipped a `hooks/recipe.json` and an `install.sh`
+that merged it into `~/.claude/settings.json`. The README explained that Claude Code's
+plugin policy forbade shipping hooks directly.
 
-If you want every session to spend on `mode: "search"`, edit the merged `recipe.json` after install and add `"mode": "search"` to the `input` object.
+That was wrong. A plugin has always been able to ship `hooks/hooks.json`, which Claude Code
+merges with your own hooks while the plugin is enabled. What the policy forbids is a plugin
+writing into your settings file, which is exactly what our install script did.
 
-## Optional — UserPromptSubmit context-injection
-
-The Academy recipe 16.4 also describes a bash hook that nudges the assistant to call `geo_simulate` on visibility-related questions. That hook lives in `~/.claude/hooks/geo-trigger-check.sh` and isn't shipped here as a `mcp_tool` recipe (bash needs to extract the URL from the prompt — too fragile for `mcp_tool`). See the [recipe](https://studiomeyer.academy/recipes/16.4-geo-crew-hook-bundle) for the bash variant.
-
-## Uninstall
-
-```bash
-bash <(curl -sSL https://raw.githubusercontent.com/studiomeyer-io/studiomeyer-marketplace/main/plugins/studiomeyer-geo/hooks/install.sh) --uninstall
-```
-
-## Source
-
-- [Recipe 16.1 — mcp_tool hook intro](https://studiomeyer.academy/recipes/16.1-mcp-tool-hook-intro)
-- [Recipe 16.4 — GEO + Crew hook bundles](https://studiomeyer.academy/recipes/16.4-geo-crew-hook-bundle)
-- [Claude Code Hooks Reference](https://code.claude.com/docs/en/hooks)
-- [StudioMeyer GEO MCP](https://geo.studiomeyer.io)
+The detour had a price. Because `recipe.json` was never a file Claude Code loads, nothing
+ever checked it against reality, and all twelve hook entries across the five plugins were
+dead. See [../../docs/hooks.md](../../docs/hooks.md) for each fault and the rule that now
+catches it.

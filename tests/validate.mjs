@@ -67,6 +67,50 @@ function parseFrontmatter(mdPath) {
   return fm;
 }
 
+/**
+ * Frontmatter faults that this file's own regex parser is blind to.
+ *
+ * Claude Code parses frontmatter with a real YAML parser. Two constructs are
+ * legal to the regex above and fatal to YAML, and in both cases the command
+ * loads at runtime with every field silently dropped:
+ *
+ *   1. An unquoted value containing ": ". YAML reads that as a nested mapping
+ *      and throws "mapping values are not allowed in this context". The whole
+ *      block fails and every field is dropped. This one already shipped, as
+ *      `(default: most recent)` in memory-session-replay.md. Nothing here
+ *      caught it; `claude plugin validate` did, months later.
+ *   2. An unquoted value starting with [ { > | * & ! % @ ` or containing " #".
+ *      Milder: `argument-hint: [days]` parses, but as the array ["days"]
+ *      rather than the string it was meant to be. Claude Code tolerates that
+ *      today. We quote anyway, because a value whose type depends on its first
+ *      character is a fault waiting for a stricter reader.
+ */
+function frontmatterYamlFaults(mdPath) {
+  const raw = readFileSync(mdPath, "utf8");
+  const match = raw.match(/^---\n([\s\S]*?)\n---/);
+  if (!match) return [];
+  const faults = [];
+  for (const line of match[1].split("\n")) {
+    const m = line.match(/^([a-zA-Z_-]+):\s*(.*)$/);
+    if (!m) continue;
+    const [, key, rawValue] = m;
+    const value = rawValue.trim();
+    if (value === "") continue;
+    const quoted = /^(".*"|'.*')$/.test(value);
+    if (quoted) continue;
+    if (value.includes(": ")) {
+      faults.push(`${key}: unquoted value contains ": ", which YAML reads as a nested mapping. Quote it or use brackets.`);
+    }
+    if (/^[[{>|*&!%@`]/.test(value)) {
+      faults.push(`${key}: unquoted value starts with "${value[0]}", so YAML gives it a type you did not ask for. Quote it.`);
+    }
+    if (/\s#/.test(value)) {
+      faults.push(`${key}: unquoted value contains " #", which YAML reads as a comment. Quote it.`);
+    }
+  }
+  return faults;
+}
+
 console.log("StudioMeyer Marketplace Validator");
 console.log("=================================\n");
 
@@ -199,9 +243,11 @@ for (const entry of marketplace.plugins) {
     if (cmds.length === 0) warn(`${entry.name}: commands/ is empty`);
     else ok(`${entry.name}: ${cmds.length} commands`);
     for (const cmd of cmds) {
-      const fm = parseFrontmatter(join(commandsDir, cmd));
+      const cmdPath = join(commandsDir, cmd);
+      const fm = parseFrontmatter(cmdPath);
       if (!fm) fail(`${entry.name}: command ${cmd} has no YAML frontmatter`);
       else if (!fm.description) fail(`${entry.name}: command ${cmd} missing description in frontmatter`);
+      for (const f of frontmatterYamlFaults(cmdPath)) fail(`${entry.name}: command ${cmd} ${f}`);
     }
   }
 
@@ -222,6 +268,7 @@ for (const entry of marketplace.plugins) {
         else if (!fm.name) fail(`${entry.name}: skill ${s}/SKILL.md missing "name"`);
         else if (!fm.description)
           fail(`${entry.name}: skill ${s}/SKILL.md missing "description"`);
+        for (const f of frontmatterYamlFaults(skillPath)) fail(`${entry.name}: skill ${s}/SKILL.md ${f}`);
       }
     }
   }
@@ -232,12 +279,14 @@ for (const entry of marketplace.plugins) {
     const agents = readdirSync(agentsDir).filter((f) => f.endsWith(".md"));
     if (agents.length > 0) ok(`${entry.name}: ${agents.length} agent(s)`);
     for (const a of agents) {
-      const fm = parseFrontmatter(join(agentsDir, a));
+      const agentPath = join(agentsDir, a);
+      const fm = parseFrontmatter(agentPath);
       if (!fm) fail(`${entry.name}: agent ${a} has no YAML frontmatter`);
       else {
         if (!fm.name) fail(`${entry.name}: agent ${a} missing "name"`);
         if (!fm.description) fail(`${entry.name}: agent ${a} missing "description"`);
       }
+      for (const f of frontmatterYamlFaults(agentPath)) fail(`${entry.name}: agent ${a} ${f}`);
     }
   }
 }

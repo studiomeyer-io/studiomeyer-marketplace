@@ -1,122 +1,65 @@
-# StudioMeyer Memory — Hook Recipes
+# StudioMeyer Memory hooks
 
-Four `mcp_tool` hooks that turn the Memory MCP from "a tool I call manually" into "a memory layer that always knows what I did". Stop, PreCompact, UserPromptSubmit, SubagentStop — all idempotent, all fast, all GDPR-compliant.
+Two hooks ship with this plugin. They are live the moment the plugin is enabled and gone again when you disable it. There is nothing to paste into your settings.
 
-> **Requires Claude Code v2.1.118 or later** (released 2026-04-23). Older versions don't support `type: "mcp_tool"` hooks.
-
-## What gets installed
-
-| Event | Tool | Why |
+| Event | What fires | What it costs you |
 |---|---|---|
-| `Stop` | `nex_summarize` + `nex_session_end` | Auto-persist every session without manual calls |
-| `PreCompact` | `nex_summarize` | Snapshot before Claude Code drops context |
-| `UserPromptSubmit` | `nex_search` (limit 5) | Pre-fetch relevant memories before the assistant responds |
-| `SubagentStop` | `nex_session_end` | Close the parent session_id when a subagent finishes (idempotent NOOP if already ended) |
+| `UserPromptSubmit` | `nex_search` on your prompt, five results | One read against your own tenant. |
+| `SessionEnd` | `nex_session_end` with no arguments | One write. Closes the session the server opened for you. |
 
-All four tools satisfy the [five-rule check](https://studiomeyer.academy/recipes/16.1-mcp-tool-hook-intro):
+## Before you enable it
 
-- **Idempotent.** `nex_summarize` and `nex_session_end` are NOOP on duplicate. `nex_search` is read-only.
-- **Fast.** Typical <2s against a warm DB. Cold start <8s. Well under the 30s timeout.
-- **Deterministic.** Same session_id → same summary. Same query → similar (recency-decayed) recall.
-- **Side-effect-free without user trigger.** `nex_search` is read-only. Writes happen only on user-implicit triggers (Stop, SubagentStop).
-- **GDPR.** All data flows to your own Memory tenant on `memory.studiomeyer.io`. No third parties.
+The first hook sends **every prompt you type** to `memory.studiomeyer.io`, into your own
+tenant, isolated from everyone else's. That is what "recall on every prompt" means, and it
+is the whole reason to install a memory plugin. Decide with your eyes open.
 
-> **Note on subagent findings.** The Academy recipe 16.2 example uses a `${last_assistant_message}` substitution variable to feed `nex_learn` from the SubagentStop event. As of Claude Code v2.1.118, that variable is **not** in the canonical substitution list (`${cwd}`, `${tool_input.field}`, `${tool_name}`, `${session_id}`, `${duration_ms}`, `${user_prompt}`). To avoid sending the literal string `${last_assistant_message}` to `nex_learn`, this bundle uses `nex_session_end` on `SubagentStop` instead. To capture a subagent's findings as a learning, call `nex_learn` explicitly from the parent assistant after the subagent returns.
+Nothing here costs money. Both calls count against your daily quota like any other call,
+and on the free tier's 5,000 a day you will not notice them.
 
-## Install
+Two more things worth knowing. The result of a `UserPromptSubmit` hook is handed to the
+model as context on every turn, so five recalled memories are five memories the model reads
+before it answers you. That is the point, and it is also tokens. Lower the `limit` in
+`hooks/hooks.json` if your sessions run long.
 
-### Option A — Helper script (recommended)
+And the hook fires on the raw prompt, before Claude has understood it. It is a keyword
+recall, not a considered search. When you want the considered one, ask for it.
 
-```bash
-bash <(curl -sSL https://raw.githubusercontent.com/studiomeyer-io/studiomeyer-marketplace/main/plugins/studiomeyer-memory/hooks/install.sh)
-```
+## What this plugin deliberately does not hook
 
-The script:
-1. Backs up your existing `~/.claude/settings.json` to `~/.claude/settings.json.bak-{timestamp}`.
-2. Merges the four hooks idempotently using `jq` (so re-running won't duplicate hooks).
-3. Verifies the resulting JSON parses.
-4. Prints a 1-line `claude --debug` smoke test.
+**`nex_summarize` is deliberately not a hook.** It needs a written summary, and only the
+model can write one. A hook has no language: it can pass fields from the event, nothing
+more. The old recipe called it anyway, with no `summary` at all.
 
-### Option B — Manual copy-paste
+**`nex_session_end` sits on `SessionEnd`, not on `Stop`.** `Stop` fires after every single
+answer. Closing your memory session there would close it dozens of times a day, the first
+time about ten seconds into your work.
 
-Open `~/.claude/settings.json` and add the contents of [`recipe.json`](./recipe.json) (just the `hooks` key) into the existing top-level `hooks` object. If `hooks` doesn't exist yet, copy the whole `hooks` block in.
+**Nothing fires on `SubagentStop`.** The old recipe closed the session there, and the
+`session_id` on that event is the parent's. It would have ended the session you were still
+working in.
 
-### Option C — Slash command
-
-After installing the `studiomeyer-memory` plugin via:
-
-```bash
-/plugin install studiomeyer-memory@studiomeyer
-```
-
-run:
-
-```bash
-/memory-install-hooks
-```
-
-The command outputs the snippet ready for your settings.
-
-## Verify it works
-
-```bash
-claude
-# Type something, then Ctrl-D
-```
-
-Watch the statusline:
-- "Memory: summarizing session..."
-- "Memory: closing session..."
-
-Check the dashboard at https://memory.studiomeyer.io/dashboard — your latest session should be listed under "Sessions" with an auto-generated summary.
-
-For the SubagentStop hook:
-
-```bash
-claude
-# "use the research subagent to find 3 articles about MCP hooks"
-# Wait for the subagent to finish
-```
-
-Watch the statusline — "Memory: closing subagent session..." flashes. The dashboard at https://memory.studiomeyer.io/dashboard will show your session marked closed (idempotent — re-firing is a NOOP).
-
-## Uninstall
-
-If you used the helper script:
-
-```bash
-bash <(curl -sSL https://raw.githubusercontent.com/studiomeyer-io/studiomeyer-marketplace/main/plugins/studiomeyer-memory/hooks/install.sh) --uninstall
-```
-
-Or restore the backup:
-
-```bash
-mv ~/.claude/settings.json.bak-{timestamp} ~/.claude/settings.json
-```
-
-Or open `~/.claude/settings.json` and remove the four hook entries manually.
-
-## Troubleshooting
-
-**Hook silently doesn't fire?**
+## Verify it actually fires
 
 ```bash
 claude --debug
 ```
+Type anything. The statusline flashes `Memory: recalling...`, and the debug log carries a
+line beginning `Hooks: mcp_tool calling plugin:studiomeyer-memory:studiomeyer-memory/nex_search`.
 
-`--debug` prints hook-execution details. Common causes: typo in `server` name (must be `studiomeyer-memory` exactly), MCP server not connected (`/mcp` shows it as offline), or `claude --debug` shows a `tool not found` because the server is still booting up.
+If instead you see `MCP server '...' not connected`, the server has not finished
+authenticating. Run any Memory tool once, click the Magic Link, and try again.
 
-**UserPromptSubmit hook feels too aggressive?**
+## Why the hooks moved
 
-Every prompt costs one `nex_search` call (typically <200ms). If you'd rather only fire on trigger phrases ("hatten wir das schon", "what did we discuss"), use the bash hook variant from recipe [16.2](https://studiomeyer.academy/recipes/16.2-memory-hook-bundle) instead.
+Until version 1.2.0 every plugin here shipped a `hooks/recipe.json` and an `install.sh`
+that merged it into `~/.claude/settings.json`. The README explained that Claude Code's
+plugin policy forbade shipping hooks directly.
 
-**SubagentStop hook is firing too often?**
+That was wrong. A plugin has always been able to ship `hooks/hooks.json`, which Claude Code
+merges with your own hooks while the plugin is enabled. What the policy forbids is a plugin
+writing into your settings file, which is exactly what our install script did.
 
-The shipped `SubagentStop` hook calls `nex_session_end` (idempotent NOOP if the session is already ended). If a long-running session spawns many subagents, you'll see the statusline flash on each subagent return — but the actual DB writes are NOOP after the first. Remove the entry from settings.json if the statusline flashes annoy you.
-
-## Source
-
-- [Recipe 16.1 — mcp_tool hook intro](https://studiomeyer.academy/recipes/16.1-mcp-tool-hook-intro)
-- [Recipe 16.2 — Memory hook bundle (full walkthrough)](https://studiomeyer.academy/recipes/16.2-memory-hook-bundle)
-- [Claude Code Hooks Reference](https://code.claude.com/docs/en/hooks)
-- [StudioMeyer Memory MCP Documentation](https://memory.studiomeyer.io)
+The detour had a price. Because `recipe.json` was never a file Claude Code loads, nothing
+ever checked it against reality, and all twelve hook entries across the five plugins were
+dead. See [../../docs/hooks.md](../../docs/hooks.md) for each fault and the rule that now
+catches it.

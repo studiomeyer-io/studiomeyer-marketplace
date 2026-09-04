@@ -10,12 +10,12 @@ Run a GEO audit for **$ARGUMENTS**.
 3. Call `geo_check` from the `studiomeyer-geo` MCP server with:
    - `url`: the URL
    - `brand`: the brand name
-4. While waiting, also trigger `geo_discovery_stack` in parallel if possible — it works without API keys and gives instant value.
+4. While waiting, also trigger `geo_discovery_stack` in parallel if possible. It works without API keys and gives instant value.
 5. When results come back, present:
-   - **Overall GEO score** — 0-100 with one-line interpretation
-   - **Sub-scores** — Brand awareness, Citation strength, Share of voice, Sentiment, Discovery stack, Content quality
-   - **Top 3 quick wins** — the highest-impact fixes from `geo_recommendations`
-   - **Platform breakdown** — which of the 8 LLMs mentioned the brand, which did not
+   - **Overall GEO score:** 0-100 with one-line interpretation
+   - **Sub-scores:** Brand awareness, Citation strength, Share of voice, Sentiment, Discovery stack, Content quality
+   - **Top 3 quick wins:** the highest-impact fixes from `geo_recommendations`
+   - **Platform breakdown:** which of the 8 LLMs mentioned the brand, which did not
 6. End with a one-line suggestion: should the user run `/geo-discovery` or `/geo-citations` next?
 
 Do not invent scores. Only report what the server returned.

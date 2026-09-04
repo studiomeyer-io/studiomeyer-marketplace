@@ -1,7 +1,9 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-plugin.json",
   "name": "studiomeyer-geo",
-  "version": "1.0.1",
-  "description": "Generative Engine Optimization for Claude Code. 30 tools measuring AI visibility across ChatGPT, Gemini, Perplexity, Claude, Grok, DeepSeek, Meta AI, and Copilot. Discovery stack audits, schema generator, citation analysis, async job/poll checks. Most tools work without any LLM API key. Magic Link authentication. Free tier available.",
+  "displayName": "StudioMeyer GEO",
+  "version": "1.2.0",
+  "description": "Generative Engine Optimization. 30 tools measuring AI visibility across ChatGPT, Gemini, Perplexity, Claude, Grok, DeepSeek, Meta AI and Copilot. Discovery stack audits, schema generator, citation analysis, async job checks. Most tools work without any LLM API key. Ships no hooks on purpose: an audit costs money and time, so it stays behind /geo-check. Magic Link auth, free tier.",
   "author": {
     "name": "StudioMeyer",
     "email": "hello@studiomeyer.io",

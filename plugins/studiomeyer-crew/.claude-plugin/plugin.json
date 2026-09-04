@@ -1,7 +1,9 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-plugin.json",
   "name": "studiomeyer-crew",
-  "version": "1.0.0",
-  "description": "13 expert agent personas for Claude Code — CEO, CFO, CMO, CTO, PM, Analyst, Creative Director and Support Lead plus 5 specialists. Zero extra API cost, runs inside your Claude subscription. Includes 3 multi-persona workflows (strategy-review, content-pipeline, product-launch). Free.",
+  "displayName": "StudioMeyer Crew",
+  "version": "1.2.0",
+  "description": "13 expert agent personas: CEO, CFO, CMO, CTO, PM, Analyst, Creative Director and Support Lead, plus five specialists. Three multi-persona workflows. Suggests a persona matching the directory you opened. Zero extra API cost, personas run inside your own Claude subscription. Free.",
   "author": {
     "name": "StudioMeyer",
     "email": "hello@studiomeyer.io",

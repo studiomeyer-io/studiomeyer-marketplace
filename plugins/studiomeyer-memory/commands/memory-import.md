@@ -14,7 +14,7 @@ Supported platforms: `chatgpt`, `claude`, `gemini`, `copilot`, `perplexity`.
 3. Call `nex_import` from the `studiomeyer-memory` MCP server with:
    - `platform`: as given
    - `file_path`: absolute path
-   - `action: "analyze"` first — this returns a preview of what would be imported without writing anything
+   - `action: "analyze"` first: this returns a preview of what would be imported without writing anything
 4. Show the user the preview: estimated number of sessions, learnings, entities, and decisions that would be created.
 5. Ask: "Import this? (yes/no)"
 6. If yes, call `nex_import` again with `action: "import"`. Report the final counts.
