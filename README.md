@@ -10,7 +10,7 @@
 ![License](https://img.shields.io/github/license/studiomeyer-io/studiomeyer-marketplace?style=flat-square&color=22c55e&label=license)
 ![Last commit](https://img.shields.io/github/last-commit/studiomeyer-io/studiomeyer-marketplace?style=flat-square&color=88c0d0&label=updated)
 ![GitHub stars](https://img.shields.io/github/stars/studiomeyer-io/studiomeyer-marketplace?style=flat-square&color=ffd700&logo=github&label=stars)
-<!-- /badges -->Five MCP plugins for Claude Code: Memory, CRM, GEO, Crew, Academy. One command installs the full suite. The hooks ship inside the plugins and work the moment you enable one, with nothing to paste into your settings. Magic Link authentication. EU Frankfurt hosting.
+<!-- /badges -->Five MCP plugins for Claude Code: Memory, CRM, GEO, Crew, Academy. One command installs the full suite. The hooks ship inside the plugins and work the moment you enable one, with nothing to paste into your settings. Magic Link authentication. Memory primary hosting in Hetzner Nuremberg.
 
 ## A note from us
 
@@ -121,7 +121,7 @@ The bare MCP URL gives you the tools. The plugin gives you the workflow around t
 
 ## Infrastructure
 
-- **Hosting:** Supabase EU Frankfurt (Germany), SOC 2 Type II, GDPR-ready
+- **Memory hosting:** Hetzner Nuremberg (Germany) for the primary server and database. Model processing and backup locations are described in the [Memory privacy policy](https://studiomeyer.io/en/privacy).
 - **Auth:** OAuth 2.1 + PKCE S256 + Magic Link email verification (Resend SMTP)
 - **Rate limits:** Per tier, per OAuth token
 - **Uptime:** Monitored via Telegram + auto-heal on Prod

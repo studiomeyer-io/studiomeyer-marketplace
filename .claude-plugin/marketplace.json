@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
   "name": "studiomeyer",
   "version": "1.2.0",
-  "description": "StudioMeyer MCP Suite for Claude Code. Hosted SaaS plugins: Memory (56 tools, knowledge graph), CRM (37 tools, contacts and pipeline), GEO (30 tools, AI visibility across 8 LLMs), Crew (13 expert personas). Plus the Academy MCP (open source, 12 public tools and 21 with a key). Hooks ship inside the plugins and work the moment a plugin is enabled, with nothing to paste into your settings. Magic Link authentication. EU Frankfurt hosting. Memory and CRM have a free tier plus Pro 9 EUR and Team 19 EUR per month. GEO, Crew and Academy are free.",
+  "description": "StudioMeyer MCP Suite for Claude Code. Hosted SaaS plugins: Memory (56 tools, knowledge graph), CRM (37 tools, contacts and pipeline), GEO (30 tools, AI visibility across 8 LLMs), Crew (13 expert personas). Plus the Academy MCP (open source, 12 public tools and 21 with a key). Hooks ship inside the plugins and work the moment a plugin is enabled, with nothing to paste into your settings. Magic Link authentication. Memory primary hosting in Hetzner Nuremberg. Memory and CRM have a free tier plus Pro 9 EUR and Team 19 EUR per month. GEO, Crew and Academy are free.",
   "owner": {
     "name": "StudioMeyer",
     "email": "hello@studiomeyer.io",
@@ -88,6 +88,19 @@
         "hooks"
       ],
       "homepage": "https://studiomeyer.academy"
+    },
+    {
+      "name": "studiomeyer-memory-chat",
+      "source": "./plugins/studiomeyer-memory-chat",
+      "category": "knowledge-management",
+      "description": "User-directed StudioMeyer Memory for Claude chat and Cowork: recall saved memories, inspect linked concepts, and save a specific item when asked. Remote MCP connector with OAuth; no automatic prompt hooks or chat-history import.",
+      "tags": [
+        "memory",
+        "knowledge-graph",
+        "hosted",
+        "chat"
+      ],
+      "homepage": "https://studiomeyer.io/en/services/memory"
     }
   ]
 }

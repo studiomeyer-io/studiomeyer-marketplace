@@ -1,0 +1,20 @@
+{
+  "name": "studiomeyer-memory-chat",
+  "displayName": "StudioMeyer Memory",
+  "version": "0.1.2",
+  "description": "Recall information you saved in StudioMeyer Memory, explore linked concepts, and save a specific new fact when you ask. Works with your own account through the StudioMeyer Memory connector.",
+  "author": {
+    "name": "StudioMeyer",
+    "email": "hello@studiomeyer.io",
+    "url": "https://studiomeyer.io"
+  },
+  "homepage": "https://studiomeyer.io/en/services/memory",
+  "repository": "https://github.com/studiomeyer-io/studiomeyer-marketplace",
+  "license": "MIT",
+  "keywords": [
+    "memory",
+    "knowledge-graph",
+    "productivity",
+    "mcp"
+  ]
+}

@@ -27,6 +27,9 @@ jobs:
         with:
           node-version: "22"
 
+      - name: Smoke route and revision regression tests
+        run: node --test tests/smoke.test.mjs
+
       - name: Manifests, commands, skills, agents
         run: node tests/validate.mjs
 
