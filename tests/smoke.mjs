@@ -2,9 +2,11 @@
 // Live E2E Smoke Test: hits every hosted MCP endpoint and verifies reachability
 // and baseline MCP protocol compliance. Run with: node tests/smoke.mjs
 
-import { readdirSync, readFileSync } from "node:fs";
+import { readFileSync } from "node:fs";
 import { join, resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { execFileSync } from "node:child_process";
+import { isDeepStrictEqual } from "node:util";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -37,8 +39,30 @@ async function fetchWithTimeout(url, opts = {}, ms = 10000) {
   }
 }
 
+export function healthUrlFor(mcpUrl) {
+  const url = new URL(mcpUrl);
+  if (!/\/(?:mcp|mcp-directory)\/?$/.test(url.pathname)) {
+    throw new Error(`No known health route for ${url.pathname}`);
+  }
+  url.pathname = url.pathname.replace(/\/(?:mcp|mcp-directory)\/?$/, "/health");
+  url.search = "";
+  url.hash = "";
+  return url.href;
+}
+
+export function isMcpAliveStatus(status) {
+  // Explicit protocol/auth responses only. Missing routes must never pass.
+  return [200, 202, 400, 401, 403, 406, 415].includes(status);
+}
+
+export function rawManifestTarget(env, event, localHead) {
+  const ref = event?.pull_request?.head?.sha || env.GITHUB_SHA || localHead;
+  if (!/^[a-f0-9]{40}$/i.test(ref)) throw new Error("Expected an immutable Git commit SHA");
+  return `https://raw.githubusercontent.com/studiomeyer-io/studiomeyer-marketplace/${ref}/.claude-plugin/marketplace.json`;
+}
+
 async function checkHealth(pluginName, url) {
-  const healthUrl = url.replace(/\/mcp\/?$/, "/health");
+  const healthUrl = healthUrlFor(url);
   try {
     const r = await fetchWithTimeout(healthUrl, {}, 8000);
     if (r.status === 200) ok(`${pluginName} health`, `${healthUrl} → 200`);
@@ -49,18 +73,16 @@ async function checkHealth(pluginName, url) {
 }
 
 async function checkMcpEndpoint(pluginName, url) {
-  // MCP servers require a valid initialize call. We just verify the endpoint
-  // responds to an OPTIONS or returns a known error shape for an empty POST.
+  // Probe a request without credentials. Auth or protocol rejection is expected;
+  // this reachability test does not replace an authenticated tool scan.
   try {
     const r = await fetchWithTimeout(
       url,
       { method: "POST", headers: { "content-type": "application/json" }, body: "{}" },
       8000
     );
-    // Accept any non-5xx as "endpoint reachable". MCP will 400/401/406 for
-    // invalid requests but that means it's alive. 5xx means server broken.
-    if (r.status >= 500) {
-      fail(`${pluginName} mcp`, `${url} → ${r.status} (server error)`);
+    if (!isMcpAliveStatus(r.status)) {
+      fail(`${pluginName} mcp`, `${url} → ${r.status} (not a supported MCP response)`);
     } else {
       ok(`${pluginName} mcp`, `${url} → ${r.status} (endpoint alive)`);
     }
@@ -70,8 +92,11 @@ async function checkMcpEndpoint(pluginName, url) {
 }
 
 async function checkGitHubRaw() {
-  const url =
-    "https://raw.githubusercontent.com/studiomeyer-io/studiomeyer-marketplace/main/.claude-plugin/marketplace.json";
+  const event = process.env.GITHUB_EVENT_PATH
+    ? JSON.parse(readFileSync(process.env.GITHUB_EVENT_PATH, "utf8"))
+    : null;
+  const localHead = execFileSync("git", ["rev-parse", "HEAD"], { cwd: ROOT, encoding: "utf8" }).trim();
+  const url = rawManifestTarget(process.env, event, localHead);
   try {
     const r = await fetchWithTimeout(url, {}, 8000);
     if (r.status !== 200) {
@@ -79,23 +104,15 @@ async function checkGitHubRaw() {
       return;
     }
     const data = await r.json();
-    // Compare the published manifest against the one in this working tree
-    // instead of a hard-coded count. The count used to be pinned at 4 and went
-    // stale the moment the Academy plugin landed, so the check failed while
-    // nothing was actually wrong.
-    const local = JSON.parse(
-      readFileSync(join(ROOT, ".claude-plugin", "marketplace.json"), "utf8"),
-    );
-    const expected = local.plugins.length;
+    // Compare the exact tested branch/PR revision, never main against a PR.
+    // Compare the full manifest so changed names or endpoints also fail.
+    const local = JSON.parse(readFileSync(join(ROOT, ".claude-plugin", "marketplace.json"), "utf8"));
     if (!Array.isArray(data.plugins)) {
-      fail("github raw", "published marketplace.json has no plugins array");
-    } else if (data.plugins.length === expected) {
-      ok("github raw", `marketplace.json lists ${data.plugins.length} plugins`);
+      fail("github raw", "manifest has no plugins array");
+    } else if (isDeepStrictEqual(data, local)) {
+      ok("github raw", `${url} matches the checkout (${data.plugins.length} plugins)`);
     } else {
-      fail(
-        "github raw",
-        `published manifest lists ${data.plugins.length} plugins, this tree has ${expected} (unpushed changes?)`,
-      );
+      fail("github raw", `${url} differs from the checked-out marketplace manifest`);
     }
   } catch (e) {
     fail("github raw", e.message);
@@ -159,7 +176,9 @@ async function main() {
   process.exit(0);
 }
 
-main().catch((e) => {
-  console.error("Smoke test crashed:", e);
-  process.exit(2);
-});
+if (process.argv[1] && resolve(process.argv[1]) === __filename) {
+  main().catch((e) => {
+    console.error("Smoke test crashed:", e);
+    process.exit(2);
+  });
+}

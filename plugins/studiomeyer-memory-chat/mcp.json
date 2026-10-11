@@ -1,0 +1,24 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "studiomeyer-memory": {
+      "type": "streamable-http",
+      "url": "https://memory.studiomeyer.io/mcp-directory",
+      "extensions": {
+        "com.openai": {
+          "auth": {
+            "type": "oauth",
+            "client": {
+              "mode": "dcr"
+            },
+            "resource": "https://memory.studiomeyer.io/mcp-directory",
+            "defaultScopes": [
+              "mcp:read",
+              "mcp:write"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

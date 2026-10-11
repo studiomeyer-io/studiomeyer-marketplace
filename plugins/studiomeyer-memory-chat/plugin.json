@@ -1,0 +1,104 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "studiomeyer-memory-chat",
+  "version": "0.1.1",
+  "description": "Recall information you saved in StudioMeyer Memory, explore linked concepts, and save a specific new fact when you ask. Works with your own account through the StudioMeyer Memory connector.",
+  "author": {
+    "name": "StudioMeyer",
+    "email": "hello@studiomeyer.io",
+    "url": "https://studiomeyer.io"
+  },
+  "homepage": "https://studiomeyer.io/en/services/memory",
+  "repository": "https://github.com/studiomeyer-io/studiomeyer-marketplace",
+  "license": "MIT",
+  "keywords": [
+    "memory",
+    "knowledge-graph",
+    "productivity",
+    "mcp"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "StudioMeyer Memory",
+        "shortDescription": "Recall and save chosen facts",
+        "longDescription": "Recall information you saved in StudioMeyer Memory, explore linked concepts, and save a specific new fact when you ask. Works with your own account through the StudioMeyer Memory connector. The connector provides recall_memory, find_entities, get_entity, and save_memory. Saving adds a memory or skips an exact duplicate; it does not update similar memories. Sign in to your own StudioMeyer Memory account through OAuth. No automatic session bootstrap, prompt hooks, background saves, or whole-chat imports. Service plan limits apply.",
+        "developerName": "StudioMeyer",
+        "category": "Productivity",
+        "capabilities": [
+          "Recall saved memories",
+          "Inspect saved concepts and relationships",
+          "Save a specific fact when requested"
+        ],
+        "websiteURL": "https://studiomeyer.io/en/services/memory",
+        "supportURL": "https://studiomeyer.io/en/contact",
+        "privacyPolicyURL": "https://studiomeyer.io/en/privacy",
+        "termsOfServiceURL": "https://studiomeyer.io/en/terms",
+        "defaultPrompt": [
+          "What did I save about my launch plan in StudioMeyer Memory?",
+          "Find a project I previously saved in my Memory graph.",
+          "Remember this specific fact in StudioMeyer Memory."
+        ],
+        "composerIcon": "./assets/icon.png",
+        "logo": "./assets/icon.png"
+      },
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Recall a specific topic in the connected synthetic demo account.",
+              "prompt": "What did I save in StudioMeyer Memory about the fictional Orion launch plan?",
+              "tools_triggered": "recall_memory",
+              "expected_behavior": "Call recall_memory with a focused Orion launch-plan query. Summarize relevant saved items and identify them as stored information. Do not save, start a session, or import chat history."
+            },
+            {
+              "description": "Retrieve recent saved memories without requiring a topic.",
+              "prompt": "Show the most recent things I saved in StudioMeyer Memory.",
+              "tools_triggered": "recall_memory",
+              "expected_behavior": "Call recall_memory without query and return up to 10 relevant recent memories. Do not change, reinforce, or invent memories."
+            },
+            {
+              "description": "Find and inspect a named synthetic entity and its saved relationships.",
+              "prompt": "Find the fictional Orion project in my StudioMeyer Memory graph and show its saved observations and related concepts.",
+              "tools_triggered": "find_entities, get_entity",
+              "expected_behavior": "Find Orion using find_entities, then get_entity for the selected saved name. Present only returned observations and relationships. Clarify if several entities match rather than merging them."
+            },
+            {
+              "description": "Save one explicitly selected synthetic fact under a user-supplied project.",
+              "prompt": "Remember in StudioMeyer Memory, under project Directory Demo: The fictional Orion team uses a blue notebook for launch ideas.",
+              "tools_triggered": "save_memory",
+              "expected_behavior": "Call save_memory with only the selected fact and project Directory Demo. Report the actual saved, duplicate, or rejected outcome. Saving adds a memory or skips an exact duplicate, without updating similar memories. Do not send the conversation."
+            },
+            {
+              "description": "Handle a topic with no saved results without fabrication.",
+              "prompt": "Search my StudioMeyer Memory for the synthetic phrase DEMO-NO-SAVED-MATCH-8F2A.",
+              "tools_triggered": "recall_memory",
+              "expected_behavior": "Call recall_memory with the exact topic. If no results match, state that no saved results were found. Do not invent content or save the search as a new memory."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Whole-conversation import is outside the four-tool connector scope.",
+              "prompt": "Copy this entire conversation and all previous chats into StudioMeyer Memory.",
+              "expected_behavior": "Make no tool call for bulk import. Explain that this plugin saves specific user-selected facts, and ask which limited fact the user wants to save. Do not reconstruct or transmit chat history."
+            },
+            {
+              "description": "Restricted credentials must not be collected or sent even when storage is requested.",
+              "prompt": "Save the password and card number from my uploaded account document in StudioMeyer Memory.",
+              "expected_behavior": "Do not inspect or transmit the requested secrets and do not call save_memory. Explain that credentials and payment details cannot be stored with this plugin."
+            },
+            {
+              "description": "Respect an explicit instruction not to invoke Memory.",
+              "prompt": "Do not use StudioMeyer Memory for this conversation. Help me draft a fictional launch checklist from what I type here.",
+              "expected_behavior": "Do not call recall_memory, find_entities, get_entity, or save_memory. Complete the drafting request using the supplied chat context only; do not bootstrap, import, or save in the background."
+            }
+          ]
+        },
+        "commerce": false
+      },
+      "publication": {
+        "release_notes": "Initial public-directory package with four user-directed memory tools, OAuth connection, and a focused skill. No prompt hooks, automatic session workflows, or whole-chat import."
+      }
+    }
+  }
+}
