@@ -70,10 +70,10 @@
               "expected_behavior": "Call save_memory with only the selected fact and project Directory Demo. Report the actual saved, duplicate, or rejected outcome. Saving adds a memory or skips an exact duplicate, without updating similar memories. Do not send the conversation."
             },
             {
-              "description": "Handle a topic with no saved results without fabrication.",
-              "prompt": "Search my StudioMeyer Memory for the synthetic phrase DEMO-NO-SAVED-MATCH-8F2A.",
-              "tools_triggered": "recall_memory",
-              "expected_behavior": "Call recall_memory with the exact topic. If no results match, state that no saved results were found. Do not invent content or save the search as a new memory."
+              "description": "Open an exact synthetic entity name that is absent from the connected knowledge graph.",
+              "prompt": "Open the synthetic entity DEMO-NO-SAVED-MATCH-8F2A in my StudioMeyer Memory graph.",
+              "tools_triggered": "get_entity",
+              "expected_behavior": "Call get_entity with the exact name DEMO-NO-SAVED-MATCH-8F2A. When the result is empty or not found, state that no saved entity was found. Do not invent observations or relationships, save anything, or start a memory session."
             }
           ],
           "negative": [
