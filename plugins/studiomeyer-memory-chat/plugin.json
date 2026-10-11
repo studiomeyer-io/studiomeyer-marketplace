@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "studiomeyer-memory-chat",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Recall information you saved in StudioMeyer Memory, explore linked concepts, and save a specific new fact when you ask. Works with your own account through the StudioMeyer Memory connector.",
   "author": {
     "name": "StudioMeyer",
@@ -94,10 +94,11 @@
             }
           ]
         },
-        "commerce": false
+        "commerce": false,
+        "demo_recording_url": "https://studiomeyer.io/videos/studiomeyer-memory-directory-review-20261011.mp4"
       },
       "publication": {
-        "release_notes": "Initial public-directory package with four user-directed memory tools, OAuth connection, and a focused skill. No prompt hooks, automatic session workflows, or whole-chat import."
+        "release_notes": "Version 0.1.2: exact entity names use get_entity directly; hosted four-tool OAuth endpoint verified on Memory 3.44.2. Public disclosures identify actual provider processing and limited export. An accessible technical recording covers five real SDK actions and three recorded Codex negative cases. No hooks, automatic sessions or chat imports. Reviewer credentials are provided privately."
       }
     }
   }

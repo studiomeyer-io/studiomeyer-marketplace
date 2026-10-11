@@ -16,9 +16,11 @@ Ask, for example, “What did I save about the launch plan?” or “Remember th
 
 The plugin does not collect the current conversation, import chat history, start memory sessions, or run automatic prompt hooks. Reads leave saved knowledge and sessions unchanged; normal service metering and configured AI processing can still occur. A save adds requested content or reports an exact duplicate as already saved. It does not silently overwrite a similar fact.
 
-The hosted service may send relevant saved content and search queries to configured AI providers. EU database storage does not mean all model processing takes place in the EU. This four-action connector has no export or account-deletion action. The service's readable Markdown export is a limited summary; deactivating an account does not erase its data.
+The hosted service uses Hetzner Nuremberg for primary server/database hosting. Relevant saved content and search queries can be processed by OpenAI for embeddings and Anthropic for enabled AI features. Resend handles email; Sentry handles diagnostics. EU database storage does not mean all model processing takes place in the EU. This four-action connector has no export or account-deletion action. The service's readable Markdown export is a limited summary; deactivating an account does not erase its data.
 
-Status: prepared for review; not submitted or approved. Public data-handling disclosures and operator procedures must be reconciled before directory submission; see [privacy issue67](https://github.com/madetocreate/studiomeyer.io/issues/67).
+[Technical walkthrough](https://studiomeyer.io/videos/studiomeyer-memory-directory-review-20261011.mp4): a real OAuth connection and five memory actions in an explicitly labeled demonstration client, followed by three original recorded Codex negative cases. It does not represent a Claude or ChatGPT interface.
+
+Status: prepared for review; not submitted or approved. Operator retention, complete export/erasure and legal/provider information remain prerequisites for directory submission; see [privacy issue67](https://github.com/madetocreate/studiomeyer.io/issues/67).
 
 Website: https://studiomeyer.io/en/services/memory  
 Privacy: https://studiomeyer.io/en/privacy  
