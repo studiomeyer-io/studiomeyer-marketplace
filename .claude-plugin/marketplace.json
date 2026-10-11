@@ -88,6 +88,19 @@
         "hooks"
       ],
       "homepage": "https://studiomeyer.academy"
+    },
+    {
+      "name": "studiomeyer-memory-chat",
+      "source": "./plugins/studiomeyer-memory-chat",
+      "category": "knowledge-management",
+      "description": "User-directed StudioMeyer Memory for Claude chat and Cowork: recall saved memories, inspect linked concepts, and save a specific item when asked. Remote MCP connector with OAuth; no automatic prompt hooks or chat-history import.",
+      "tags": [
+        "memory",
+        "knowledge-graph",
+        "hosted",
+        "chat"
+      ],
+      "homepage": "https://studiomeyer.io/en/services/memory"
     }
   ]
 }
