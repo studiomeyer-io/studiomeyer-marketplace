@@ -11,7 +11,13 @@ import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1] / 'plugins' / 'studiomeyer-memory-chat'
-COMMON = ['LICENSE', 'README.md', 'assets/icon.png', 'skills/use-memory/SKILL.md']
+COMMON = [
+    'LICENSE', 'README.md', 'assets/icon.png',
+    'skills/use-memory/SKILL.md',
+    'skills/memory-context-start/SKILL.md',
+    'skills/memory-lagestand/SKILL.md',
+    'skills/memory-hygiene/SKILL.md',
+]
 FILES = {
     'claude': ['.claude-plugin/plugin.json', '.mcp.json', *COMMON],
     'openai': ['plugin.json', 'mcp.json', *COMMON],

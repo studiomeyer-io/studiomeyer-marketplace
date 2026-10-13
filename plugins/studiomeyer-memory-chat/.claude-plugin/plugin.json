@@ -1,8 +1,8 @@
 {
   "name": "studiomeyer-memory-chat",
   "displayName": "StudioMeyer Memory",
-  "version": "0.1.2",
-  "description": "Recall information you saved in StudioMeyer Memory, explore linked concepts, and save a specific new fact when you ask. Works with your own account through the StudioMeyer Memory connector.",
+  "version": "0.1.3",
+  "description": "Use your own StudioMeyer Memory account through four OAuth tools and guided skills for focused recall, saving, selected-context briefings, status curation, and read-only cleanup previews.",
   "author": {
     "name": "StudioMeyer",
     "email": "hello@studiomeyer.io",
