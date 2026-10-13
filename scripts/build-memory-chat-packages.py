@@ -10,7 +10,7 @@ import struct
 import zipfile
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[1] / 'plugins' / 'studiomeyer-memory-chat'
 COMMON = ['LICENSE', 'README.md', 'assets/icon.png', 'skills/use-memory/SKILL.md']
 FILES = {
     'claude': ['.claude-plugin/plugin.json', '.mcp.json', *COMMON],

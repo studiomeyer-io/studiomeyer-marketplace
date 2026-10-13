@@ -10,6 +10,10 @@
   },
   "homepage": "https://studiomeyer.io/en/services/memory",
   "repository": "https://github.com/studiomeyer-io/studiomeyer-marketplace",
+  "privacyPolicyUrl": "https://studiomeyer.io/en/privacy",
+  "supportUrl": "https://studiomeyer.io/en/contact",
+  "termsOfServiceUrl": "https://studiomeyer.io/en/terms",
+  "documentationUrl": "https://github.com/studiomeyer-io/studiomeyer-marketplace/blob/main/plugins/studiomeyer-memory-chat/README.md",
   "license": "MIT",
   "keywords": [
     "memory",
