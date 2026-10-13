@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "studiomeyer-memory-chat",
-  "version": "0.1.2",
-  "description": "Recall information you saved in StudioMeyer Memory, explore linked concepts, and save a specific new fact when you ask. Works with your own account through the StudioMeyer Memory connector.",
+  "version": "0.1.3",
+  "description": "Recall and save selected information with guided StudioMeyer Memory workflows through your own connected account.",
   "author": {
     "name": "StudioMeyer",
     "email": "hello@studiomeyer.io",
@@ -22,21 +22,22 @@
       "interface": {
         "displayName": "StudioMeyer Memory",
         "shortDescription": "Recall and save chosen facts",
-        "longDescription": "Recall information you saved in StudioMeyer Memory, explore linked concepts, and save a specific new fact when you ask. Works with your own account through the StudioMeyer Memory connector. The connector provides recall_memory, find_entities, get_entity, and save_memory. Saving adds a memory or skips an exact duplicate; it does not update similar memories. Sign in to your own StudioMeyer Memory account through OAuth. No automatic session bootstrap, prompt hooks, background saves, or whole-chat imports. Service plan limits apply.",
+        "longDescription": "Recall information you saved in StudioMeyer Memory, inspect linked concepts, and save a specific fact when you ask. Guided skills help build a briefing from selected entries, suggest next steps from returned context, curate a project status, and preview possible duplicates or conflicts. The four-tool connector cannot automatically start server sessions, run an account-wide hygiene scan, merge or delete entries, or import whole chats. Sign in through OAuth. Service plan limits apply.",
         "developerName": "StudioMeyer",
         "category": "Productivity",
         "capabilities": [
           "Recall saved memories",
           "Inspect saved concepts and relationships",
-          "Save a specific fact when requested"
+          "Save a specific fact when requested",
+          "Brief selected context and preview possible conflicts"
         ],
         "websiteURL": "https://studiomeyer.io/en/services/memory",
         "supportURL": "https://studiomeyer.io/en/contact",
         "privacyPolicyURL": "https://studiomeyer.io/en/privacy",
         "termsOfServiceURL": "https://studiomeyer.io/en/terms",
         "defaultPrompt": [
-          "What did I save about my launch plan in StudioMeyer Memory?",
-          "Find a project I previously saved in my Memory graph.",
+          "Brief me on the Orion project from StudioMeyer Memory; exclude personal notes.",
+          "Preview possible duplicate or conflicting Orion memories without changing anything.",
           "Remember this specific fact in StudioMeyer Memory."
         ],
         "composerIcon": "./assets/icon.png",
@@ -52,10 +53,10 @@
               "expected_behavior": "Call recall_memory with a focused Orion launch-plan query. Summarize relevant saved items and identify them as stored information. Do not save, start a session, or import chat history."
             },
             {
-              "description": "Retrieve recent saved memories without requiring a topic.",
-              "prompt": "Show the most recent things I saved in StudioMeyer Memory.",
-              "tools_triggered": "recall_memory",
-              "expected_behavior": "Call recall_memory without query and return up to 10 relevant recent memories. Do not change, reinforce, or invent memories."
+              "description": "Create a user-requested briefing from selected saved context without starting a server session.",
+              "prompt": "Start with the fictional Orion project from my StudioMeyer Memory. Exclude personal notes and suggest next steps without saving anything.",
+              "tools_triggered": "find_entities, get_entity, recall_memory",
+              "expected_behavior": "Apply the exclusion before reading. Find the Orion project, open the selected entity, and use recall_memory only for the selected topic. Summarize returned data and offer up to three clearly labeled suggestions. Do not claim a server session was started, call save_memory, or search unrelated notes."
             },
             {
               "description": "Find and inspect a named synthetic entity and its saved relationships.",
@@ -70,10 +71,10 @@
               "expected_behavior": "Call save_memory with only the selected fact and project Directory Demo. Report the actual saved, duplicate, or rejected outcome. Saving adds a memory or skips an exact duplicate, without updating similar memories. Do not send the conversation."
             },
             {
-              "description": "Open an exact synthetic entity name that is absent from the connected knowledge graph.",
-              "prompt": "Open the synthetic entity DEMO-NO-SAVED-MATCH-8F2A in my StudioMeyer Memory graph.",
-              "tools_triggered": "get_entity",
-              "expected_behavior": "Call get_entity with the exact name DEMO-NO-SAVED-MATCH-8F2A. When the result is empty or not found, state that no saved entity was found. Do not invent observations or relationships, save anything, or start a memory session."
+              "description": "Preview possible duplicate or conflicting saved items in a selected synthetic topic.",
+              "prompt": "Check my fictional Orion Memory notes for possible duplicates or conflicts. Show a preview only.",
+              "tools_triggered": "recall_memory",
+              "expected_behavior": "Call recall_memory with a focused Orion query. Review only returned entries, identify possible duplicates or conflicts as tentative, and say the limited result set is not a full-account audit. Do not save, merge, resolve, or delete anything."
             }
           ],
           "negative": [
@@ -98,7 +99,7 @@
         "demo_recording_url": "https://studiomeyer.io/videos/studiomeyer-memory-directory-review-20261011.mp4"
       },
       "publication": {
-        "release_notes": "Version 0.1.2: exact entity names use get_entity directly; hosted four-tool OAuth endpoint verified on Memory 3.44.2. Public disclosures identify actual provider processing and limited export. An accessible technical recording covers five real SDK actions and three recorded Codex negative cases. No hooks, automatic sessions or chat imports. Reviewer credentials are provided privately."
+        "release_notes": "Version 0.1.3 adds guided skills for selected-context briefings, durable status curation, and read-only hygiene previews. The general Memory skill now recommends one assertion per entry and a focused read-back after saving. The OAuth connector still exposes four tools; it does not start server sessions or perform automatic cleanup."
       }
     }
   }
