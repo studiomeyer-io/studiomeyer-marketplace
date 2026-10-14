@@ -3,7 +3,7 @@
   "mcpServers": {
     "studiomeyer-memory": {
       "type": "streamable-http",
-      "url": "https://memory.studiomeyer.io/mcp-directory",
+      "url": "https://memory.studiomeyer.io/mcp",
       "extensions": {
         "com.openai": {
           "auth": {
@@ -11,10 +11,9 @@
             "client": {
               "mode": "dcr"
             },
-            "resource": "https://memory.studiomeyer.io/mcp-directory",
+            "resource": "https://memory.studiomeyer.io/mcp",
             "defaultScopes": [
-              "mcp:read",
-              "mcp:write"
+              "memory"
             ]
           }
         }

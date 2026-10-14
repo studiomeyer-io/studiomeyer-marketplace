@@ -1,31 +1,30 @@
-# StudioMeyer Memory
+# StudioMeyer Memory for Claude chat and OpenAI
 
-This package connects Claude or OpenAI clients to the user's StudioMeyer Memory account through hosted OAuth. The connector contains no credentials. It offers four actions: recall saved memories, find named concepts, inspect one concept's observations and relationships, and save a specific fact or insight when the user asks. Four bundled skills cover safe tool use, selected-context briefings, status curation, and read-only hygiene previews.
+This plugin connects the signed-in user's account to the full StudioMeyer Memory MCP server at `https://memory.studiomeyer.io/mcp`. It exposes the server's 56 tools. The separate four-tool `/mcp-directory` interface is not used by this version.
 
-## Install in Claude
+## What the 56 tools cover
 
-Install the StudioMeyer Memory plugin through Claude's supported plugin interface. Open this plugin's Connectors tab, connect `studiomeyer-memory`, and sign in to your own StudioMeyer Memory account through the browser. Availability of plugin installation depends on your Claude account and interface.
+- Sessions and continuity: `nex_session_start`, `nex_context`, `nex_proactive`, `nex_sprint`, `nex_summarize`, and `nex_session_end`.
+- Recall and search: `nex_recall`, `nex_search`, learning search, entity search, history, and graph traversal.
+- Recording knowledge: `nex_learn`, `nex_decide`, `nex_skill`, entity creation, observations, and relationships.
+- Maintenance and analysis: contradiction review, insights, health, decay, deduplication, consolidation, and archive actions.
+- Other workflows: goals, delegation, agent reports, exports, user-requested conversation import, and interactive graph and timeline tools.
 
-## Connect in OpenAI
+Call `nex_guide` for the complete tool reference. All tools are available to Free and paid accounts, subject to their plan limits. OAuth connects each user to their own account.
 
-For an OpenAI client that supports a custom remote MCP connection and browser authorization, add `https://memory.studiomeyer.io/mcp-directory` as the server URL and complete the StudioMeyer sign-in flow. This package does not imply that a public ChatGPT directory listing has been approved or that every OpenAI interface offers custom connector installation. For an API integration, use your client's supported remote-MCP authentication flow; never put a reviewer credential in the public package.
+## Use in Claude
 
-## Use
+Install the plugin, connect its `studiomeyer-memory` MCP server, and sign in through the browser. The four included skills explain common workflows and safe tool choices. Claude loads a skill when it considers the task relevant; a skill alone cannot guarantee a server call at the beginning of every Claude chat. To require `nex_session_start` in your own Claude chats, add that preference to your Claude global instructions. The separate `studiomeyer-memory` plugin in this marketplace includes Claude Code hooks, which can run on lifecycle events in supported surfaces; those hooks do not run in Claude chat.
 
-The core skill recommends one assertion per saved entry and a focused read-back after a successful save. The context-start skill loads only user-selected names or topics, applies exclusions before reading, and can suggest next steps from returned context. This is a manual briefing, not a server session. The lagestand skill proposes durable status entries and saves only user-selected content. The hygiene skill previews possible duplicates or conflicts in a limited search result, without changing data.
+## Use in OpenAI clients
 
+Use the package's `mcp.json` in a client that supports remote MCP and OAuth, or connect `https://memory.studiomeyer.io/mcp` directly where supported. Availability and automatic skill activation depend on the client. An uploaded package or repository commit does not by itself mean an OpenAI directory version is approved or published.
 
-Ask, for example, “What did I save about the launch plan?” or “Remember that our project uses PostgreSQL.” Service plan limits apply.
+## Data and changes
 
-The plugin does not collect the current conversation, import chat history, start memory sessions, or run automatic prompt hooks. Reads leave saved knowledge and sessions unchanged; normal service metering and configured AI processing can still occur. A save adds requested content or reports an exact duplicate as already saved. It does not silently overwrite a similar fact.
+The full server can create and update knowledge, import a user-supplied conversation export, merge entities, archive entries, and delete selected data. These actions should follow the user's specific request. Some maintenance tools have write effects even when their names sound like a scan: `nex_deduplicate` can automatically merge high-confidence matches. The hygiene skill therefore builds a read-only preview without calling it. Never send a whole conversation, uploaded file, credential, payment detail, identity document, or health record to Memory unless the user has specifically requested a supported and appropriate operation.
 
-The hosted service uses Hetzner Nuremberg for primary server/database hosting. Relevant saved content and search queries can be processed by OpenAI for embeddings and Anthropic for enabled AI features. Resend handles email; Sentry handles diagnostics. EU database storage does not mean all model processing takes place in the EU. This four-action connector has no export or account-deletion action. The service's readable Markdown export is a limited summary; deactivating an account does not erase its data.
-
-[Technical walkthrough](https://studiomeyer.io/videos/studiomeyer-memory-directory-review-20261011.mp4): a real OAuth connection and five memory actions in an explicitly labeled demonstration client, followed by three original recorded Codex negative cases. It does not represent a Claude or ChatGPT interface.
-
-Status: prepared for review; not submitted or approved. Operator retention, complete export/erasure and legal/provider information remain prerequisites for directory submission; see [privacy issue67](https://github.com/madetocreate/studiomeyer.io/issues/67).
+The service uses Hetzner Nuremberg for primary server and database hosting. Saved content and search queries can be processed by OpenAI for embeddings and Anthropic for enabled AI features. Resend handles email and Sentry handles diagnostics. See the current [privacy policy](https://studiomeyer.io/en/privacy) and [terms](https://studiomeyer.io/en/terms) for retention, export, deletion, and provider details. Some privacy follow-ups remain in [Issue 67](https://github.com/madetocreate/studiomeyer.io/issues/67).
 
 Website: https://studiomeyer.io/en/services/memory  
-Privacy: https://studiomeyer.io/en/privacy  
-Terms: https://studiomeyer.io/en/terms  
 Support: hello@studiomeyer.io

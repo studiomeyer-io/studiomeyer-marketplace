@@ -2,7 +2,7 @@
   "mcpServers": {
     "studiomeyer-memory": {
       "type": "http",
-      "url": "https://memory.studiomeyer.io/mcp-directory"
+      "url": "https://memory.studiomeyer.io/mcp"
     }
   }
 }

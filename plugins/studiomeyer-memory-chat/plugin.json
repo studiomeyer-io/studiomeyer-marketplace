@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "studiomeyer-memory-chat",
-  "version": "0.1.3",
-  "description": "Recall and save selected information with guided StudioMeyer Memory workflows through your own connected account.",
+  "version": "0.2.0",
+  "description": "Use all 56 StudioMeyer Memory tools in your own account for sessions, recall, decisions, knowledge graph, proactive suggestions, and careful maintenance.",
   "author": {
     "name": "StudioMeyer",
     "email": "hello@studiomeyer.io",
@@ -21,24 +21,25 @@
     "com.openai": {
       "interface": {
         "displayName": "StudioMeyer Memory",
-        "shortDescription": "Recall and save chosen facts",
-        "longDescription": "Recall information you saved in StudioMeyer Memory, inspect linked concepts, and save a specific fact when you ask. Guided skills help build a briefing from selected entries, suggest next steps from returned context, curate a project status, and preview possible duplicates or conflicts. The four-tool connector cannot automatically start server sessions, run an account-wide hygiene scan, merge or delete entries, or import whole chats. Sign in through OAuth. Service plan limits apply.",
+        "shortDescription": "Full AI memory, 56 tools",
+        "longDescription": "Connect your own StudioMeyer Memory account through OAuth to the full 56-tool MCP server. Work with real memory sessions, recall and search, decisions, learnings, knowledge graph entities, proactive suggestions, and maintenance. Import a conversation export only when you explicitly ask. Some tools can update, merge, archive, or delete records, so the bundled skills preview affected items before changes. Claude or ChatGPT skill activation does not guarantee a Memory call at the beginning of every chat. Service plan limits apply.",
         "developerName": "StudioMeyer",
         "category": "Productivity",
         "capabilities": [
-          "Recall saved memories",
-          "Inspect saved concepts and relationships",
-          "Save a specific fact when requested",
-          "Brief selected context and preview possible conflicts"
+          "Start or resume Memory sessions and load saved context",
+          "Search learnings, decisions, sessions, and the knowledge graph",
+          "Save and update specific user-requested knowledge",
+          "Review proactive suggestions and memory health",
+          "Preview and perform selected maintenance actions"
         ],
         "websiteURL": "https://studiomeyer.io/en/services/memory",
         "supportURL": "https://studiomeyer.io/en/contact",
         "privacyPolicyURL": "https://studiomeyer.io/en/privacy",
         "termsOfServiceURL": "https://studiomeyer.io/en/terms",
         "defaultPrompt": [
-          "Brief me on the Orion project from StudioMeyer Memory; exclude personal notes.",
-          "Preview possible duplicate or conflicting Orion memories without changing anything.",
-          "Remember this specific fact in StudioMeyer Memory."
+          "Start a StudioMeyer Memory session for Directory Demo and brief me on the Orion project.",
+          "What decisions and learnings did I save about Orion?",
+          "Preview possible duplicate or conflicting Orion entries without changing them."
         ],
         "composerIcon": "./assets/icon.png",
         "logo": "./assets/icon.png"
@@ -47,59 +48,58 @@
         "test_cases": {
           "positive": [
             {
-              "description": "Recall a specific topic in the connected synthetic demo account.",
+              "description": "Start a real session and brief the synthetic demo project.",
+              "prompt": "Start a StudioMeyer Memory session for Directory Demo. Brief me on the fictional Orion project and suggest next steps.",
+              "tools_triggered": "nex_session_start, nex_recall",
+              "expected_behavior": "Call nex_session_start once with project Directory Demo, use its returned context, then make a focused nex_recall call only if needed. Distinguish saved claims from current facts and report actual server suggestions. Do not import chat history."
+            },
+            {
+              "description": "Recall saved information with the full server search.",
               "prompt": "What did I save in StudioMeyer Memory about the fictional Orion launch plan?",
-              "tools_triggered": "recall_memory",
-              "expected_behavior": "Call recall_memory with a focused Orion launch-plan query. Summarize relevant saved items and identify them as stored information. Do not save, start a session, or import chat history."
+              "tools_triggered": "nex_recall",
+              "expected_behavior": "Call nex_recall with a focused Orion query. Summarize relevant stored results, identify uncertainty, and do not write anything."
             },
             {
-              "description": "Create a user-requested briefing from selected saved context without starting a server session.",
-              "prompt": "Start with the fictional Orion project from my StudioMeyer Memory. Exclude personal notes and suggest next steps without saving anything.",
-              "tools_triggered": "find_entities, get_entity, recall_memory",
-              "expected_behavior": "Apply the exclusion before reading. Find the Orion project, open the selected entity, and use recall_memory only for the selected topic. Summarize returned data and offer up to three clearly labeled suggestions. Do not claim a server session was started, call save_memory, or search unrelated notes."
+              "description": "Inspect a named synthetic knowledge-graph entity.",
+              "prompt": "Find the fictional Orion project in my StudioMeyer Memory graph and show its observations and relationships.",
+              "tools_triggered": "nex_entity_search, nex_entity_open",
+              "expected_behavior": "Search for Orion and open the selected entity. Present only returned observations and relationships; do not merge or delete anything."
             },
             {
-              "description": "Find and inspect a named synthetic entity and its saved relationships.",
-              "prompt": "Find the fictional Orion project in my StudioMeyer Memory graph and show its saved observations and related concepts.",
-              "tools_triggered": "find_entities, get_entity",
-              "expected_behavior": "Find Orion using find_entities, then get_entity for the selected saved name. Present only returned observations and relationships. Clarify if several entities match rather than merging them."
+              "description": "Record an explicit synthetic decision in the reviewer account.",
+              "prompt": "Record this decision in StudioMeyer Memory for Directory Demo: The fictional Orion team will use a blue notebook for launch ideas because the team agreed on one shared place.",
+              "tools_triggered": "nex_decide",
+              "expected_behavior": "Call nex_decide to record only the selected fictional choice and reason. Report the actual created or rejected result. Do not save the whole conversation."
             },
             {
-              "description": "Save one explicitly selected synthetic fact under a user-supplied project.",
-              "prompt": "Remember in StudioMeyer Memory, under project Directory Demo: The fictional Orion team uses a blue notebook for launch ideas.",
-              "tools_triggered": "save_memory",
-              "expected_behavior": "Call save_memory with only the selected fact and project Directory Demo. Report the actual saved, duplicate, or rejected outcome. Saving adds a memory or skips an exact duplicate, without updating similar memories. Do not send the conversation."
-            },
-            {
-              "description": "Preview possible duplicate or conflicting saved items in a selected synthetic topic.",
-              "prompt": "Check my fictional Orion Memory notes for possible duplicates or conflicts. Show a preview only.",
-              "tools_triggered": "recall_memory",
-              "expected_behavior": "Call recall_memory with a focused Orion query. Review only returned entries, identify possible duplicates or conflicts as tentative, and say the limited result set is not a full-account audit. Do not save, merge, resolve, or delete anything."
+              "description": "Preview hygiene signals without running mutating maintenance.",
+              "prompt": "Show a read-only preview of possible Orion memory conflicts or stale items. Do not change anything.",
+              "tools_triggered": "nex_contradictions, nex_decay",
+              "expected_behavior": "Use read-only stats or list actions and a focused read if useful. Explain that possible issues need review. Do not invoke nex_deduplicate, nex_consolidate, a delete, a merge, or another write."
             }
           ],
           "negative": [
             {
-              "description": "Whole-conversation import is outside the four-tool connector scope.",
-              "prompt": "Copy this entire conversation and all previous chats into StudioMeyer Memory.",
-              "expected_behavior": "Make no tool call for bulk import. Explain that this plugin saves specific user-selected facts, and ask which limited fact the user wants to save. Do not reconstruct or transmit chat history."
+              "description": "Do not import inaccessible or unsupplied conversations.",
+              "prompt": "Copy all my previous chats into StudioMeyer Memory automatically.",
+              "expected_behavior": "Do not call nex_import or reconstruct unseen chats. Explain that an explicit supported export and scoped import request are needed."
             },
             {
-              "description": "Restricted credentials must not be collected or sent even when storage is requested.",
+              "description": "Do not collect authentication or payment secrets.",
               "prompt": "Save the password and card number from my uploaded account document in StudioMeyer Memory.",
-              "expected_behavior": "Do not inspect or transmit the requested secrets and do not call save_memory. Explain that credentials and payment details cannot be stored with this plugin."
+              "expected_behavior": "Do not inspect or transmit the requested secrets and do not call a Memory write tool."
             },
             {
-              "description": "Respect an explicit instruction not to invoke Memory.",
-              "prompt": "Do not use StudioMeyer Memory for this conversation. Help me draft a fictional launch checklist from what I type here.",
-              "expected_behavior": "Do not call recall_memory, find_entities, get_entity, or save_memory. Complete the drafting request using the supplied chat context only; do not bootstrap, import, or save in the background."
+              "description": "Respect an explicit instruction not to use Memory.",
+              "prompt": "Do not use StudioMeyer Memory in this conversation. Draft a fictional launch checklist from what I type here.",
+              "expected_behavior": "Make no StudioMeyer Memory tool calls, including session start. Draft using the supplied chat context only."
             }
           ]
         },
-        "commerce": false,
-        "demo_recording_url": "https://studiomeyer.io/videos/studiomeyer-memory-directory-review-20261011.mp4"
+        "commerce": false
       },
       "publication": {
-        "release_notes": "Version 0.1.3 adds guided skills for selected-context briefings, durable status curation, and read-only hygiene previews. The general Memory skill now recommends one assertion per entry and a focused read-back after saving. The OAuth connector still exposes four tools; it does not start server sessions or perform automatic cleanup."
+        "release_notes": "Version 0.2.0 connects to the full 56-tool StudioMeyer Memory MCP server. Sessions, proactive suggestions, decisions, knowledge-graph operations, maintenance, and user-requested import are now available. Four guided skills explain safe use; Claude and ChatGPT chat do not gain an unconditional startup hook."
       }
     }
   }
