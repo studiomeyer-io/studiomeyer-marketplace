@@ -1,6 +1,6 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
-  "name": "studiomeyer-memory-chat",
+  "name": "studiomeyer-memory-full",
   "version": "0.2.0",
   "description": "Use all 56 StudioMeyer Memory tools in your own account for sessions, recall, decisions, knowledge graph, proactive suggestions, and careful maintenance.",
   "author": {
@@ -96,7 +96,8 @@
             }
           ]
         },
-        "commerce": false
+        "commerce": false,
+        "demo_recording_url": "https://studiomeyer.io/videos/studiomeyer-memory-full-review-20261014.mp4"
       },
       "publication": {
         "release_notes": "Version 0.2.0 connects to the full 56-tool StudioMeyer Memory MCP server. Sessions, proactive suggestions, decisions, knowledge-graph operations, maintenance, and user-requested import are now available. Four guided skills explain safe use; Claude and ChatGPT chat do not gain an unconditional startup hook."

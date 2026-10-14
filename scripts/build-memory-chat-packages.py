@@ -81,6 +81,8 @@ def verify_archive(blob, kind):
         if server['url'] != 'https://memory.studiomeyer.io/mcp':
             raise ValueError('Wrong MCP endpoint')
         if kind == 'openai':
+            if manifest['name'] != 'studiomeyer-memory-full' or list(servers) != ['studiomeyer-memory-full']:
+                raise ValueError('Full OpenAI plugin must keep its separate app and MCP identity')
             if server['type'] != 'streamable-http':
                 raise ValueError('Portable MCP transport must be streamable-http')
             auth = server['extensions']['com.openai']['auth']
@@ -89,6 +91,8 @@ def verify_archive(blob, kind):
             if auth.get('resource') != server['url']:
                 raise ValueError('OAuth resource must match directory endpoint')
             extension = manifest['extensions']['com.openai']
+            if extension['review'].get('demo_recording_url') != 'https://studiomeyer.io/videos/studiomeyer-memory-full-review-20261014.mp4':
+                raise ValueError('Full OpenAI plugin must include its matching 56-tool review video')
             if 'hooks' in extension or 'onboardingSkill' in extension or 'apps' in extension:
                 raise ValueError('Directory package must not add bootstrap surfaces')
             interface = extension['interface']

@@ -18,7 +18,7 @@ Install the plugin, connect its `studiomeyer-memory` MCP server, and sign in thr
 
 ## Use in OpenAI clients
 
-Use the package's `mcp.json` in a client that supports remote MCP and OAuth, or connect `https://memory.studiomeyer.io/mcp` directly where supported. Availability and automatic skill activation depend on the client. An uploaded package or repository commit does not by itself mean an OpenAI directory version is approved or published.
+Use the package's `mcp.json` in a client that supports remote MCP and OAuth, or connect `https://memory.studiomeyer.io/mcp` directly where supported. The OpenAI package uses the `studiomeyer-memory-full` identity because the earlier four-tool draft cannot change its MCP URL. Availability and automatic skill activation depend on the client. An uploaded package or repository commit does not by itself mean an OpenAI directory version is approved or published.
 
 ## Data and changes
 
