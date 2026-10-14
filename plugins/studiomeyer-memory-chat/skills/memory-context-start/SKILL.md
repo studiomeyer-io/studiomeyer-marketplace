@@ -1,15 +1,14 @@
 ---
 name: memory-context-start
-description: Use when the user asks to begin work by loading named StudioMeyer Memory context or requests a briefing and suggestions from selected saved topics.
+description: Use when the user requests a Memory session, prior-context briefing, or proactive suggestions at the start of work.
 ---
 
-# Start with selected Memory context
+# Start a real Memory session
 
-This is a user-invoked briefing, not an automatic server session. The four-tool directory connector has no `session_start` or proactive-suggestions tool.
+The full connector exposes `nex_session_start` and `nex_proactive`. A relevant skill may load automatically in Claude chat, but the plugin cannot guarantee a tool call in every new chat. Users who want an unconditional start should add a standing instruction in their Claude settings or use a supported Claude Code hook.
 
-1. Identify the exact names or topics the user wants loaded. Apply any stated exclusions before making a Memory call. If neither names nor topics are given, ask for the scope; do not search the whole account merely because a chat began.
-2. Use `get_entity` for an exact saved entity name. Use `find_entities` only when the name is approximate or the user wants candidates. Use `recall_memory` for a selected topic; its result is a relevance search, not an exact named-entry lookup.
-3. Present a short briefing: what was found, what was missing or uncertain, and which exclusions were honored. Separate stored statements from current facts.
-4. If the user requested proactive ideas, suggest at most three next actions grounded in the returned entries and the current request. Label them as your suggestions, not as server-generated alerts or saved tasks. Do not save or act on them without a further user request.
-
-Never call Memory when the user has opted out. Do not create or claim to resume a server session. Do not fetch unrelated people or projects while building the briefing.
+1. Honor an explicit Memory opt-out. If the user gave exclusions, apply them before retrieval. A broad session bootstrap may return excluded material, so use focused `nex_search` or `nex_entity_open` instead when the exclusions cannot be enforced by `nex_session_start`.
+2. Otherwise call `nex_session_start` once. It resumes a fresh active session if there is one. Pass a project only when it clearly matches the user's work.
+3. Read its `contextLoaded`, context summary, and suggestions. If the user requests fresh suggestions beyond that response, call `nex_proactive` with relevant context. Do not invent server-generated alerts.
+4. Present a short briefing of pertinent saved items, open work, and up to three useful next steps. Distinguish remembered claims from current verified facts.
+5. Close with `nex_session_end` only when the user explicitly ends the session. Do not save a summary, decision, or learning without a user request or an agreed standing workflow.

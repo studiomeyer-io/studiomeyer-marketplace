@@ -78,7 +78,7 @@ def verify_archive(blob, kind):
         if len(servers) != 1:
             raise ValueError('Expected one directory MCP server')
         server = next(iter(servers.values()))
-        if server['url'] != 'https://memory.studiomeyer.io/mcp-directory':
+        if server['url'] != 'https://memory.studiomeyer.io/mcp':
             raise ValueError('Wrong MCP endpoint')
         if kind == 'openai':
             if server['type'] != 'streamable-http':
