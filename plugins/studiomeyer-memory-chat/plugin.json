@@ -1,6 +1,6 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
-  "name": "studiomeyer-memory-chat",
+  "name": "studiomeyer-memory-full",
   "version": "0.2.0",
   "description": "Use all 56 StudioMeyer Memory tools in your own account for sessions, recall, decisions, knowledge graph, proactive suggestions, and careful maintenance.",
   "author": {
@@ -22,7 +22,7 @@
       "interface": {
         "displayName": "StudioMeyer Memory",
         "shortDescription": "Full AI memory, 56 tools",
-        "longDescription": "Connect your own StudioMeyer Memory account through OAuth to the full 56-tool MCP server. Work with real memory sessions, recall and search, decisions, learnings, knowledge graph entities, proactive suggestions, and maintenance. Import a conversation export only when you explicitly ask. Some tools can update, merge, archive, or delete records, so the bundled skills preview affected items before changes. Claude or ChatGPT skill activation does not guarantee a Memory call at the beginning of every chat. Service plan limits apply.",
+        "longDescription": "Connect your own StudioMeyer Memory account through OAuth to the full 56-tool MCP server. Work with memory sessions, recall and search, decisions, learnings, knowledge graph entities, proactive suggestions, and maintenance. Import a conversation export only when you explicitly ask. Some tools can update, merge, archive, or delete records, so the bundled skills preview affected items before changes.",
         "developerName": "StudioMeyer",
         "category": "Productivity",
         "capabilities": [
@@ -96,10 +96,11 @@
             }
           ]
         },
-        "commerce": false
+        "commerce": false,
+        "demo_recording_url": "https://studiomeyer.io/videos/studiomeyer-memory-full-review-20261014.mp4"
       },
       "publication": {
-        "release_notes": "Version 0.2.0 connects to the full 56-tool StudioMeyer Memory MCP server. Sessions, proactive suggestions, decisions, knowledge-graph operations, maintenance, and user-requested import are now available. Four guided skills explain safe use; Claude and ChatGPT chat do not gain an unconditional startup hook."
+        "release_notes": "Version 0.2.0 connects to the full 56-tool StudioMeyer Memory MCP server. Sessions, proactive suggestions, decisions, knowledge-graph operations, maintenance, and user-requested import are now available. Four guided skills explain safe use."
       }
     }
   }
