@@ -33,6 +33,9 @@ jobs:
       - name: Manifests, commands, skills, agents
         run: node tests/validate.mjs
 
+      - name: Memory package self-consistency (canonical source checked at release)
+        run: python3 scripts/build-memory-chat-packages.py --check-only --self-test
+
       - name: Hooks can actually fire
         run: node tests/validate-hooks.mjs
 

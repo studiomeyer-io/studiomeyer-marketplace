@@ -1,7 +1,7 @@
 {
   "name": "studiomeyer-memory-chat",
   "displayName": "StudioMeyer Memory",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Use all 56 StudioMeyer Memory tools through your own OAuth account, with guided skills for sessions, recall, decisions, knowledge graph, proactive suggestions, and careful maintenance.",
   "author": {
     "name": "StudioMeyer",
