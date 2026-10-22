@@ -1,0 +1,24 @@
+{
+  "repository": "https://github.com/madetocreate/mcp-nex",
+  "revision": "68953040f609d3ebe45e7ca06e9e08a3e7ddf756",
+  "version": "3.45.0",
+  "sourceDirty": false,
+  "files": {
+    "skills/memory-context-start/SKILL.md": {
+      "sha256": "9e4c1400944055f700a86bb49b7bcdfc7ff14e7c3f0b8751b1cb5f00e03233ea",
+      "size": 2280
+    },
+    "skills/memory-hygiene/SKILL.md": {
+      "sha256": "95db238189e406fabda08ab6a9282b1948a9d6a92baa1e6f6dd85a3a2f31ecd1",
+      "size": 3527
+    },
+    "skills/memory-lagestand/SKILL.md": {
+      "sha256": "7fb43c3890e90f1e050ab23428333875d11208f2d13242d36076cb76d1242c1d",
+      "size": 2456
+    },
+    "skills/use-studiomeyer-memory/SKILL.md": {
+      "sha256": "8c9907550a064b05d66a4ae3b1472d235120f8ed0955bb10c60a26d7e4e38599",
+      "size": 2857
+    }
+  }
+}

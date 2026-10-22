@@ -268,6 +268,7 @@ for (const entry of marketplace.plugins) {
         else if (!fm.name) fail(`${entry.name}: skill ${s}/SKILL.md missing "name"`);
         else if (!fm.description)
           fail(`${entry.name}: skill ${s}/SKILL.md missing "description"`);
+        if (fm?.name && fm.name !== s) fail(`${entry.name}: skill name ${fm.name} differs from directory ${s}`);
         for (const f of frontmatterYamlFaults(skillPath)) fail(`${entry.name}: skill ${s}/SKILL.md ${f}`);
       }
     }

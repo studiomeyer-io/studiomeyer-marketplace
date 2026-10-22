@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "studiomeyer-memory-full",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Use all 56 StudioMeyer Memory tools in your own account for sessions, recall, decisions, knowledge graph, proactive suggestions, and careful maintenance.",
   "author": {
     "name": "StudioMeyer",
@@ -51,31 +51,31 @@
               "description": "Start a real session and brief the synthetic demo project.",
               "prompt": "Start a StudioMeyer Memory session for Directory Demo. Brief me on the fictional Orion project and suggest next steps.",
               "tools_triggered": "nex_session_start, nex_recall",
-              "expected_behavior": "Call nex_session_start once with project Directory Demo, use its returned context, then make a focused nex_recall call only if needed. Distinguish saved claims from current facts and report actual server suggestions. Do not import chat history."
+              "expected_behavior": "Call nex_session_start once with project Directory Demo, use its returned context, then make a focused nex_recall call only if needed. Distinguish saved claims from current facts and report actual server suggestions. Do not import chat history. Use a stable conversationId on every call exposing it; use readOnly:true and trackUsage:false for preview reads. If the client lacks these controls, explain the limitation instead of claiming isolated or write-free execution."
             },
             {
               "description": "Recall saved information with the full server search.",
               "prompt": "What did I save in StudioMeyer Memory about the fictional Orion launch plan?",
               "tools_triggered": "nex_recall",
-              "expected_behavior": "Call nex_recall with a focused Orion query. Summarize relevant stored results, identify uncertainty, and do not write anything."
+              "expected_behavior": "Call nex_recall with a focused Orion query. Summarize relevant stored results, identify uncertainty, and do not write anything. Use a stable conversationId on every call exposing it; use readOnly:true and trackUsage:false for preview reads. If the client lacks these controls, explain the limitation instead of claiming isolated or write-free execution."
             },
             {
               "description": "Inspect a named synthetic knowledge-graph entity.",
               "prompt": "Find the fictional Orion project in my StudioMeyer Memory graph and show its observations and relationships.",
               "tools_triggered": "nex_entity_search, nex_entity_open",
-              "expected_behavior": "Search for Orion and open the selected entity. Present only returned observations and relationships; do not merge or delete anything."
+              "expected_behavior": "Search for Orion and open the selected entity. Present only returned observations and relationships; do not merge or delete anything. Use a stable conversationId on every call exposing it; use readOnly:true and trackUsage:false for preview reads. If the client lacks these controls, explain the limitation instead of claiming isolated or write-free execution."
             },
             {
               "description": "Record an explicit synthetic decision in the reviewer account.",
               "prompt": "Record this decision in StudioMeyer Memory for Directory Demo: The fictional Orion team will use a blue notebook for launch ideas because the team agreed on one shared place.",
               "tools_triggered": "nex_decide",
-              "expected_behavior": "Call nex_decide to record only the selected fictional choice and reason. Report the actual created or rejected result. Do not save the whole conversation."
+              "expected_behavior": "Call nex_decide to record only the selected fictional choice and reason. Report the actual created or rejected result. Do not save the whole conversation. Use a stable conversationId on every call exposing it; use readOnly:true and trackUsage:false for preview reads. If the client lacks these controls, explain the limitation instead of claiming isolated or write-free execution."
             },
             {
               "description": "Preview hygiene signals without running mutating maintenance.",
               "prompt": "Show a read-only preview of possible Orion memory conflicts or stale items. Do not change anything.",
               "tools_triggered": "nex_contradictions, nex_decay",
-              "expected_behavior": "Use read-only stats or list actions and a focused read if useful. Explain that possible issues need review. Do not invoke nex_deduplicate, nex_consolidate, a delete, a merge, or another write."
+              "expected_behavior": "Use read-only stats or list actions and a focused read if useful. Explain that possible issues need review. Do not invoke nex_deduplicate, nex_consolidate, a delete, a merge, or another write. Use a stable conversationId on every call exposing it; use readOnly:true and trackUsage:false for preview reads. If the client lacks these controls, explain the limitation instead of claiming isolated or write-free execution."
             }
           ],
           "negative": [
@@ -100,7 +100,7 @@
         "demo_recording_url": "https://studiomeyer.io/videos/studiomeyer-memory-full-review-20261014.mp4"
       },
       "publication": {
-        "release_notes": "Version 0.2.0 connects to the full 56-tool StudioMeyer Memory MCP server. Sessions, proactive suggestions, decisions, knowledge-graph operations, maintenance, and user-requested import are now available. Four guided skills explain safe use."
+        "release_notes": "Version 0.3.0 shares four reviewed skill sources with the Memory MCP server. Guidance covers conversation isolation, write-free previews, explicit corrections and authorized workflows. Updated tool schemas require a connector rescan; skill changes require a new plugin version."
       }
     }
   }

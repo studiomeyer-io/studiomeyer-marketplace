@@ -12,6 +12,12 @@
 ![GitHub stars](https://img.shields.io/github/stars/studiomeyer-io/studiomeyer-marketplace?style=flat-square&color=ffd700&logo=github&label=stars)
 <!-- /badges -->Five MCP plugins for Claude Code: Memory, CRM, GEO, Crew, Academy. One command installs the full suite. The hooks ship inside the plugins and work the moment you enable one, with nothing to paste into your settings. Magic Link authentication. Memory primary hosting in Hetzner Nuremberg.
 
+For supported Claude chat and OpenAI plugin installations, use the separate
+[Memory chat package](./plugins/studiomeyer-memory-chat). Its four skills share
+the MCP server's canonical source. A direct MCP connection does not install
+those skills, and directory publication remains a separate review step.
+
+
 ## A note from us
 
 We have been building tools and systems for ourselves for the past two years. The fact that this repo is small and has few stars is not because it is new. It is because we only just decided to share what we have built. It is not a fresh experiment, it is a long story with a recent commit.

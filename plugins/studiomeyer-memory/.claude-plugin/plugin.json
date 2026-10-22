@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin.json",
   "name": "studiomeyer-memory",
   "displayName": "StudioMeyer Memory",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Hosted AI memory with 56 tools, including an interactive 3D knowledge graph. Semantic search, contradiction detection, multi-agent namespaces, import from ChatGPT, Claude, Gemini, Copilot and Perplexity. Recall runs on every prompt and the session closes itself, both without any setup. Magic Link auth, Hetzner Nuremberg hosting, free tier.",
   "author": {
     "name": "StudioMeyer",

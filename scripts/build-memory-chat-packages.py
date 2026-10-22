@@ -7,13 +7,14 @@ import json
 import re
 import stat
 import struct
+import subprocess
 import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1] / 'plugins' / 'studiomeyer-memory-chat'
 COMMON = [
-    'LICENSE', 'README.md', 'assets/icon.png',
-    'skills/use-memory/SKILL.md',
+    'LICENSE', 'README.md', 'assets/icon.png', 'skills-source.json',
+    'skills/use-studiomeyer-memory/SKILL.md',
     'skills/memory-context-start/SKILL.md',
     'skills/memory-lagestand/SKILL.md',
     'skills/memory-hygiene/SKILL.md',
@@ -44,6 +45,28 @@ def inspect_json(value):
             raise ValueError('URL contains embedded credentials')
 
 
+def verify_canonical(content, source_root):
+    """Release trust boundary: read committed objects from the operator's canonical checkout."""
+    source = source_root.resolve()
+    origin = subprocess.check_output(['git', '-C', str(source), 'remote', 'get-url', 'origin'], text=True).strip()
+    if origin not in {'git@github.com:madetocreate/mcp-nex.git', 'https://github.com/madetocreate/mcp-nex.git'}:
+        raise ValueError('Source checkout is not the canonical repository')
+    provenance = json.loads(content['skills-source.json'])
+    revision = provenance.get('revision', '')
+    if not re.fullmatch(r'[a-f0-9]{40}', revision) or provenance.get('sourceDirty') is not False:
+        raise ValueError('Canonical revision must be a clean pinned commit')
+    def committed(path):
+        try:
+            return subprocess.check_output(['git', '-C', str(source), 'show', revision + ':' + path], stderr=subprocess.DEVNULL)
+        except subprocess.CalledProcessError as error:
+            raise ValueError('Canonical commit or file is unavailable: ' + path) from error
+    if json.loads(committed('package.json'))['version'] != provenance.get('version'):
+        raise ValueError('Source version differs from committed release')
+    for name in [name for name in content if name.startswith('skills/')]:
+        if content[name] != committed(name):
+            raise ValueError('Skill differs from canonical Git commit: ' + name)
+
+
 def verify_archive(blob, kind):
     with zipfile.ZipFile(io.BytesIO(blob)) as archive:
         names = archive.namelist()
@@ -61,6 +84,22 @@ def verify_archive(blob, kind):
                     raise ValueError('Em dash in shipped text')
                 if entry.filename.endswith('.json'):
                     inspect_json(json.loads(text))
+        provenance = json.loads(archive.read('skills-source.json'))
+        if provenance.get('repository') != 'https://github.com/madetocreate/mcp-nex':
+            raise ValueError('Unexpected canonical skill repository')
+        if provenance.get('sourceDirty') is not False or not re.fullmatch(r'[a-f0-9]{40}', provenance.get('revision', '')):
+            raise ValueError('Skills must be pinned to a committed server release')
+        skills = [name for name in names if name.startswith('skills/')]
+        if set(provenance.get('files', {})) != set(skills):
+            raise ValueError('Skill provenance file list differs from package')
+        for name in skills:
+            raw = archive.read(name)
+            match = re.search(r'^name: ([a-z0-9-]+)\s*$', raw.decode('utf-8'), re.M)
+            if not match or match.group(1) != name.split('/')[1]:
+                raise ValueError('Skill name must match its directory: ' + name)
+            expected = provenance['files'][name]
+            if expected != {'sha256': hashlib.sha256(raw).hexdigest(), 'size': len(raw)}:
+                raise ValueError('Skill bytes differ from canonical release: ' + name)
         icon = archive.read('assets/icon.png')
         if icon[:8] != b'\x89PNG\r\n\x1a\n':
             raise ValueError('Expected PNG icon')
@@ -139,6 +178,9 @@ def zip_files(content):
 def selftest(content, kind):
     for label, mutation in [
         ('unexpected-file', lambda c: c.update({'unexpected.env': b'test'})),
+        ('skill-name', lambda c: c.update({'skills/use-studiomeyer-memory/SKILL.md': c['skills/use-studiomeyer-memory/SKILL.md'].replace(b'name: use-studiomeyer-memory', b'name: different-skill')})),
+        ('skill-content-drift', lambda c: c.update({'skills/memory-hygiene/SKILL.md': c['skills/memory-hygiene/SKILL.md'] + b'\nChanged after approval.\n'})),
+        ('uncommitted-source', lambda c: c.update({'skills-source.json': json.dumps({**json.loads(c['skills-source.json']), 'sourceDirty': True}).encode()})),
         ('private-key', lambda c: c.update({'README.md': b'-----BEGIN PRIVATE KEY-----'})),
         ('duplicate-secret-field', lambda c: c.update({('mcp.json' if kind == 'openai' else '.mcp.json'): b'{"access_token":"synthetic-test-only"}'})),
     ]:
@@ -152,12 +194,38 @@ def selftest(content, kind):
             raise ValueError('Guard failed to reject ' + label)
 
 
+def canonical_selftest(content, source_root):
+    for label in ['coordinated-tampering', 'wrong-version', 'unavailable-revision']:
+        changed = dict(content)
+        metadata = json.loads(changed['skills-source.json'])
+        if label == 'coordinated-tampering':
+            name = 'skills/memory-hygiene/SKILL.md'
+            changed[name] += b'\nUnreviewed synthetic mutation.\n'
+            metadata['files'][name] = {'sha256': hashlib.sha256(changed[name]).hexdigest(), 'size': len(changed[name])}
+        elif label == 'wrong-version':
+            metadata['version'] = '0.0.0'
+        else:
+            metadata['revision'] = '0' * 40
+        changed['skills-source.json'] = json.dumps(metadata).encode()
+        try:
+            verify_canonical(changed, source_root)
+        except ValueError:
+            print('Canonical self-test rejected:', label)
+        else:
+            raise ValueError('Canonical guard failed to reject ' + label)
+
+
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--output-dir', type=Path, required=True)
+    parser.add_argument('--output-dir', type=Path)
+    parser.add_argument('--source-root', type=Path)
+    parser.add_argument('--check-only', action='store_true', help='Check self-consistency only; never write release ZIPs')
     parser.add_argument('--self-test', action='store_true')
     args = parser.parse_args()
-    args.output_dir.mkdir(parents=True, exist_ok=True)
+    if not args.check_only:
+        if not args.source_root or not args.output_dir:
+            parser.error('Release builds require --source-root and --output-dir')
+        args.output_dir.mkdir(parents=True, exist_ok=True)
     results = []
     for kind, files in FILES.items():
         content = {}
@@ -166,16 +234,24 @@ def main():
             if source.is_symlink() or not source.is_file():
                 raise ValueError('Package source missing or symlink: ' + name)
             content[name] = source.read_bytes()
+        if args.source_root:
+            verify_canonical(content, args.source_root)
+            if args.self_test:
+                canonical_selftest(content, args.source_root)
         blob = zip_files(content)
         result = verify_archive(blob, kind)
         if args.self_test:
             selftest(content, kind)
+        if args.check_only:
+            print('Self-consistency checked (no release ZIP):', kind)
+            continue
         path = args.output_dir / ('studiomeyer-memory-' + kind + '-' + result['version'] + '.zip')
         path.write_bytes(blob)
         result.update({'path': str(path), 'sha256': hashlib.sha256(blob).hexdigest(), 'bytes': len(blob), 'kind': kind})
         results.append(result)
         print('Built and checked:', path.name, result['sha256'])
-    (args.output_dir / 'package-audit.json').write_text(json.dumps(results, indent=2) + '\n')
+    if not args.check_only:
+        (args.output_dir / 'package-audit.json').write_text(json.dumps(results, indent=2) + '\n')
 
 
 if __name__ == '__main__':
