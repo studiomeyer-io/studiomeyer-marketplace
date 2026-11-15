@@ -1,5 +1,5 @@
 {
-  "_comment": "Input schemas of the Academy tools this plugin drives from a hook. Read off mcp-academy src/account-tools.ts. These tools need ACADEMY_API_KEY. Without it the server exposes 12 public tools and none of these.",
+  "_comment": "Legacy input schemas retained for the Academy hook. The current npm CLI exposes 29 public tools and none of these personal tools. ACADEMY_API_KEY no longer grants personal access; the hosted OAuth connection is required.",
   "academy_quiz": {
     "properties": {
       "slug": { "type": "string" },

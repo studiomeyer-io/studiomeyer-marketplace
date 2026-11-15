@@ -1,0 +1,20 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "studiomeyer-marketplace",
+  "version": "1.2.1",
+  "description": "Hosted StudioMeyer MCP connector plugins for Memory, CRM, GEO, Crew and the Academy. Choose a product plugin and authenticate with its own service.",
+  "author": {
+    "name": "StudioMeyer",
+    "url": "https://studiomeyer.io"
+  },
+  "homepage": "https://studiomeyer.io",
+  "repository": "https://github.com/studiomeyer-io/studiomeyer-marketplace",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "connectors",
+    "memory",
+    "crm",
+    "learning"
+  ]
+}

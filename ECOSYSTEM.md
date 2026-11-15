@@ -10,7 +10,7 @@ The Marketplace bundles all StudioMeyer MCP products as Claude Code plugins. Fiv
 | **[CRM](https://github.com/studiomeyer-io/studiomeyer-crm)** | 37 | `crm.studiomeyer.io/mcp` | 1 (UserPromptSubmit lookup) | Free / 9 EUR / 19 EUR |
 | **[GEO](https://github.com/studiomeyer-io/studiomeyer-geo)** | 30 | `geo.studiomeyer.io/mcp` | none, on purpose | Free |
 | **[Crew](https://github.com/studiomeyer-io/studiomeyer-crew)** | 13 personas | `crew.studiomeyer.io/mcp` | 1 (SessionStart persona hint, local script) | Free |
-| **[Academy](https://github.com/studiomeyer-io/mcp-academy)** | 12 open, 21 with a key | npm: `mcp-academy` (stdio) | 1 (quiz after a finished lesson) | Free |
+| **[Academy](https://github.com/studiomeyer-io/mcp-academy)** | 29 public | npm: `mcp-academy` (stdio) | 1 legacy quiz hook, inactive in the public CLI | Free |
 
 Only Memory and CRM have something to buy. GEO, Crew and Academy are free in full, and where a paid tier is announced but not bookable we list no price for it. See [docs/pricing.md](./docs/pricing.md).
 

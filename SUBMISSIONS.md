@@ -41,7 +41,7 @@ Copy-Paste Content fuer manuelle Submissions wo CLI/API nicht erlaubt ist.
 ```json
 "studiomeyer-marketplace": {
   "name": "studiomeyer-marketplace",
-  "description": "StudioMeyer MCP Suite for Claude Code: five plugins (Memory 56 tools, CRM 37, GEO 30, Crew 13 personas, Academy 12 open and 21 with a key). 31 slash commands, 5 skills, 3 subagents, working hooks inside the plugins. Magic Link auth, EU Frankfurt. Free tier.",
+  "description": "StudioMeyer MCP Suite for Claude Code: five plugins (Memory 56 tools, CRM 37, GEO 30, Crew 13 personas, Academy 29 public tools). 31 slash commands, 5 skills, 3 subagents, working hooks inside the plugins. Magic Link auth, EU Frankfurt. Free tier.",
   "enabled": true,
   "type": "marketplace",
   "repoOwner": "studiomeyer-io",
@@ -202,7 +202,7 @@ I just published a Claude Code marketplace with four plugins we've been running 
 - **studiomeyer-geo:** 30 tools, Generative Engine Optimization across 8 LLM platforms (ChatGPT, Gemini, Perplexity, Claude, Grok, DeepSeek, Meta AI, Copilot), most of which work without any LLM API key
 - **studiomeyer-crew:** 13 expert personas (8 standard roles plus 5 specialists) (CEO, CFO, CMO, CTO, PM, Analyst, Creative, Support) + 3 multi-persona workflows, zero extra API cost
 
-Total: 31 slash commands, 5 skills, 3 subagents (memory-curator, lead-qualifier, geo-auditor) and five hooks that load with the plugins. Tool counts per server: Memory 56, CRM 37, GEO 30, Academy 12 open and 21 with a key. Crew's count moves between releases and is deliberately not pinned.
+Total: 31 slash commands, 5 skills, 3 subagents (memory-curator, lead-qualifier, geo-auditor) and five hooks that load with the plugins. Tool counts per server: Memory 56, CRM 37, GEO 30, Academy 29 public tools. Crew's count moves between releases and is deliberately not pinned.
 
 Install:
 /plugin marketplace add studiomeyer-io/studiomeyer-marketplace

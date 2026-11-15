@@ -36,7 +36,7 @@ Free. All 13 personas (8 standard roles plus 5 specialists) and all 3 workflows.
 
 ## Academy (studiomeyer.academy)
 
-Free, and there is nothing to buy. All 6 levels and the whole lesson tree are open without an account, served by 12 tools. An Academy API key adds nine more, 21 in total, and those nine are the account side: progress, quizzes, certificates, XP, the personal tutor. Of the 88 recipes, 58 are written and free to read. The other 30 are not on sale either: 25 are placeholders for phases 11 to 15 that still have to be written, and 5 stay internal on purpose. Nothing here sits behind a payment. An account only buys you saved progress, quizzes and certificates.
+Free, and there is nothing to buy. All 6 levels and the whole lesson tree are open without an account. The current npm CLI exposes 29 public tools, including compatibility aliases. A legacy Academy API key does not enable personal tools; those require hosted OAuth and depend on granted scopes. Of the 88 recipes, 58 are written and free to read. The other 30 are not on sale either: 25 are placeholders for phases 11 to 15 that still have to be written, and 5 stay internal on purpose. Nothing here sits behind a payment. An account only buys you saved progress, quizzes and certificates.
 
 The MCP server behind it is open source (npm `mcp-academy`, MIT), so this one you can also run yourself.
 

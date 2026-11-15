@@ -127,8 +127,8 @@ required parameter, or a substitution aimed at a non-string field, all fail.
   a file path.
 - **`geo_check`** costs money at eight providers. Something that spends money should fire
   when you ask, not when you stop typing.
-- **Account tools without a key** are absent from the tool list, not merely refused. On the
-  Academy that is nine of 21 tools.
+- **Academy personal tools** are absent from the current npm CLI, which exposes 29 public
+  tools. A legacy API key does not add personal tools; those require hosted OAuth.
 - **`SessionStart` runs before the MCP servers connect.** An `mcp_tool` hook there logs
   `MCP server '...' not connected` and gives up. Use a `command` hook, or a different event.
 

@@ -77,9 +77,8 @@
       ]
     },
     "academy": {
-      "toolCountPublic": 12,
-      "toolCountWithKey": 21,
-      "measuredHow": "npx -y mcp-academy@latest, tools/list over stdio. Without ACADEMY_API_KEY the server returns 12 public tools; the key adds 9 account tools. The figure 23 that stood on three surfaces was never true for either case.",
+      "toolCountPublic": 29,
+      "measuredHow": "Measured 2026-11-15 with npx -y mcp-academy@latest (0.6.0), initialize and tools/list over stdio in an environment without credentials. The default CLI exposes 29 public tool names, including compatibility aliases. An explicitly invalid synthetic ACADEMY_API_KEY returns the identical public list and grants no personal access. Personal tools require hosted OAuth and depend on granted scopes; no authenticated total was measured or is claimed.",
       "pricing": {
         "free": "0",
         "currency": "EUR"
@@ -89,7 +88,13 @@
         "plugins/studiomeyer-academy/.claude-plugin/plugin.json",
         "README.md",
         "ECOSYSTEM.md",
-        "docs/pricing.md"
+        "docs/pricing.md",
+        "plugins/studiomeyer-academy/README.md",
+        "plugins/studiomeyer-academy/hooks/tools.json",
+        "docs/hooks.md",
+        "SUBMISSIONS.md",
+        "scripts/submit-chat2anyllm.sh",
+        "plugins/studiomeyer-academy/hooks/README.md"
       ]
     }
   },
@@ -99,8 +104,26 @@
       {
         "pattern": "23 tools",
         "product": "academy",
-        "why": "the Academy has 12 public tools and 21 with a key, never 23",
+        "why": "current Academy stdio discovery exposes 29 public tools; the old 23-tool claim is not current",
         "foundIn": "plugin.json, README.md, CHANGELOG.md"
+      },
+      {
+        "pattern": "12 public tools",
+        "product": "academy",
+        "why": "current Academy stdio discovery exposes 29 public tools",
+        "foundIn": "marketplace.json, plugin.json, hooks/tools.json"
+      },
+      {
+        "pattern": "21 with a key",
+        "product": "academy",
+        "why": "the current CLI exposes 29 public tools and a legacy API key grants no personal access",
+        "foundIn": "README.md, ECOSYSTEM.md, SUBMISSIONS.md, scripts/submit-chat2anyllm.sh"
+      },
+      {
+        "pattern": "nine account tools",
+        "product": "academy",
+        "why": "a legacy API key no longer adds account tools; personal access uses hosted OAuth",
+        "foundIn": "plugin.json, README.md"
       },
       {
         "pattern": "29 USD",

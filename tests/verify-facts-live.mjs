@@ -82,16 +82,40 @@ for (const [product, url, field, noun] of hosted) {
 console.log("\n2. Academy, by starting the server and asking it");
 
 /** Speak enough MCP over stdio to get a tool list back. */
-function academyTools(env, timeoutMs = 60000) {
+function academyTools(apiKey = "", timeoutMs = 60000) {
   return new Promise((done) => {
     const p = spawn("npx", ["-y", "mcp-academy@latest"], {
       stdio: ["pipe", "pipe", "ignore"],
-      env: { ...process.env, ...env },
+      detached: process.platform !== "win32",
+      // No inherited credentials or Academy settings. In particular, offline
+      // mode, an alternate base URL or PORT must not change public discovery.
+      env: {
+        PATH: process.env.PATH,
+        ACADEMY_API_KEY: apiKey,
+        npm_config_userconfig: process.platform === "win32" ? "NUL" : "/dev/null",
+        npm_config_ignore_scripts: "true",
+        npm_config_update_notifier: "false",
+        ...(process.env.npm_config_cache ? { npm_config_cache: process.env.npm_config_cache } : {}),
+      },
     });
     let buf = "";
-    const finish = (v) => { try { p.kill(); } catch {} done(v); };
+    let settled = false;
+    const send = (message) => p.stdin.write(JSON.stringify({ jsonrpc: "2.0", ...message }) + "\n");
+    const finish = (v) => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      p.stdin.destroy();
+      try {
+        if (process.platform === "win32") p.kill();
+        else process.kill(-p.pid, "SIGTERM");
+      } catch {}
+      done(v);
+    };
     const timer = setTimeout(() => finish(null), timeoutMs);
-    p.on("error", () => { clearTimeout(timer); finish(null); });
+    p.on("error", () => finish(null));
+    p.on("exit", () => finish(null));
+    p.stdin.on("error", () => finish(null));
     p.stdout.on("data", (d) => {
       buf += d.toString();
       const lines = buf.split("\n");
@@ -100,27 +124,28 @@ function academyTools(env, timeoutMs = 60000) {
         if (!line.trim()) continue;
         try {
           const msg = JSON.parse(line);
-          if (msg.id === 2 && msg.result?.tools) {
-            clearTimeout(timer);
+          if (msg.error) { finish(null); return; }
+          if (msg.id === 1 && msg.result) {
+            send({ method: "notifications/initialized" });
+            send({ id: 2, method: "tools/list", params: {} });
+          }
+          if (msg.id === 2 && Array.isArray(msg.result?.tools)) {
+            if (msg.result.nextCursor) { finish(null); return; }
             finish(msg.result.tools.map((t) => t.name));
           }
         } catch { /* not our line */ }
       }
     });
-    p.stdin.write(JSON.stringify({
-      jsonrpc: "2.0", id: 1, method: "initialize",
+    send({
+      id: 1, method: "initialize",
       params: { protocolVersion: "2025-06-18", capabilities: {}, clientInfo: { name: "facts-check", version: "1" } },
-    }) + "\n");
-    setTimeout(() => {
-      p.stdin.write(JSON.stringify({ jsonrpc: "2.0", method: "notifications/initialized" }) + "\n");
-      p.stdin.write(JSON.stringify({ jsonrpc: "2.0", id: 2, method: "tools/list", params: {} }) + "\n");
-    }, 3000);
+    });
   });
 }
 
 // Without a key the server must expose exactly the public set. This is the
 // number a fresh install actually gets, and the one the old surfaces got wrong.
-const publicTools = await academyTools({ ACADEMY_API_KEY: "" });
+const publicTools = await academyTools();
 const expectedPublic = facts.products.academy.toolCountPublic;
 if (publicTools === null) {
   skip("academy: could not start mcp-academy (npm or network)");
@@ -128,6 +153,22 @@ if (publicTools === null) {
   fail(`academy: the server serves ${publicTools.length} tools without a key, facts.json says ${expectedPublic}. Serving: ${publicTools.sort().join(", ")}`);
 } else {
   ok(`academy: ${publicTools.length} tools without a key, matching facts.json`);
+}
+
+// A legacy API key no longer grants personal access. This placeholder is
+// deliberately invalid; discovery must remain public and invokes no tools.
+// Personal hosted OAuth tool totals depend on scopes and are not asserted.
+const legacyKeyTools = await academyTools("invalid-synthetic-discovery-placeholder");
+if (legacyKeyTools === null) {
+  skip("academy: could not measure public discovery with a synthetic legacy key");
+} else if (publicTools !== null) {
+  const publicNames = [...publicTools].sort();
+  const legacyNames = [...legacyKeyTools].sort();
+  if (JSON.stringify(publicNames) !== JSON.stringify(legacyNames)) {
+    fail("academy: a legacy API key changed the public tool list. Measure before claiming any account-tool count.");
+  } else {
+    ok(`academy: a synthetic legacy API key keeps the same ${legacyKeyTools.length} public tools`);
+  }
 }
 
 // Every tool a hook drives must still exist and still take the arguments the
@@ -140,7 +181,7 @@ if (publicTools !== null) {
   const hookTools = Object.keys(declared).filter((k) => !k.startsWith("_"));
   const accountOnly = hookTools.filter((t) => !publicTools.includes(t));
   if (accountOnly.length === hookTools.length) {
-    ok(`academy: all ${hookTools.length} hook-driven tools are account tools, absent without a key, as documented`);
+    ok(`academy: all ${hookTools.length} hook-driven tools are absent from the public CLI; a legacy key does not enable personal tools`);
   } else {
     ok(`academy: ${hookTools.length - accountOnly.length} of ${hookTools.length} hook-driven tools are public`);
   }
