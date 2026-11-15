@@ -4,6 +4,19 @@ All notable changes to the StudioMeyer Marketplace are documented here. The form
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- Measured Academy's current npm CLI over MCP stdio on 2026-11-15: **29 public tool
+  names**, including compatibility aliases. An explicitly invalid synthetic legacy API
+  key returns the identical list and grants no personal access. Updated every Academy
+  count surface and the obsolete API-key unlock claim. Personal tools use hosted OAuth
+  and depend on granted scopes; no authenticated total is asserted.
+- Kept the live public-count check and added a discovery-only legacy-key regression
+  check. The CLI starts with an environment allowlist so inherited offline, transport,
+  account or database settings cannot change the measured public surface.
+
 ## [1.2.0] - 2026-09-04
 
 Hooks now ship inside the plugins and work. Before this release they shipped as recipes to
@@ -33,7 +46,7 @@ frontmatter field silently dropped. Found by `claude plugin validate`, which thi
 had never run.
 
 **The Academy tool count was wrong everywhere.** Three surfaces said 21, three said 23.
-Measured over stdio: the server serves **12** tools without an `ACADEMY_API_KEY` and **21**
+Measured over stdio at that release: the server served **12** tools without an `ACADEMY_API_KEY` and **21**
 with one. 23 was never true for either case. The plugin README also listed ten tools that
 have never existed (`academy_list_recipes`, `academy_concept_graph` and eight more).
 
@@ -131,7 +144,7 @@ ever held it against reality for four months.
 > **Correction, added 2026-09-04.** None of the twelve hook entries in this release could
 > fire, and the validator added alongside them could not have caught that: it checked the
 > shape of the JSON, not whether a hook would run. The Academy tool count given here as 23
-> was wrong in both directions; the real figures are 12 without a key and 21 with one. See
+> was wrong in both directions; at that release the measured figures were 12 without a key and 21 with one. See
 > the 1.2.0 entry.
 
 ## [1.0.0] - 2026-04-10

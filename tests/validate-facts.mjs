@@ -5,7 +5,7 @@
 // script holds the surfaces against it. It exists because the numbers used to
 // live in each surface separately and drifted apart: the Academy stood at 21
 // tools in three files and 23 in three others, and only a measurement settled
-// which was right (neither, for the default install: it is 12).
+// which was right. Current default discovery is measured by verify-facts-live.mjs.
 //
 // Two directions, both needed:
 //   1. Positive. Each product's tool count must appear on each of its listed

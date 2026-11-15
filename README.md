@@ -49,7 +49,7 @@ Or install just what you need. Each plugin works standalone.
 | [studiomeyer-crm](./plugins/studiomeyer-crm) | 37 | Headless CRM: contacts, companies, deals, pipeline, follow-ups, Stripe sync, health scores | 1: look up the customer behind every prompt | Free / 9 EUR / 19 EUR |
 | [studiomeyer-geo](./plugins/studiomeyer-geo) | 30 | Generative Engine Optimization across 8 LLM platforms: discovery stack audits, schema generator, citation analysis | none, on purpose: an audit costs money, so it stays a command | Free |
 | [studiomeyer-crew](./plugins/studiomeyer-crew) | 13 personas | 8 standard roles (CEO, CFO, CMO, CTO, PM, Analyst, Creative, Support) plus 5 specialists and 3 multi-persona workflows | 1: suggests a persona from your working directory, local only | Free |
-| [studiomeyer-academy](./plugins/studiomeyer-academy) | 12, or 21 with a key | Memory-First AI Operator School: lessons, quizzes, recipes, knowledge graph, certificates, AI tutor. Open source npm: mcp-academy | 1: finishing a lesson pulls its quiz | Free |
+| [studiomeyer-academy](./plugins/studiomeyer-academy) | 29 public | Memory-First AI Operator School: lessons, quizzes, recipes, knowledge graph, certificates, AI tutor. Open source npm: mcp-academy | 1 legacy quiz hook, inactive in the public CLI | Free |
 
 All hosted plugins use the same StudioMeyer account: one Magic Link authenticates you across the suite. Academy is open source, on npm.
 
@@ -111,7 +111,7 @@ No passwords. No credit card for the free tier. Tokens rotate automatically.
 - **Slash commands:** `/memory-search`, `/crm-dashboard`, `/geo-check`, `/crew-activate`, `/academy-lesson` and more.
 - **Skills:** domain playbooks (Memory workflow, import guide, CRM workflow, GEO optimization, persona usage) that Claude draws on automatically.
 - **Subagents:** specialized helpers (Memory Curator, Lead Qualifier, GEO Auditor) invoked for deeper tasks.
-- **MCP tools:** the full tool set of each hosted server. Memory 56, CRM 37, GEO 30, plus Crew and Academy. Crew's count moves between releases and is not pinned. Academy serves 12 tools openly and 21 once you add a key.
+- **MCP tools:** the full tool set of each hosted server. Memory 56, CRM 37, GEO 30, plus Crew and Academy. Crew's count moves between releases and is not pinned. The Academy CLI serves 29 public tools, including compatibility aliases. Its legacy API-key setting does not add personal tools; personal access requires the hosted OAuth connection and depends on granted scopes.
 
 See [docs/pricing.md](./docs/pricing.md) for tier details and [docs/magic-link-setup.md](./docs/magic-link-setup.md) for the auth flow.
 
