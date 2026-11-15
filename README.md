@@ -148,3 +148,4 @@ The bare MCP URL gives you the tools. The plugin gives you the workflow around t
 MIT. See [LICENSE](./LICENSE).
 
 Plugin code is MIT. The MCP server implementations behind each endpoint are proprietary StudioMeyer software. You are free to fork, modify, and redistribute the plugin manifests, commands, skills, and subagents in this repository.
+The repository root includes an [Agent Plugins manifest](plugin.json), validated against the [Agent Plugins 1.0.0 schema](https://agent-plugins.org/schemas/1.0.0/plugin.schema.json). Individual Claude Code plugins remain under `plugins/`.
